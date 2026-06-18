@@ -2,36 +2,115 @@
 
 import { motion } from "framer-motion"
 import type { TechSection } from "@/lib/sections-data"
+import { useState } from "react"
+import Image from "next/image"
+
+// Import all tech stack logos
+import tsLogo from "@/assets/techstacks/ts.png"
+import jsLogo from "@/assets/techstacks/js.png"
+import nextjsLogo from "@/assets/techstacks/nextjs.png"
+import reactLogo from "@/assets/techstacks/react.png"
+import nodeLogo from "@/assets/techstacks/node.png"
+import expressLogo from "@/assets/techstacks/express.png"
+import mongoLogo from "@/assets/techstacks/mongo.png"
+import mysqlLogo from "@/assets/techstacks/mysql.png"
+import postgresLogo from "@/assets/techstacks/postgres.png"
+import firebaseLogo from "@/assets/techstacks/firebase.png"
+import githubLogo from "@/assets/techstacks/github.png"
+import tailwindLogo from "@/assets/techstacks/tailwind.png"
+import framerLogo from "@/assets/techstacks/framer.png"
+import restapiLogo from "@/assets/techstacks/restapi.png"
+import vscodeLogo from "@/assets/techstacks/vscode.png"
+import postmanLogo from "@/assets/techstacks/postman.png"
+import dockerLogo from "@/assets/techstacks/docker.png"
+import figmaLogo from "@/assets/techstacks/figma.png"
 
 const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
 
-/*
-  SECTION 02: NETWORK TOPOLOGIES
-  Style: Dashboard / control-room. Dense information cards in a bento grid.
-  Inverted header (white bg, black text). Live-looking status indicators.
-*/
+// Map of individual tech item names to their respective logos
+const techItemLogos: Record<string, any> = {
+  "TypeScript": tsLogo,
+  "JavaScript": jsLogo,
+  "Next.js": nextjsLogo,
+  "React.js": reactLogo,
+  "Tailwind CSS": tailwindLogo,
+  "Framer Motion": framerLogo,
+  "React Native": reactLogo,
+  "Node.js": nodeLogo,
+  "Express.js": expressLogo,
+  "REST APIs": restapiLogo,
+  "MongoDB": mongoLogo,
+  "MySQL": mysqlLogo,
+  "PostgreSQL": postgresLogo,
+  "GitHub": githubLogo,
+  "Git": githubLogo,
+  "VS Code": vscodeLogo,
+  "Postman": postmanLogo,
+  "Docker": dockerLogo,
+  "Figma": figmaLogo,
+  "Firebase": firebaseLogo
+}
 
 const nodes = [
-  { id: "A", x: 15, y: 15, status: "active" },
-  { id: "B", x: 75, y: 10, status: "active" },
-  { id: "C", x: 5, y: 45, status: "active" },
-  { id: "D", x: 45, y: 40, status: "idle" },
-  { id: "E", x: 85, y: 45, status: "active" },
-  { id: "F", x: 95, y: 20, status: "warn" },
-  { id: "G", x: 25, y: 75, status: "active" },
-  { id: "H", x: 70, y: 80, status: "active" },
+  { id: "LANG", name: "Languages", x: 15, y: 20, status: "active", items: [
+    { name: "TypeScript", pct: 95 },
+    { name: "JavaScript", pct: 95 },
+    { name: "Python", pct: 80 },
+    { name: "Java", pct: 75 },
+    { name: "C", pct: 70 }
+  ]},
+  { id: "WEB", name: "Frontend", x: 50, y: 15, status: "active", items: [
+    { name: "Next.js", pct: 95 },
+    { name: "React.js", pct: 95 },
+    { name: "Vue.js", pct: 80 },
+    { name: "Tailwind CSS", pct: 90 },
+    { name: "Framer Motion", pct: 85 }
+  ]},
+  { id: "MOBL", name: "Mobile", x: 85, y: 20, status: "active", items: [
+    { name: "React Native", pct: 90 },
+    { name: "Flutter", pct: 75 }
+  ]},
+  { id: "BACK", name: "Backend", x: 50, y: 50, status: "active", items: [
+    { name: "Node.js", pct: 95 },
+    { name: "Express.js", pct: 90 },
+    { name: "Fastify", pct: 80 },
+    { name: "REST APIs", pct: 95 },
+    { name: "JWT Auth", pct: 90 }
+  ]},
+  { id: "DATA", name: "Databases", x: 20, y: 80, status: "active", items: [
+    { name: "MongoDB", pct: 90 },
+    { name: "MySQL", pct: 85 },
+    { name: "PostgreSQL", pct: 85 },
+    { name: "Prisma", pct: 85 },
+    { name: "Sequelize", pct: 80 }
+  ]},
+  { id: "CLOD", name: "Cloud Stack", x: 50, y: 80, status: "active", items: [
+    { name: "Google Cloud", pct: 80 },
+    { name: "BigQuery", pct: 75 }
+  ]},
+  { id: "TOOL", name: "Dev Tools", x: 80, y: 80, status: "active", items: [
+    { name: "Git", pct: 90 },
+    { name: "GitHub", pct: 90 },
+    { name: "VS Code", pct: 95 },
+    { name: "Postman", pct: 90 },
+    { name: "Web Scraping", pct: 85 }
+  ]},
 ]
 
 const connections = [
-  [0, 1], [0, 2], [0, 3], [1, 4], [1, 5],
-  [2, 6], [3, 4], [3, 6], [4, 7], [6, 7],
+  [0, 1], [0, 2], [0, 3], [0, 4],
+  [1, 3], [2, 3], [3, 4], [3, 5],
+  [3, 6], [5, 4], [6, 1], [6, 2]
 ]
 
-function NetworkMap() {
+function NetworkMap({ selectedNode, onSelectNode }: {
+  selectedNode: number
+  onSelectNode: (idx: number) => void
+}) {
   return (
     <div className="relative aspect-[2/1] w-full overflow-hidden border border-border bg-background p-4" style={{ boxShadow: shadow }}>
       {/* Grid lines */}
-      <div className="absolute inset-0 opacity-[0.05]" aria-hidden="true">
+      <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         {Array.from({ length: 10 }).map((_, i) => (
           <div key={`h-${i}`} className="absolute h-px w-full bg-foreground" style={{ top: `${(i + 1) * 10}%` }} />
         ))}
@@ -40,101 +119,126 @@ function NetworkMap() {
         ))}
       </div>
 
-      {/* Connections as dashed lines */}
+      {/* Connections as flowing dashed lines with moving arrows */}
       <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
+        <defs>
+          <marker
+            id="arrow"
+            viewBox="0 0 10 10"
+            refX="36"
+            refY="5"
+            markerWidth="5"
+            markerHeight="5"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" className="text-foreground/60" />
+          </marker>
+        </defs>
         {connections.map(([from, to], i) => (
-          <motion.line
-            key={i}
-            x1={`${nodes[from].x}%`}
-            y1={`${nodes[from].y}%`}
-            x2={`${nodes[to].x}%`}
-            y2={`${nodes[to].y}%`}
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeDasharray="4 4"
-            className="text-border"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 + i * 0.05 }}
-          />
+          <g key={i}>
+            {/* Static background connection path */}
+            <line
+              x1={`${nodes[from].x}%`}
+              y1={`${nodes[from].y}%`}
+              x2={`${nodes[to].x}%`}
+              y2={`${nodes[to].y}%`}
+              stroke="currentColor"
+              strokeWidth="1"
+              className="text-border/20"
+            />
+            {/* Continuously flowing animated dashed lines with arrowheads */}
+            <motion.line
+              x1={`${nodes[from].x}%`}
+              y1={`${nodes[from].y}%`}
+              x2={`${nodes[to].x}%`}
+              y2={`${nodes[to].y}%`}
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeDasharray="6 8"
+              markerEnd="url(#arrow)"
+              className="text-foreground/40"
+              animate={{ strokeDashoffset: [0, -28] }}
+              transition={{
+                repeat: Infinity,
+                ease: "linear",
+                duration: 2.5
+              }}
+            />
+          </g>
         ))}
       </svg>
 
-      {/* Nodes */}
-      {nodes.map((node, i) => (
-        <motion.div
-          key={node.id}
-          className="absolute flex flex-col items-center"
-          style={{ left: `${node.x}%`, top: `${node.y}%`, transform: "translate(-50%, -50%)" }}
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 + i * 0.08, type: "spring" }}
-        >
-          <div className={`flex h-8 w-8 items-center justify-center border font-mono text-[10px] font-bold ${
-            node.status === "active" ? "border-foreground bg-foreground text-background"
-            : node.status === "warn" ? "border-foreground bg-background text-foreground"
-            : "border-border bg-background text-muted-foreground"
-          }`}>
-            {node.id}
-          </div>
-          {node.status === "active" && (
-            <motion.div
-              className="mt-1 h-1 w-1 bg-foreground"
-              animate={{ opacity: [1, 0.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2, delay: i * 0.3 }}
-            />
-          )}
-        </motion.div>
-      ))}
+      {/* Nodes (rendered as clean text badges with responsive styles) */}
+      {nodes.map((node, i) => {
+        const isSelected = selectedNode === i
+        return (
+          <motion.button
+            key={node.id}
+            onClick={() => onSelectNode(i)}
+            className="absolute flex flex-col items-center focus:outline-none z-10"
+            style={{ left: `${node.x}%`, top: `${node.y}%`, transform: "translate(-50%, -50%)" }}
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + i * 0.05, type: "spring" }}
+          >
+            <div className={`flex h-8 px-3 items-center justify-center border font-mono text-[9px] font-bold transition-all duration-300 ${
+              isSelected ? "border-foreground bg-foreground text-background scale-105 shadow-md"
+              : "border-border bg-background text-foreground hover:border-foreground hover:scale-102"
+            }`} style={{ boxShadow: shadow }}>
+              {node.name}
+            </div>
+            {isSelected && (
+              <motion.div
+                className="mt-1 h-1 w-1 bg-foreground"
+                animate={{ opacity: [1, 0.2, 1] }}
+                transition={{ repeat: Infinity, duration: 2, delay: i * 0.3 }}
+              />
+            )}
+          </motion.button>
+        )
+      })}
     </div>
   )
 }
 
 export function SectionNetwork({ section }: { section: TechSection }) {
-  const metrics = [
-    { label: "Nodes Online", value: "7/8", pct: 87 },
-    { label: "Throughput", value: "9.2 Gbps", pct: 92 },
-    { label: "Latency p99", value: "8.4ms", pct: 16 },
-    { label: "Packet Loss", value: "0.001%", pct: 1 },
-  ]
+  const [selectedNode, setSelectedNode] = useState(0)
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32">
-      {/* Inverted header band */}
+      {/* Non-inverted header band */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="flex flex-col gap-4 bg-foreground p-8"
-        style={{ boxShadow: shadow }}
+        className="flex flex-col gap-4 text-foreground mb-8"
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-end gap-6">
-            <span className="font-pixel-line text-7xl font-bold leading-none text-background/[0.15] md:text-9xl">
+            <span className="font-pixel-line text-7xl font-bold leading-none text-foreground/[0.08] md:text-9xl">
               {section.number}
             </span>
             <div className="pb-2">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-background/50">{section.subtitle}</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{section.subtitle}</span>
               </div>
-              <h2 className="mt-2 font-pixel-line text-3xl font-bold text-background md:text-5xl">
+              <h2 className="mt-2 font-pixel-line text-3xl font-bold text-foreground md:text-5xl">
                 {section.title}
               </h2>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <motion.div
-              className="h-2.5 w-2.5 bg-background"
+              className="h-2.5 w-2.5 bg-foreground"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             />
-            <span className="font-mono text-xs text-background/70">LIVE</span>
+            <span className="font-mono text-xs text-muted-foreground">ACTIVE</span>
           </div>
         </div>
-        <p className="max-w-2xl font-mono text-xs leading-relaxed text-background/60">
-          {section.description}
+        <p className="max-w-2xl font-mono text-xs leading-relaxed text-muted-foreground">
+          {section.description} Select a node on the network topology model to load its details.
         </p>
       </motion.div>
 
@@ -148,32 +252,47 @@ export function SectionNetwork({ section }: { section: TechSection }) {
           transition={{ delay: 0.15 }}
           className="lg:col-span-2"
         >
-          <NetworkMap />
+          <NetworkMap selectedNode={selectedNode} onSelectNode={setSelectedNode} />
         </motion.div>
 
-        {/* Metrics stack */}
+        {/* Dynamic Items stack for the selected Node */}
         <div className="flex flex-col gap-4">
-          {metrics.map((m, i) => (
+          <div className="border border-border p-4 bg-secondary/20" style={{ boxShadow: shadow }}>
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground block mb-2">Category</span>
+            <h3 className="font-pixel-line text-2xl font-bold text-foreground">{nodes[selectedNode].name}</h3>
+          </div>
+          {nodes[selectedNode].items.map((m, i) => (
             <motion.div
-              key={m.label}
+              key={m.name}
               initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.1 }}
-              className="flex flex-col gap-2 border border-border p-4"
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="flex flex-col gap-2 border border-border p-4 bg-background"
               style={{ boxShadow: shadow }}
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{m.label}</span>
-                <span className="font-mono text-sm font-bold text-foreground">{m.value}</span>
+                <div className="flex items-center gap-2.5">
+                  {techItemLogos[m.name] && (
+                    <div className="relative h-6 w-6 shrink-0 border border-border bg-zinc-100 p-1" style={{ boxShadow: shadow }}>
+                      <Image
+                        src={techItemLogos[m.name]}
+                        alt={m.name}
+                        fill
+                        sizes="24px"
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-semibold">{m.name}</span>
+                </div>
+                <span className="font-mono text-xs font-bold text-foreground">{m.pct}%</span>
               </div>
               <div className="h-1 w-full bg-border">
                 <motion.div
                   className="h-full bg-foreground"
                   initial={{ width: 0 }}
-                  whileInView={{ width: `${m.pct}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.4 + i * 0.1 }}
+                  animate={{ width: `${m.pct}%` }}
+                  transition={{ duration: 0.8 }}
                 />
               </div>
             </motion.div>

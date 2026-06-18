@@ -19,23 +19,51 @@ interface ThreadLane {
   segments: { start: number; end: number; type: "work" | "wait" | "blocked" }[]
 }
 
-const threadNames = ["main", "worker-1", "worker-2", "io-pool", "gc", "scheduler"]
+const threadLanesMeta = [
+  { name: "Cloud Computing", items: ["GCP", "Kubernetes", "Distributed Architecture", "Docker", "Serverless", "Terraform"] },
+  { name: "System Design", items: ["High Availability", "Caching Strategies", "Event-driven Systems", "Load Balancing", "Microservices", "API Gateways"] },
+  { name: "AI Integration", items: ["RAG Patterns", "Vector Databases", "LLM Agents", "PyTorch", "Quantization", "Fine-Tuning"] },
+  { name: "Open Source", items: ["Developer Tools", "Library Development", "API Design", "Git Workflows", "CI/CD Pipelines"] }
+]
 
 type SegType = "work" | "wait" | "blocked"
 
 function generateLanes(): ThreadLane[] {
-  return threadNames.map((label, i) => {
+  return threadLanesMeta.map((meta, i) => {
     const segments: ThreadLane["segments"] = []
-    let cursor = Math.floor(Math.random() * 10)
-    const types: SegType[] = ["work", "wait", "blocked"]
+    let cursor = 0
+
     while (cursor < 100) {
-      const type: SegType = i === 5 ? "work" : types[Math.floor(Math.random() * (i === 4 ? 2 : 3))]
-      const len = Math.floor(Math.random() * 30) + 5
+      let type: SegType
+      let len: number
+
+      if (i === 0) {
+        // Cloud Computing: Periodic scaling runs, longer standby wait states
+        const rand = Math.random()
+        type = rand < 0.3 ? "work" : (rand < 0.8 ? "wait" : "blocked")
+        len = type === "blocked" ? 20 : (type === "wait" ? 15 : 8)
+      } else if (i === 1) {
+        // System Design: Event-loop spikes (frequent quick work/wait transitions)
+        const rand = Math.random()
+        type = rand < 0.6 ? "work" : "wait"
+        len = Math.floor(Math.random() * 6) + 4
+      } else if (i === 2) {
+        // AI Integration: Heavy processing (long blocked/compute chunks)
+        const rand = Math.random()
+        type = rand < 0.7 ? "blocked" : "work"
+        len = type === "blocked" ? 30 : 10
+      } else {
+        // Open Source: Pipeline checks (structured sequence of work, wait, blocked)
+        const step = cursor % 3
+        type = step === 0 ? "work" : (step === 1 ? "wait" : "blocked")
+        len = Math.floor(Math.random() * 12) + 8
+      }
+
       const end = Math.min(100, cursor + len)
       segments.push({ start: cursor, end, type })
-      cursor = end + Math.floor(Math.random() * 5)
+      cursor = end + Math.floor(Math.random() * 5) + 2
     }
-    return { id: `t${i + 1}`, label, segments }
+    return { id: `t${i + 1}`, label: meta.name, segments }
   })
 }
 
@@ -56,7 +84,7 @@ function TimelineView() {
 
   return (
     <div ref={ref} className="overflow-hidden border border-border" style={{ boxShadow: shadow }}>
-      <div className="flex items-center justify-between border-b border-border px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border bg-secondary/10 px-4 py-2">
         <div className="flex items-center gap-2">
           <motion.div
             className="h-2 w-2 bg-foreground"
@@ -64,7 +92,7 @@ function TimelineView() {
             transition={{ repeat: Infinity, duration: 1 }}
           />
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            Thread Profiler
+            System activity monitor — thread execution timeline
           </span>
         </div>
         <span className="font-mono text-[10px] text-muted-foreground">0ms — 100ms</span>
@@ -72,7 +100,7 @@ function TimelineView() {
 
       {/* Time scale */}
       <div className="flex border-b border-border px-4 py-1">
-        <div className="w-20 flex-shrink-0" />
+        <div className="w-48 flex-shrink-0" />
         <div className="flex flex-1 justify-between font-mono text-[9px] text-muted-foreground/50">
           {[0, 20, 40, 60, 80, 100].map((t) => (
             <span key={t}>{t}ms</span>
@@ -86,30 +114,45 @@ function TimelineView() {
           key={thread.id}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2 + i * 0.1 }}
-          className="flex items-center border-b border-border last:border-b-0"
+          transition={{ delay: 0.1 + i * 0.05 }}
+          className="flex flex-col md:flex-row md:items-center border-b border-border last:border-b-0 py-3 px-4 gap-4"
         >
-          <div className="flex w-20 flex-shrink-0 items-center gap-2 px-4 py-3">
-            <div className={`h-1.5 w-1.5 ${thread.segments.some(s => s.type === "blocked") ? "bg-muted-foreground" : "bg-foreground"}`} />
-            <span className="font-mono text-[10px] text-muted-foreground">{thread.label}</span>
+          {/* Left side: title alone in white */}
+          <div className="w-48 shrink-0 flex items-center gap-2">
+            <div className="h-1.5 w-1.5 bg-foreground shrink-0" />
+            <span className="font-mono text-[10px] font-bold text-foreground truncate">{thread.label}</span>
           </div>
-          <div className="relative flex-1 py-3 pr-4">
-            <div className="h-4 w-full bg-border/30">
-              {thread.segments.map((seg, j) => (
-                <motion.div
-                  key={`${tick}-${j}`}
-                  className={`absolute top-3 h-4 ${
-                    seg.type === "work" ? "bg-foreground"
-                    : seg.type === "wait" ? "bg-foreground/20"
-                    : "bg-muted-foreground/40"
-                  }`}
-                  style={{ left: `${seg.start}%`, width: `${seg.end - seg.start}%` }}
-                  initial={{ scaleX: 0, originX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.5, delay: i * 0.06 + j * 0.04, ease: "easeOut" }}
-                />
-              ))}
-            </div>
+
+          {/* Right side: boxes representing subtopics */}
+          <div className="flex flex-wrap gap-4 flex-1">
+            {threadLanesMeta[i]?.items.map((subtopic, subIdx) => (
+              <div 
+                key={subtopic} 
+                className="relative flex-1 min-w-[130px] h-8 bg-border/20 border border-border/40 flex items-center justify-center overflow-hidden"
+              >
+                {/* Animated lane segments (behind the text) */}
+                <div className="absolute inset-0 pointer-events-none select-none">
+                  {thread.segments.map((seg, j) => (
+                    <motion.div
+                      key={`${tick}-${subIdx}-${j}`}
+                      className={`absolute top-0 bottom-0 h-full ${
+                        seg.type === "work" ? "bg-foreground/20"
+                        : seg.type === "wait" ? "bg-foreground/5"
+                        : "bg-muted-foreground/10"
+                      }`}
+                      style={{ left: `${seg.start}%`, width: `${seg.end - seg.start}%` }}
+                      initial={{ scaleX: 0, originX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.5, delay: i * 0.04 + j * 0.03, ease: "easeOut" }}
+                    />
+                  ))}
+                </div>
+                {/* Text inside the animating box */}
+                <span className="relative z-10 font-mono text-[9px] font-bold text-foreground px-2 text-center pointer-events-none select-none">
+                  {subtopic}
+                </span>
+              </div>
+            ))}
           </div>
         </motion.div>
       ))}
@@ -117,9 +160,9 @@ function TimelineView() {
       {/* Legend */}
       <div className="flex gap-6 border-t border-border px-4 py-2">
         {[
-          { label: "Working", cls: "bg-foreground" },
-          { label: "Waiting", cls: "bg-foreground/20" },
-          { label: "Blocked", cls: "bg-muted-foreground/40" },
+          { label: "Active Learning & Labs", cls: "bg-foreground" },
+          { label: "Structured Research", cls: "bg-foreground/25" },
+          { label: "Target Implementation / Backlog", cls: "bg-muted-foreground/45" },
         ].map((l) => (
           <div key={l.label} className="flex items-center gap-1.5">
             <div className={`h-2 w-4 ${l.cls}`} />
@@ -208,8 +251,8 @@ export function SectionConcurrency({ section }: { section: TechSection }) {
         <TimelineView />
       </motion.div>
 
-      {/* Bottom row: channel monitor + specs */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      {/* Bottom row: channel monitor */}
+      <div className="mt-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -218,24 +261,6 @@ export function SectionConcurrency({ section }: { section: TechSection }) {
         >
           <ChannelMonitor />
         </motion.div>
-
-        {/* Specs as big number cards */}
-        <div className="grid grid-cols-2 gap-3">
-          {section.specs.map((spec, i) => (
-            <motion.div
-              key={spec.label}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + i * 0.08 }}
-              className="flex flex-col items-center justify-center border border-border p-4 text-center"
-              style={{ boxShadow: shadow }}
-            >
-              <span className="font-mono text-lg font-bold text-foreground">{spec.value}</span>
-              <span className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{spec.label}</span>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </div>
   )

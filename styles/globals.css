@@ -77,6 +77,8 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-pixel: 'Silkscreen', 'Geist Mono', monospace;
+  --font-pixel-line: var(--font-geist-pixel-line);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -121,5 +123,69 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  img,
+  button,
+  a,
+  [role="button"] {
+    cursor: pointer;
+  }
+}
+
+.dark ::selection {
+  background: #ffffff;
+  color: #000000;
+}
+
+::selection {
+  background: #000000;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* Custom View Transition Animation (Slower: 1.2s) */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: 1.2s cubic-bezier(0.4, 0, 0.2, 1) both reveal-theme;
+  mix-blend-mode: normal;
+}
+
+@keyframes reveal-theme {
+  from {
+    clip-path: circle(0% at 95% 5%);
+  }
+  to {
+    clip-path: circle(150% at 95% 5%);
   }
 }

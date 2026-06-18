@@ -7,77 +7,73 @@ const COMMANDS: Record<string, string[]> = {
   help: [
     "Available commands:",
     "  help       - Show this message",
-    "  sections   - List all technical modules",
-    "  inspect    - Inspect the current module",
-    "  about      - About Monochrome ASCII Hub",
-    "  stack      - Show tech stack",
+    "  whoami     - Brief SDE bio",
+    "  about      - Profile summary of Thayanithi S",
+    "  education  - College, CGPA & academic details",
+    "  stack      - Show core technology stack",
+    "  experience - List work history milestones",
+    "  projects   - Show list of featured projects",
+    "  contact    - Email, location & get in touch",
+    "  social     - Social handles and web profiles",
+    "  system     - Inspect terminal OS specifications",
     "  clear      - Clear terminal",
-    "  ascii      - Show ASCII art",
-    "  v0         - ...",
   ],
-  sections: [
-    "01  Kernel & Systems",
-    "02  Network Topologies",
-    "03  Distributed Ledger",
-    "04  Compiler Design",
-    "05  Graphics Pipelines",
-    "06  Logic Synthesis",
-    "07  Concurrency Models",
-    "08  Hardware Abstraction",
-  ],
-  inspect: [
-    "Module: Monochrome ASCII Hub",
-    "Version: 1.0.0",
-    "Modules: 8 loaded",
-    "Renderer: ASCII Character Engine",
-    "Status: OPERATIONAL",
+  whoami: [
+    "Thayanithi S",
+    "--------------------------------------------------",
+    "Systems & Logic Engineer. Fueled by coffee & passion for raw code.",
+    "Active domains: Fullstack, Mobile Apps, Backend Architecture",
+    "Status: OPERATIONAL | Location: Tamil Nadu, India",
   ],
   about: [
-    "Monochrome ASCII Hub v1.0.0",
-    "",
-    "A minimalist technical showcase utilizing",
-    "a black and white aesthetic with ASCII-based",
-    "animations across eight distinct tech-focused",
-    "sections.",
-    "",
-    "Built with Next.js, Framer Motion, and love",
-    "for the terminal aesthetic.",
+    "Thayanithi S - Software Development Engineer",
+    "Specializing in Fullstack web platforms, cross-platform mobile apps,",
+    "and robust database architectures. Deeply focused on translation of",
+    "logical workflows into high-performance product designs.",
+  ],
+  education: [
+    "Bannari Amman Institute of Technology (2023 - 2027)",
+    "--------------------------------------------------",
+    "Degree:      B.E. Computer Science and Engineering",
+    "CGPA:        8.2 / 10.0",
+    "HSC (12th):  92.38%",
   ],
   stack: [
-    "Frontend:  Next.js 16 + React 19",
-    "Styling:   Tailwind CSS 4",
-    "Animation: Framer Motion",
-    "Font:      Geist Mono / Pixel",
-    "Deploy:    Vercel Edge Network",
+    "Languages:   TypeScript, JavaScript, C, Java, Python",
+    "Frontend:    Next.js, React.js, Vue.js, Tailwind CSS, Framer Motion",
+    "Mobile:      React Native, Flutter",
+    "Backend:     Node.js, Express.js, Fastify, REST APIs, JWT Auth",
+    "Databases:   MongoDB, PostgreSQL, MySQL, Prisma, Sequelize",
+    "Cloud:       Google Cloud (GCP), BigQuery",
+    "Dev Tools:   Git, GitHub, VS Code, Postman, Web Scraping",
   ],
-  ascii: [
-    "",
-    "  ███╗   ███╗ ██████╗ ███╗   ██╗ ██████╗",
-    "  ████╗ ████║██╔═══██╗████╗  ██║██╔═══██╗",
-    "  ██╔████╔██║██║   ██║██╔██╗ ██║██║   ██║",
-    "  ██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║",
-    "  ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝",
-    "  ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝",
-    "",
+  experience: [
+    "Software Engineer at EQREV       - Jan 2025 – Dec 2025 (SaaS & Q-Comm)",
+    "Software Engineer at Crayon'd     - Sep 2024 – Apr 2025 (React & Express APIs)",
+    "Software Engineer at Thinkuni      - Sept 2025 – Jan 2026 (Vue Learning Dashboards)",
   ],
-  v0: [
-    "",
-    "  ██╗    ██╗      ██████╗ ██╗   ██╗███████╗    ██╗   ██╗ ██████╗ ",
-    "  ██║    ██║     ██╔═══██╗██║   ██║██╔════╝    ██║   ██║██╔═══██╗",
-    "  ██║    ██║     ██║   ██║██║   ██║█████╗      ██║   ██║██║   ██║",
-    "  ██║    ██║     ██║   ██║╚██╗ ██╔╝██╔══╝      ╚██╗ ██╔╝██║   ██║",
-    "  ██████╗███████╗╚██████╔╝ ╚████╔╝ ███████╗     ╚████╔╝ ╚██████╔╝",
-    "  ╚═════╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝      ╚═══╝   ╚═════╝ ",
-    "",
-    "  ██╗  ██╗    ██████╗     ██╗  ██╗██████╗ ",
-    "  ██║  ██║   ██╔═████╗    ╚██╗██╔╝╚════██╗",
-    "  ██║  ██║   ██║██╔██║     ╚███╔╝   ███╔═╝",
-    "  ╚██╗██╔╝   ████╔╝██║     ██╔██╗  ██╔══╝ ",
-    "   ╚███╔╝    ╚██████╔╝    ██╔╝ ██╗ ███████╗",
-    "    ╚══╝      ╚═════╝     ╚═╝  ╚═╝ ╚══════╝",
-    "",
-    "  <3  <3  <3  <3  <3  <3  <3  <3  <3  <3",
-    "",
+  projects: [
+    "EQ REV    - Quick Commerce Analytics (https://app.eqrev.com/)",
+    "CNC Vault - Secure Control Hub (https://cnc-machines.vercel.app/)",
+    "Bitlinks  - College Community Network (https://bitlinks.bitsathy.ac.in/)",
+    "Dev Rank  - Developer Ranking Platform (https://github.com/thayanithi15-git)",
+  ],
+  contact: [
+    "Reach out via standard systems channels:",
+    "  Email:      thayanithi2006s@gmail.com",
+    "  Location:   Namakkal, Tamil Nadu, India",
+  ],
+  social: [
+    "Web Profiles & Registries:",
+    "  GitHub:     https://github.com/thayanithi15-git",
+    "  LinkedIn:   https://linkedin.com/in/thayanithi15",
+  ],
+  system: [
+    "Host OS:     monochrome-kernel v1.0.0-x86_64",
+    "Uptime:      34120.45s",
+    "Shell:       mono-sh v1.0",
+    "Memory:      1.24 GB / 8.00 GB (Active Allocation)",
+    "API Latency: 42ms (Operational)",
   ],
 }
 
@@ -119,11 +115,15 @@ export function PseudoTerminal() {
       setLines([...baseLines, { type: "output", content: "" }])
       setInput("")
       const v0Lines = COMMANDS["v0"]
-      v0Lines.forEach((line, i) => {
-        setTimeout(() => {
-          setLines((prev) => [...prev, { type: "v0", content: line }])
-        }, i * 80)
-      })
+      if (v0Lines) {
+        v0Lines.forEach((line, i) => {
+          setTimeout(() => {
+            setLines((prev) => [...prev, { type: "v0", content: line }])
+          }, i * 80)
+        })
+      } else {
+        setLines((prev) => [...prev, { type: "output", content: "v0 command offline." }])
+      }
       return
     }
 

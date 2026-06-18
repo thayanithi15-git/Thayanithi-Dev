@@ -4,6 +4,7 @@ import { DomainSection } from "@/components/ascii-hub/domain-section"
 import { TechTicker } from "@/components/ascii-hub/tech-ticker"
 import { PseudoTerminal } from "@/components/ascii-hub/pseudo-terminal"
 import { Footer } from "@/components/ascii-hub/footer"
+import { ShutdownManager } from "@/components/ascii-hub/shutdown-manager"
 import { techSections } from "@/lib/sections-data"
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <ShutdownManager />
     </div>
   )
 }

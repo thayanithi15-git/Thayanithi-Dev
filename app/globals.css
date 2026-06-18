@@ -63,6 +63,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  img,
+  button,
+  a,
+  [role="button"] {
+    cursor: pointer;
+  }
 }
 
 @keyframes blink {

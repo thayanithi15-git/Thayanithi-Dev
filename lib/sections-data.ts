@@ -13,291 +13,271 @@ export const techSections: TechSection[] = [
   {
     id: "kernel-systems",
     number: "01",
-    title: "Kernel & Systems",
-    subtitle: "Low-level architecture",
+    title: "About Me",
+    subtitle: "Systems & Logic",
     description:
-      "Exploring the foundational layer where hardware meets software. Kernel modules, system calls, and memory management form the backbone of every computing experience.",
+      "Software Development Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex IT requirements into clean, state-of-the-art software systems.",
     ascii: `
-    ┌─────────────────────────┐
-    │  KERNEL SPACE            │
-    │  ┌───────┐ ┌───────┐   │
-    │  │ SCHED │ │  MEM  │   │
-    │  └───┬───┘ └───┬───┘   │
-    │      │         │        │
-    │  ┌───┴─────────┴───┐   │
-    │  │   SYSTEM CALLS   │   │
-    │  └─────────────────┘   │
-    │  ┌───────────────────┐  │
-    │  │   USER SPACE       │  │
-    │  └───────────────────┘  │
-    └─────────────────────────┘`,
+    ┌──────────────────────────────────────────┐
+    │  THAYANITHI S - SOFTWARE ENGINEER       │
+    │  ┌──────────────────┐ ┌────────────────┐ │
+    │  │ FULLSTACK WEB    │ │ MOBILE APPS    │ │
+    │  │ Next.js/React.js │ │ React Native   │ │
+    │  └────────┬─────────┘ └────────┬───────┘ │
+    │           │                    │         │
+    │  ┌────────┴────────────────────┴───────┐ │
+    │  │ BACKEND ARCHITECT & DATABASES       │ │
+    │  │ Node.js, Go, MongoDB, PostgreSQL, GCP│ │
+    │  └─────────────────────────────────────┘ │
+    └──────────────────────────────────────────┘`,
     specs: [
-      { label: "Architecture", value: "x86_64 / ARM64" },
-      { label: "Scheduler", value: "CFS (Completely Fair)" },
-      { label: "Memory Model", value: "Virtual Paging" },
-      { label: "IPC", value: "Pipes, Sockets, Shared Mem" },
+      { label: "Location", value: "Namakkal, Tamil Nadu, India" },
+      { label: "Email", value: "thayanithi2006s@gmail.com" },
+      { label: "Focus", value: "Fullstack, Mobile, Backend Architecture" },
+      { label: "Motto", value: "The best way to predict the future is to create it." },
     ],
     commands: [
-      "$ uname -a",
-      "Linux monochrome 6.1.0 #1 SMP x86_64",
-      "$ cat /proc/meminfo | head -3",
-      "MemTotal:   16384000 kB",
-      "MemFree:     8192000 kB",
-      "MemAvailable: 12288000 kB",
+      "$ whoami",
+      "Thayanithi S - Software Development Engineer",
+      "$ locate --region",
+      "Namakkal, Tamil Nadu, India",
+      "$ cat bio.txt",
+      "Fueled by ∞ cups of coffee & passion for code.",
     ],
   },
   {
     id: "network-topologies",
     number: "02",
-    title: "Network Topologies",
-    subtitle: "Distributed connectivity",
+    title: "Tech Stack",
+    subtitle: "Distributed Connectivity",
     description:
-      "Mapping the invisible infrastructure that connects billions of nodes. From mesh networks to star topologies, understanding how data traverses the physical and logical layers.",
+      "Mapping the tech stack nodes. Representing languages, frameworks, state management, databases, ORMs, cloud infrastructure, and development tools that link my engineering environment together.",
     ascii: `
-       [A]───────[B]
-       /│\\         │\\
-      / │ \\        │ \\
-    [C] │ [D]──────[E] [F]
-     \\  │ /        │  /
-      \\ │/         │ /
-       [G]───────[H]
-        │           │
-       [I]───────[J]`,
+    [Languages] ─────────────── [Frameworks]
+         │                           │
+         ├───────[TypeScript]────────┼─────── [Next.js / React]
+         ├───────[JavaScript]────────┼─────── [React Native / Flutter]
+         ├───────[C / Java]──────────┼─────── [Node.js / Express]
+         │                           │
+    [Databases] ─────────────── [Cloud & Tools]
+         │                           │
+         ├───────[PostgreSQL]────────┼─────── [Google Cloud / BigQuery]
+         └───────[MongoDB]───────────└─────── [Git / GitHub / REST APIs]`,
     specs: [
-      { label: "Protocol", value: "TCP/IP Stack" },
-      { label: "Topology", value: "Hybrid Mesh" },
-      { label: "Latency", value: "< 10ms p99" },
-      { label: "Bandwidth", value: "10 Gbps" },
+      { label: "Languages", value: "TypeScript, JavaScript, C, Java, Python" },
+      { label: "Frameworks", value: "Next.js, React.js, React Native, Vue, Flutter" },
+      { label: "Databases & ORMs", value: "MongoDB, MySQL, PostgreSQL, Prisma, Sequelize" },
+      { label: "Cloud & DevTools", value: "Google Cloud, BigQuery, Git, GitHub, REST APIs, Postman" },
     ],
     commands: [
-      "$ traceroute node-alpha.mesh",
-      "1  gateway (10.0.0.1)  0.5ms",
-      "2  switch-core (10.0.1.1)  1.2ms",
-      "3  node-alpha (10.0.2.42)  2.1ms",
-      "$ netstat -an | wc -l",
-      "2048 active connections",
+      "$ tech-topology --scan",
+      "Scanning active developer modules...",
+      "TypeScript [100%] Next.js [100%] React Native [90%] MongoDB [95%] GCP [85%]",
+      "$ git --version",
+      "git version 2.43.0",
     ],
   },
   {
     id: "distributed-ledger",
     number: "03",
-    title: "Distributed Ledger",
-    subtitle: "Consensus architecture",
+    title: "Experience",
+    subtitle: "Consensus & Timeline",
     description:
-      "Decentralized systems where trust is computed, not assumed. Examining consensus mechanisms, Merkle trees, and the cryptographic primitives that secure distributed state.",
+      "Professional history ledger. Tracking technical milestones, platform engineering, and high-performance product deployments. Click on the blocks below to inspect roles, timelines, and key outcomes.",
     ascii: `
-    Block #1021        Block #1022
-    ┌──────────┐      ┌──────────┐
-    │ Hash: 0xA│─────>│ Hash: 0xB│
-    │ Prev: 0x9│      │ Prev: 0xA│
-    │ Nonce: 42│      │ Nonce: 87│
-    │ Tx: 12   │      │ Tx: 8    │
-    └──────────┘      └──────────┘
-         │                  │
-    ┌────┴────┐        ┌────┴────┐
-    │ Merkle  │        │ Merkle  │
-    │  Root   │        │  Root   │
-    └─────────┘        └─────────┘`,
+     EQREV (Jan-Dec 2025)     Crayon'd (Sep 24-Apr 25)
+    ┌──────────────────────┐  ┌──────────────────────┐
+    │ Role: Software Eng   │─>│ Role: Software Eng   │
+    │ Focus: SaaS & Q-Comm │  │ Focus: React & APIs  │
+    │ Tech: React, Zustand │  │ Tech: Node, Express  │
+    └──────────────────────┘  └──────────────────────┘
+               │                         │
+               └─────────> Thinkuni ─────┘
+                           (Sep 25 - Jan 26)
+                           Role: Frontend Engineer`,
     specs: [
-      { label: "Consensus", value: "Proof of Stake" },
-      { label: "Block Time", value: "~12 seconds" },
-      { label: "Hash Function", value: "SHA-256" },
-      { label: "Finality", value: "2 epochs (~12.8 min)" },
+      { label: "EQREV", value: "Software Engineer | Jan 2025 – Dec 2025" },
+      { label: "Crayon'd", value: "Software Engineer | Sep 2024 – Apr 2025" },
+      { label: "Thinkuni", value: "Software Engineer | Sept 2025 – Jan 2026" },
+      { label: "Total Tenure", value: "1.5+ Years Product Engineering" },
     ],
     commands: [
-      "$ ledger query --block latest",
-      "Block #1022 | Hash: 0xB3F...A2",
-      "$ ledger verify --merkle-root",
-      "Root: 0x7D2...F1 [VALID]",
-      "$ ledger peers --count",
-      "Active Peers: 12,847",
+      "$ ledger query --experience",
+      "Retrieving cryptographic proof of employment...",
+      "EQREV: Engineered SaaS platform for Zepto, Blinkit, Instamart. Pin code analytics.",
+      "Crayon'd: Developed 2+ client products. Scalable Express APIs. 20% faster delivery.",
+      "Thinkuni: Vue.js dashboards. Interactive learning visualizations.",
     ],
   },
   {
     id: "compiler-design",
     number: "04",
-    title: "Compiler Design",
-    subtitle: "Language transformation",
+    title: "Education",
+    subtitle: "Language & Theory",
     description:
-      "The art of translating human intent into machine execution. Lexical analysis, parsing, AST transformation, and code generation form the pipeline that bridges abstraction and silicon.",
+      "Academic compilation at Bannari Amman Institute of Technology, translating computer science theory into solid engineering capabilities and practical architecture skills.",
     ascii: `
-    Source Code
-        │
-    ┌───▼───┐
-    │ LEXER │ ──> Tokens
-    └───┬───┘
-    ┌───▼────┐
-    │ PARSER │ ──> AST
-    └───┬────┘
-    ┌───▼──────────┐
-    │ SEMANTIC     │
-    │ ANALYSIS     │ ──> Typed AST
-    └───┬──────────┘
-    ┌───▼──────────┐
-    │ CODE GEN     │ ──> IR / Binary
-    └──────────────┘`,
+    Bannari Amman Institute of Technology
+    (2023 - 2027) ──> B.E. Computer Science and Engineering
+                         │
+                  CGPA Compilation
+                         │
+                 ┌───────┴───────┐
+                 │ Current CGPA  │
+                 │ ┌──┬──┬──┐    │
+                 │ │8.│2 │  │    │
+                 │ └──┴──┴──┘    │
+                 └───────────────┘`,
     specs: [
-      { label: "Frontend", value: "Recursive Descent" },
-      { label: "IR", value: "SSA Form" },
-      { label: "Optimization", value: "LLVM Pass Pipeline" },
-      { label: "Target", value: "x86_64 / WASM" },
+      { label: "Institution", value: "Bannari Amman Institute of Technology" },
+      { label: "Major", value: "Computer Science and Engineering" },
+      { label: "Timeline", value: "2023 - 2027" },
+      { label: "CGPA / 12th", value: "8.2 CGPA | 12th Grade: 92.38%" },
     ],
     commands: [
-      "$ compile --emit-ast main.src",
-      "AST: Program(FnDecl(main, Block(...)))",
-      "$ compile --emit-ir main.src",
-      "define i32 @main() { ret i32 0 }",
-      "$ compile -O2 main.src -o main",
-      "Compiled: 2.4KB binary [0 warnings]",
+      "$ compile --degree",
+      "Degree: B.E. Computer Science and Engineering",
+      "$ compile --marks",
+      "CGPA: 8.2/10.0 | HSC: 92.38%",
+      "$ compile --courses",
+      "Data Structures, DBMS, OS, Distributed Systems, Software Engineering",
     ],
   },
   {
     id: "graphics-pipelines",
     number: "05",
-    title: "Graphics Pipelines",
-    subtitle: "Rendering architecture",
+    title: "Certifications & Achievements",
+    subtitle: "Rendering output",
     description:
-      "From vertices to pixels, the graphics pipeline transforms mathematical abstractions into visual reality. Shaders, rasterization, and GPU compute redefine what screens can display.",
+      "Competitive achievements, community contributions, and technical certifications. Translating continuous learning into visual proof of capability.",
     ascii: `
-    Vertices ──> Vertex Shader
-                     │
-              Primitive Assembly
-                     │
-               Rasterization
-                     │
-              Fragment Shader
-                     │
-              ┌──────┴──────┐
-              │  Framebuffer │
-              │  ┌──┬──┬──┐ │
-              │  │░░│▓▓│██│ │
-              │  ├──┼──┼──┤ │
-              │  │▓▓│░░│▓▓│ │
-              │  └──┴──┴──┘ │
-              └─────────────┘`,
+    Community Rankings ──> LeetCode & GitHub
+                             │
+                      Hackathon Projects
+                             │
+                      Open Source Contributions
+                             │
+                      ┌──────┴──────┐
+                      │ Credentials │
+                      │ ┌──┬──┬──┐  │
+                      │ │✓ │✓ │✓ │  │
+                      │ └──┴──┴──┘  │
+                      └─────────────┘`,
     specs: [
-      { label: "API", value: "Vulkan / WebGPU" },
-      { label: "Shading", value: "PBR (Cook-Torrance)" },
-      { label: "Resolution", value: "4K @ 120Hz" },
-      { label: "Draw Calls", value: "< 1000 / frame" },
+      { label: "Competitive Coding", value: "LeetCode & HackerRank Developer Profiles" },
+      { label: "Hackathons", value: "Top rankings in local & state hackathons" },
+      { label: "Certifications", value: "Google Cloud, Fullstack React, Node.js Architectures" },
+      { label: "Open Source", value: "Active contributor to developer tools & templates" },
     ],
     commands: [
-      "$ gpu-info --capabilities",
-      "Compute Units: 80 | VRAM: 16GB",
-      "$ render --scene cornell-box.gltf",
-      "Triangles: 12,450 | FPS: 144",
-      "$ shader compile fragment.glsl",
-      "Fragment shader: 128 ALU ops",
+      "$ pipeline --verify --credentials",
+      "Active certifications verified: OK",
+      "$ pipeline --dev-profiles",
+      "GitHub: thayanithi15 | LinkedIn: thayanithi15",
     ],
   },
   {
     id: "logic-synthesis",
     number: "06",
-    title: "Logic Synthesis",
-    subtitle: "Digital design",
+    title: "Core Engineering",
+    subtitle: "Digital design & optimization",
     description:
-      "Where Boolean algebra meets silicon. Logic gates, flip-flops, and RTL design form the bridge between abstract computation theory and physical circuit implementation.",
+      "Synthesizing scalable features and standardizing clean architectures. Optimizing API response times, secure authentication, and complex data collection mechanisms.",
     ascii: `
-        A ──┐
-            ├──[AND]──┐
-        B ──┘         │
-                      ├──[OR]── Q
-        C ──┐         │
-            ├──[AND]──┘
-        D ──┘
-
-    Truth Table:
-    A B C D │ Q
-    0 0 0 0 │ 0
-    1 1 0 0 │ 1
-    0 0 1 1 │ 1
-    1 1 1 1 │ 1`,
+        REST APIs ──┐
+                    ├──[SECURE]──┐
+        JWT Auth  ──┘            │
+                                 ├──[SYNTHESIZED CORE]──> Production Ready
+        Web Scraping──┐          │
+                      ├──[TEST]──┘
+        BDD Testing ──┘
+ 
+    Synthesis Matrix:
+    REST JWT Scraping BDD | Production Status
+    1    1   0        0   | Active API
+    1    1   1        1   | Robust Enterprise Platform`,
     specs: [
-      { label: "HDL", value: "SystemVerilog" },
-      { label: "Process", value: "5nm FinFET" },
-      { label: "Clock", value: "3.2 GHz" },
-      { label: "Gates", value: "~10B transistors" },
+      { label: "APIs & Services", value: "REST APIs, Web Scraping, JWT Auth" },
+      { label: "Testing Methods", value: "BDD Testing, Unit and Integration Suites" },
+      { label: "Performance", value: "Under 100ms API response latency" },
+      { label: "Security Mode", value: "Role-Based Access Control, JWT, SSL" },
     ],
     commands: [
-      "$ synth --target fpga design.sv",
-      "LUTs: 4,200 | FFs: 1,800",
-      "$ simulate --cycles 1000",
-      "All assertions passed [1000/1000]",
-      "$ timing-report --critical-path",
-      "Slack: +0.3ns [TIMING MET]",
+      "$ synth --optimize --apis",
+      "Optimized express routes, query latency, database indexing.",
+      "$ simulate --testing-suite",
+      "BDD tests passed [100% success rate]",
+      "$ security-check --jwt-auth",
+      "HS256 signature validation: SECURE",
     ],
   },
   {
     id: "concurrency-models",
     number: "07",
-    title: "Concurrency Models",
-    subtitle: "Parallel execution",
+    title: "High Performance Architectures",
+    subtitle: "Parallel systems",
     description:
-      "Managing simultaneous execution paths without chaos. Actor models, CSP channels, and lock-free data structures enable programs to harness multi-core architectures safely.",
+      "Designing responsive interfaces and high-throughput backends. Coordinating non-blocking asynchronous event loops, reactive states, and cross-platform native thread handling.",
     ascii: `
-    Thread 1 ──┐         ┌── Thread 4
-               │         │
-    Thread 2 ──┼──[CH]──┼── Thread 5
-               │    │    │
-    Thread 3 ──┘    │    └── Thread 6
-                    │
-              ┌─────┴─────┐
-              │  Channel   │
-              │  Buffer    │
-              │  [|||||||] │
-              │  Cap: 128  │
-              └───────────┘`,
+    Next.js CSR/SSR ──┐         ┌── React Native Threads
+                      │         │
+    Node.js EventLoop ┼──[ENG]──┼── Express APIs
+                      │    │    │
+    Zustand Store     ──┘    │    └── GCP Microservices
+                           │
+                     ┌─────┴─────┐
+                     │ Parallel  │
+                     │ Execution │
+                     │ [|||||||] │
+                     └───────────┘`,
     specs: [
-      { label: "Model", value: "CSP + Actor Hybrid" },
-      { label: "Threads", value: "M:N Green Threads" },
-      { label: "Channels", value: "Bounded MPMC" },
-      { label: "Scheduler", value: "Work-Stealing" },
+      { label: "Web Concurrency", value: "Next.js SSR, React Concurrent Rendering" },
+      { label: "State Hydration", value: "Zustand, Redux, Context Providers" },
+      { label: "Async Runtimes", value: "Node.js cluster, asynchronous worker threads" },
+      { label: "Mobile Threading", value: "React Native Bridge, Native Modules" },
     ],
     commands: [
-      "$ runtime --stats",
-      "Goroutines: 14,200 | Threads: 8",
-      "$ channel inspect --id main-ch",
-      "Buffer: 42/128 | Blocked: 0",
-      "$ deadlock-detect --scan",
-      "No deadlocks detected [SAFE]",
+      "$ runtime --inspect --concurrency",
+      "Analyzing active state changes and event streams...",
+      "Zustand store operational, atomic state updates: 0ms lag",
+      "$ performance-test --load 5000rps",
+      "Node.js cluster workload distribution: STABLE",
     ],
   },
   {
     id: "hardware-abstraction",
     number: "08",
-    title: "Hardware Abstraction",
-    subtitle: "Interface layers",
+    title: "Featured Projects",
+    subtitle: "Interface & Products",
     description:
-      "The invisible translators between software intent and hardware capability. HALs, device drivers, and firmware form the contract that makes portable computing possible.",
+      "The portfolio registry. Direct access to production-ready SaaS dashboards, secure machine portals, community networks, and developer tools built with cutting-edge tech stacks.",
     ascii: `
-    ┌─────────────────────────┐
-    │     APPLICATION          │
-    ├─────────────────────────┤
-    │     OS / RUNTIME         │
-    ├─────────────────────────┤
-    │     HAL INTERFACE        │
-    │  ┌─────┐ ┌─────┐       │
-    │  │ GPU │ │ NIC │ ...   │
-    │  └──┬──┘ └──┬──┘       │
-    ├─────┼───────┼───────────┤
-    │     │  SILICON │         │
-    │     └────┬────┘         │
-    │        [HW]              │
-    └─────────────────────────┘`,
+    ┌──────────────────────────────────────────┐
+    │     THAYANITHI S - FEATURED PROJECTS     │
+    ├──────────────────────────────────────────┤
+    │     EQ REV - QUICK COMMERCE ANALYTICS    │
+    ├──────────────────────────────────────────┤
+    │     CNC VAULT - SECURE CONTROL HUB       │
+    ├──────────────────────────────────────────┤
+    │     BITLINKS - COMMUNITY NETWORK         │
+    ├──────────────────────────────────────────┤
+    │     DEV RANK - DEVELOPER RANKING         │
+    └──────────────────────────────────────────┘`,
     specs: [
-      { label: "Interface", value: "MMIO / PIO" },
-      { label: "Bus", value: "PCIe Gen5 x16" },
-      { label: "DMA", value: "IOMMU Protected" },
-      { label: "Firmware", value: "UEFI 2.10" },
+      { label: "EQ REV", value: "React.js, Chart.js, Recharts, Tailwind CSS, Hero UI, Zustand" },
+      { label: "CNC Vault", value: "Next.js, TypeScript, Node.js, Express.io, MongoDB, GCP, shadcn/ui" },
+      { label: "Bitlinks", value: "Next.js, Framer Motion, Tailwind CSS, TypeScript, Vercel" },
+      { label: "Dev Rank", value: "Next.js, Rapid API, Data Scraping, Tailwind CSS, TypeScript" },
     ],
     commands: [
-      "$ lspci -v | head -4",
-      "00:02.0 VGA: Device [ACCEL]",
-      "  Memory at 0xFE000000 (64-bit)",
-      "$ hal query --device gpu0",
-      "Status: ACTIVE | Driver: v12.1",
-      "$ dmesg | grep firmware",
-      "Firmware loaded: hal-core v3.2.1",
+      "$ hal query --device eqrev",
+      "EQ REV: https://app.eqrev.com/",
+      "$ hal query --device cnc-vault",
+      "CNC Vault: https://cnc-machines.vercel.app/",
+      "$ hal query --device bitlinks",
+      "Bitlinks: https://bitlinks.bitsathy.ac.in/",
+      "$ hal query --device dev-rank",
+      "Dev Rank: GitHub / LeetCode ranking dashboard",
     ],
   },
 ]

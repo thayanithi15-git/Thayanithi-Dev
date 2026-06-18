@@ -83,7 +83,7 @@ export function HeroSection() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 flex max-w-4xl flex-col items-start gap-8 text-left">
+      <div className="relative z-20 flex max-w-5xl flex-col items-start gap-8 text-left">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -92,19 +92,19 @@ export function HeroSection() {
         >
           <div className="inline-flex items-center gap-2 border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
             <span className="inline-block h-1.5 w-1.5 bg-foreground" />
-            <span>FRONTEND ENGINEERING SHOWCASE</span>
+            <span>PORTFOLIO & CORE SYSTEMS</span>
           </div>
 
-          <h1 className="font-pixel-line text-5xl font-bold leading-none tracking-tight text-foreground text-balance md:text-7xl lg:text-9xl">
-            Raw Logic.
+          <h1 className="font-pixel-line text-5xl font-bold leading-none tracking-tight text-foreground text-balance md:text-7xl lg:text-8xl">
+            Thayanithi S
             <br />
-            <span className="text-muted-foreground">Refined Form.</span>
+            <span className="text-muted-foreground text-7xl text-nowrap">
+              Software Development Engineer
+            </span>
           </h1>
 
           <p className="max-w-prose font-mono text-sm leading-relaxed text-muted-foreground md:text-base">
-            An exclusive showcase of high-performance frontend engineering
-            and character-based art. Eight specialized modules exploring
-            the intersection of code and aesthetics.
+            Architecting raw logic into refined, high-performance systems. Specializing in distributed backend architectures, cross-platform mobile apps, and robust fullstack engineering.
           </p>
         </motion.div>
 
@@ -118,7 +118,7 @@ export function HeroSection() {
             href="#kernel-systems"
             className="group flex items-center gap-2 border border-foreground bg-foreground px-6 py-3 font-mono text-sm text-background transition-all duration-200 hover:bg-transparent hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
           >
-            Explore the Modules
+            Explore the Systems
             <span className="transition-transform duration-200 group-hover:translate-x-1">
               {"->"}
             </span>
@@ -129,7 +129,7 @@ export function HeroSection() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 border border-border px-6 py-3 font-mono text-sm text-muted-foreground transition-all duration-200 hover:border-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
           >
-            Clone the Repo
+            View Projects
           </a>
         </motion.div>
 
@@ -147,15 +147,14 @@ export function HeroSection() {
             <div className="h-2 w-2 bg-muted-foreground/50" />
             <div className="h-2 w-2 bg-muted-foreground/30" />
             <span className="ml-2 font-mono text-[10px] text-muted-foreground">
-              monochrome-hub ~ v1.0.0
+              thayanithi-s ~ terminal-showcase
             </span>
           </div>
           <pre className="overflow-hidden font-mono text-[10px] leading-relaxed text-foreground/80 md:text-xs">
-{`> initializing ascii_renderer...
-> loading 8 technical modules...
-> font: GeistPixel loaded [OK]
-> palette: #000 #FFF [MONOCHROME]
-> animation_engine: 60fps target
+{`> initializing portfolio_env...
+> systems_engineer: Thayanithi S
+> domain: Fullstack / Mobile App / Backend Architect
+> active_stack: React Native, Next.js, Node.js, Go, Kubernetes, MongoDB
 > status: OPERATIONAL
 > _`}
             <span className="animate-blink">{"█"}</span>

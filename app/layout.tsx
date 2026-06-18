@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Geist_Mono, Silkscreen } from "next/font/google"
 import { GeistPixelLine } from "geist/font/pixel"
 import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import "../styles/globals.css"
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
@@ -18,35 +18,27 @@ const silkscreen = Silkscreen({
 const geistPixelLine = GeistPixelLine
 
 export const metadata: Metadata = {
-  title: "Monochrome ASCII Hub | Raw Logic. Refined Form.",
+  title: "Thayanithi S | Portfolio",
   description:
-    "A minimalist, front-end only technical showcase utilizing a black and white aesthetic, pixel typography, and ASCII-based animations across eight distinct tech-focused sections.",
-  generator: "v0.app",
+    "Thayanithi S's minimalist, technical engineering showcase featuring character-based animations, pixel typography, and hardware/systems-focused sections.",
+  generator: "Thayanithi S",
   keywords: [
+    "Thayanithi S",
+    "portfolio",
     "ASCII art",
     "monochrome",
     "frontend",
     "engineering",
-    "showcase",
     "developer",
-    "portfolio",
   ],
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        // url: "/Light%20Logo.png",
+        url: "/T_Light.png",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/T_Light.png",
   },
 }
 
@@ -56,17 +48,21 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+import { ThemeProvider } from "@/components/theme-provider"
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`dark ${geistPixelLine.variable}`}>
+    <html lang="en" className={geistPixelLine.variable} suppressHydrationWarning>
       <body
         className={`${geistMono.variable} ${silkscreen.variable} font-mono antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

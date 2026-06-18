@@ -2,19 +2,21 @@
 
 import { motion } from "framer-motion"
 import { Github, Twitter, Linkedin, ArrowUp } from "lucide-react"
+import Link from "next/link"
 
 const ASCII_LOGO = `
- ███╗   ███╗██╗  ██╗
- ████╗ ████║██║  ██║
- ██╔████╔██║███████║
- ██║╚██╔╝██║██╔══██║
- ██║ ╚═╝ ██║██║  ██║
- ╚═╝     ╚═╝╚═╝  ╚═╝`
+ ████████╗███████╗
+ ╚══██╔══╝██╔════╝
+    ██║   ███████╗
+    ██║   ╚════██║
+    ██║   ███████║
+    ╚═╝   ╚══════╝`
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, href: "https://github.com" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
+  { name: "GitHub", icon: Github, href: "https://github.com/thayanithi15-git" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/thayanithi15" },
+  { name: "Twitter / X", icon: Twitter, href: "https://x.com/Thayanithi887" },
+  { name: "Instagram", icon: Github, href: "https://www.instagram.com/thayanithi_15" },
 ]
 
 export function Footer() {
@@ -26,7 +28,7 @@ export function Footer() {
     <footer className="border-t border-border">
       <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-3">
-          {/* ASCII Logo */}
+          {/* ASCII Logo & Quote */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,13 +42,14 @@ export function Footer() {
             >
               {ASCII_LOGO}
             </pre>
-            <p className="mt-4 max-w-xs font-mono text-xs leading-relaxed text-muted-foreground">
-              A minimalist technical showcase built with precision.
-              Pure monochrome. Pure code.
-            </p>
+            <div className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">
+              <p className="italic">"The best way to predict the future is to create it."</p>
+              <p className="mt-1 font-bold text-foreground flex text-end w-full flex items-end justify-end mr-20">- Peter Drucker</p>
+              <p className="mt-3 text-[11px]">Fueled by ∞ cups of coffee & passion for code</p>
+            </div>
           </motion.div>
 
-          {/* Social Grid */}
+          {/* Social Grid & Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -54,8 +57,12 @@ export function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <span className="mb-4 block font-mono text-xs uppercase tracking-widest text-muted-foreground">
-              Connect
+              Connect & Contact
             </span>
+            <div className="mb-4 font-mono text-xs text-muted-foreground">
+              <p>Namakkal, Tamil Nadu, India</p>
+              <p className="mt-1"><a href="mailto:thayanithi2006s@gmail.com" className="hover:text-foreground">thayanithi2006s@gmail.com</a></p>
+            </div>
             <div className="flex flex-col gap-2">
               {socialLinks.map((link) => (
                 <a
@@ -85,10 +92,10 @@ export function Footer() {
           >
             <div>
               <span className="mb-4 block font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                Tech Stack
+                Domain Stack
               </span>
               <div className="flex flex-wrap gap-2">
-                {["Next.js", "React", "Tailwind", "Framer Motion", "Vercel"].map(
+                {["Next.js", "React Native", "Node.js", "Express.io", "MongoDB", "GCP", "Tailwind"].map(
                   (tech) => (
                     <span
                       key={tech}
@@ -115,10 +122,28 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <span className="font-mono text-[10px] text-muted-foreground">
-            {"// "} Monochrome ASCII Hub &mdash; {new Date().getFullYear()}
+            {"// "} Thayanithi S &mdash; {new Date().getFullYear()}
           </span>
+          <div className="flex gap-6 items-center flex-wrap justify-center">
+            <Link
+              href="/assistant"
+              className="font-mono text-[10px] text-foreground hover:underline transition-all duration-200 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer focus:outline-none"
+              title="Launch AI Assistant"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              AI Assistant
+            </Link>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent("trigger-shutdown"))}
+              className="font-mono text-[10px] text-red-500 hover:text-red-400 hover:underline transition-all duration-200 uppercase tracking-wider cursor-pointer flex items-center gap-1.5 focus:outline-none"
+              title="Shutdown System"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              shutdown -h now
+            </button>
+          </div>
           <span className="font-mono text-[10px] text-muted-foreground">
-            Built with precision. Rendered in monochrome.
+            Built with React Native, Next.js, and Node.js.
           </span>
         </div>
       </div>
