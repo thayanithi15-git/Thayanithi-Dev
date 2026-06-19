@@ -13,8 +13,8 @@ export const techSections: TechSection[] = [
   {
     id: "kernel-systems",
     number: "01",
-    title: "About Me",
-    subtitle: "Systems & Logic",
+    title: "Kernel Systems",
+    subtitle: "About Me",
     description:
       "Software Development Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex IT requirements into clean, state-of-the-art software systems.",
     ascii: `
@@ -48,8 +48,8 @@ export const techSections: TechSection[] = [
   {
     id: "network-topologies",
     number: "02",
-    title: "Tech Stack",
-    subtitle: "Distributed Connectivity",
+    title: "Network Topologies",
+    subtitle: "Tech Stack",
     description:
       "Mapping the tech stack nodes. Representing languages, frameworks, state management, databases, ORMs, cloud infrastructure, and development tools that link my engineering environment together.",
     ascii: `
@@ -80,8 +80,8 @@ export const techSections: TechSection[] = [
   {
     id: "distributed-ledger",
     number: "03",
-    title: "Experience",
-    subtitle: "Consensus & Timeline",
+    title: "Distributed Ledger",
+    subtitle: "Experience",
     description:
       "Professional history ledger. Tracking technical milestones, platform engineering, and high-performance product deployments. Click on the blocks below to inspect roles, timelines, and key outcomes.",
     ascii: `
@@ -112,8 +112,8 @@ export const techSections: TechSection[] = [
   {
     id: "compiler-design",
     number: "04",
-    title: "Education",
-    subtitle: "Language & Theory",
+    title: "Compiler Design",
+    subtitle: "Education",
     description:
       "Academic compilation at Bannari Amman Institute of Technology, translating computer science theory into solid engineering capabilities and practical architecture skills.",
     ascii: `
@@ -146,8 +146,8 @@ export const techSections: TechSection[] = [
   {
     id: "graphics-pipelines",
     number: "05",
-    title: "Certifications & Achievements",
-    subtitle: "Rendering output",
+    title: "Graphics Pipelines",
+    subtitle: "Certifications",
     description:
       "Competitive achievements, community contributions, and technical certifications. Translating continuous learning into visual proof of capability.",
     ascii: `
@@ -179,8 +179,8 @@ export const techSections: TechSection[] = [
   {
     id: "logic-synthesis",
     number: "06",
-    title: "Core Engineering",
-    subtitle: "Digital design & optimization",
+    title: "Logic Synthesis",
+    subtitle: "Core Engineering",
     description:
       "Synthesizing scalable features and standardizing clean architectures. Optimizing API response times, secure authentication, and complex data collection mechanisms.",
     ascii: `
@@ -214,8 +214,8 @@ export const techSections: TechSection[] = [
   {
     id: "concurrency-models",
     number: "07",
-    title: "High Performance Architectures",
-    subtitle: "Parallel systems",
+    title: "Concurrency Models",
+    subtitle: "Parallel Systems",
     description:
       "Designing responsive interfaces and high-throughput backends. Coordinating non-blocking asynchronous event loops, reactive states, and cross-platform native thread handling.",
     ascii: `
@@ -247,8 +247,8 @@ export const techSections: TechSection[] = [
   {
     id: "hardware-abstraction",
     number: "08",
-    title: "Featured Projects",
-    subtitle: "Interface & Products",
+    title: "Hardware Abstraction",
+    subtitle: "Featured Projects",
     description:
       "The portfolio registry. Direct access to production-ready SaaS dashboards, secure machine portals, community networks, and developer tools built with cutting-edge tech stacks.",
     ascii: `

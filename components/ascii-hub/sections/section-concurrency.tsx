@@ -67,11 +67,29 @@ function generateLanes(): ThreadLane[] {
   })
 }
 
+function generateStaticLanes(): ThreadLane[] {
+  return threadLanesMeta.map((meta, i) => {
+    return {
+      id: `t${i + 1}`,
+      label: meta.name,
+      segments: [
+        { start: 0, end: 15, type: "wait" },
+        { start: 20, end: 35, type: "work" },
+        { start: 40, end: 60, type: "blocked" },
+      ]
+    }
+  })
+}
+
 function TimelineView() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-  const [lanes, setLanes] = useState<ThreadLane[]>(generateLanes)
+  const [lanes, setLanes] = useState<ThreadLane[]>(generateStaticLanes)
   const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    setLanes(generateLanes())
+  }, [])
 
   useEffect(() => {
     if (!isInView) return

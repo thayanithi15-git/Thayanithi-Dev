@@ -180,19 +180,22 @@ function LayerStack() {
 
 function CombinedRegistry() {
   const registers = [
-    { name: "PROGRESS_IQ", value: "progress-iq.vercel.app", href: "https://progress-iq.vercel.app/", techs: ["Next.js", "Socket.io", "AI Analytics", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"] },
-    { name: "EQ_REV", value: "app.eqrev.com", href: "https://app.eqrev.com/", techs: ["React.js", "Chart.js", "Recharts", "Tailwind CSS", "Hero UI", "Zustand"] },
-    { name: "CNC_VAULT", value: "cnc-machines.vercel.app", href: "https://cnc-machines.vercel.app/", techs: ["Next.js", "TypeScript", "Node.js", "Express.io", "MongoDB", "GCP", "shadcn/ui"] },
-    { name: "BITLINKS", value: "bitlinks.bitsathy.ac.in", href: "https://bitlinks.bitsathy.ac.in/", techs: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript", "Vercel"] },
-    { name: "DEV_RANK", value: "github.com/thayanithi15-git", href: "https://github.com/thayanithi15-git", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"] }
+    { name: "PROGRESS_IQ", value: "progress-iq.vercel.app", href: "https://progress-iq.vercel.app/", techs: ["Next.js", "Socket.io", "AI Analytics", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"], description: "Real-time activity monitor & analytics. Deployed on Vercel Edge Networks." },
+    { name: "EQ_REV", value: "app.eqrev.com", href: "https://app.eqrev.com/", techs: ["React.js", "Chart.js", "Recharts", "Tailwind CSS", "Hero UI", "Zustand"], description: "SaaS analytics for Quick Commerce brands. Deployed on AWS/Vercel Router." },
+    { name: "CNC_VAULT", value: "cnc-machines.vercel.app", href: "https://cnc-machines.vercel.app/", techs: ["Next.js", "TypeScript", "Node.js", "Express.io", "MongoDB", "GCP", "shadcn/ui"], description: "Centralized file control system for CNC code vaults. Deployed on GCP clusters." },
+    { name: "BITLINKS", value: "bitlinks.bitsathy.ac.in", href: "https://bitlinks.bitsathy.ac.in/", techs: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript", "Vercel"], description: "Collaborative college community network portal. Deployed on Vercel." },
+    { name: "DEV_RANK", value: "github.com/thayanithi15-git", href: "https://github.com/thayanithi15-git", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"], description: "Developer community profile aggregator and ranker. Deployed on Vercel." }
   ]
 
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null)
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null)
+
   return (
-    <div className="border border-border bg-secondary/5" style={{ boxShadow: shadow }}>
+    <div className="border border-border bg-secondary/5 transition-all duration-300 rounded-sm" style={{ boxShadow: shadow }}>
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3 bg-secondary/10">
         <div className="flex items-center gap-2">
-          <div className="h-1.5 w-1.5 bg-foreground animate-pulse" />
+          <div className="h-1.5 w-1.5 bg-green-500 rounded-full animate-ping" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-foreground font-bold">
             Project Registry & Tech Stack Dependency Matrix
           </span>
@@ -210,47 +213,98 @@ function CombinedRegistry() {
         </div>
 
         {/* Table Rows */}
-        {registers.map((reg, i) => (
-          <motion.div
-            key={reg.name}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            className="flex flex-col md:flex-row md:items-center px-6 py-4 hover:bg-secondary/10 transition-colors duration-200 gap-3 md:gap-0"
-          >
-            {/* Project Name */}
-            <div className="w-full md:w-1/4 flex items-center gap-2.5">
-              <span className="h-1 w-1 bg-green-500 rounded-full animate-pulse" />
-              <span className="font-bold text-foreground text-xs">{reg.name}</span>
-            </div>
+        {registers.map((reg, i) => {
+          const isRowHovered = hoveredRow === i
+          const hasSharedTech = hoveredTech ? reg.techs.includes(hoveredTech) : false
 
-            {/* Link */}
-            <div className="w-full md:w-1/4">
-              <a
-                href={reg.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] text-muted-foreground hover:text-foreground hover:underline transition-all duration-200 inline-flex items-center gap-1 cursor-pointer"
-              >
-                {reg.value}
-                <span className="text-[8px] opacity-60">↗</span>
-              </a>
-            </div>
+          return (
+            <motion.div
+              key={reg.name}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              onMouseEnter={() => setHoveredRow(i)}
+              onMouseLeave={() => setHoveredRow(null)}
+              className={`flex flex-col md:flex-row md:items-center px-6 py-4 transition-all duration-200 gap-3 md:gap-0 border-l-2 ${
+                isRowHovered 
+                  ? "border-l-emerald-500 bg-emerald-500/[0.02] shadow-[inset_4px_0_12px_rgba(16,185,129,0.02)]" 
+                  : hasSharedTech
+                  ? "border-l-emerald-500/50 bg-emerald-500/[0.01]"
+                  : "border-l-transparent hover:bg-secondary/10"
+              }`}
+            >
+              {/* Project Name */}
+              <div className="w-full md:w-1/4 flex items-center gap-2.5">
+                <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                  isRowHovered || hasSharedTech ? "bg-emerald-500 scale-125 shadow-[0_0_6px_#10b981]" : "bg-neutral-600"
+                }`} />
+                <span className={`font-bold text-xs transition-colors duration-200 ${
+                  isRowHovered || hasSharedTech ? "text-emerald-400" : "text-foreground"
+                }`}>{reg.name}</span>
+              </div>
 
-            {/* Tech Stack Badges */}
-            <div className="w-full md:w-2/4 flex flex-wrap gap-1">
-              {reg.techs.map((tech) => (
-                <span
-                  key={tech}
-                  className="font-mono text-[9px] px-1.5 py-0.5 border border-border/60 text-muted-foreground bg-background/40 rounded-[2px] hover:border-foreground hover:text-foreground transition-all duration-150"
+              {/* Link */}
+              <div className="w-full md:w-1/4">
+                <a
+                  href={reg.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-muted-foreground hover:text-foreground hover:underline transition-all duration-200 inline-flex items-center gap-1 cursor-pointer"
                 >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+                  {reg.value}
+                  <span className="text-[8px] opacity-60">↗</span>
+                </a>
+              </div>
+
+              {/* Tech Stack Badges */}
+              <div className="w-full md:w-2/4 flex flex-wrap gap-1">
+                {reg.techs.map((tech) => {
+                  const isSpecificTechHovered = hoveredTech === tech
+                  return (
+                    <span
+                      key={tech}
+                      onMouseEnter={() => setHoveredTech(tech)}
+                      onMouseLeave={() => setHoveredTech(null)}
+                      className={`font-mono text-[9px] px-1.5 py-0.5 border rounded-[2px] transition-all duration-200 cursor-pointer ${
+                        isSpecificTechHovered
+                          ? "border-emerald-400 text-emerald-400 bg-emerald-500/15 shadow-[0_0_6px_rgba(16,185,129,0.3)] scale-105"
+                          : hoveredTech && reg.techs.includes(hoveredTech) && hoveredTech === tech
+                          ? "border-emerald-400 text-emerald-400 bg-emerald-500/15"
+                          : hoveredTech && reg.techs.includes(hoveredTech)
+                          ? "border-emerald-500/30 text-emerald-500/80 bg-emerald-500/5"
+                          : "border-border/60 text-muted-foreground bg-background/40 hover:border-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {tech}
+                    </span>
+                  )
+                })}
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
+
+      {/* Telemetry Console Output on Hover */}
+      <div className="border-t border-border/60 p-3 bg-secondary/15 flex items-center justify-between font-mono text-[9px] text-muted-foreground transition-all duration-300">
+        <div className="flex items-center gap-2 overflow-hidden whitespace-nowrap text-ellipsis">
+          <span className="text-emerald-500 font-bold select-none">&gt;</span>
+          {hoveredRow !== null && registers[hoveredRow] ? (
+            <span className="text-zinc-200">
+              <span className="text-emerald-400">INFO:</span> {registers[hoveredRow].description}
+            </span>
+          ) : hoveredTech ? (
+            <span className="text-zinc-200 animate-pulse">
+              <span className="text-emerald-400">MATRIX SCAN:</span> HIGHLIGHTING PROJECTS DEPENDENT ON <span className="text-white font-bold">{hoveredTech.toUpperCase()}</span>
+            </span>
+          ) : (
+            <span>SYSTEM IDLE. HOVER OVER MATRIX ROWS OR TECH BADGES TO TRACE ARCHITECTURE LOOPS.</span>
+          )}
+        </div>
+        <div className="hidden sm:block text-[8px] opacity-60">
+          MODE: {hoveredRow !== null ? "ROW_SYS" : hoveredTech ? "NODE_MAP" : "STANDBY"}
+        </div>
       </div>
     </div>
   )

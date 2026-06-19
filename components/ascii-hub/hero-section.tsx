@@ -49,6 +49,137 @@ function useAsciiFrame(rows: number, cols: number, enabled: boolean) {
   return frame
 }
 
+function DecryptedText({ text, speed = 30, delay = 0 }: { text: string; speed?: number; delay?: number }) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*"
+  
+  // Initialize with fully scrambled characters immediately to avoid initial flash of resolved text
+  const [displayText, setDisplayText] = useState(() => 
+    text.split("").map(c => c === " " ? " " : chars[Math.floor(Math.random() * chars.length)]).join("")
+  )
+
+  useEffect(() => {
+    let currentIteration = -Math.floor(delay / speed) // Start negative to act as the scramble delay
+
+    const interval = setInterval(() => {
+      setDisplayText(() => {
+        return text
+          .split("")
+          .map((char, index) => {
+            if (char === " ") return " "
+            // If still in delay phase (currentIteration < 0), keep scrambling
+            if (index < currentIteration) {
+              return text[index]
+            }
+            return chars[Math.floor(Math.random() * chars.length)]
+          })
+          .join("")
+      })
+
+      if (currentIteration >= text.length) {
+        clearInterval(interval)
+      }
+      currentIteration += 1
+    }, speed)
+
+    return () => clearInterval(interval)
+  }, [text, speed, delay])
+
+  return <span>{displayText}</span>
+}
+
+function TerminalShowcase() {
+  const [lines, setLines] = useState<string[]>([])
+  const [lineIdx, setLineIdx] = useState(0)
+  const [charIdx, setCharIdx] = useState(0)
+  const [isDone, setIsDone] = useState(false)
+  const [telemetryTicks, setTelemetryTicks] = useState(0)
+
+  const setupScript = [
+    "initializing portfolio_env...",
+    "systems_engineer: Thayanithi S",
+    "domain: Fullstack / Mobile / Backend Architect",
+    "status: OPERATIONAL",
+  ]
+
+  // Typing effect
+  useEffect(() => {
+    if (lineIdx >= setupScript.length) {
+      setIsDone(true)
+      return
+    }
+
+    const currentLineText = setupScript[lineIdx]
+    const timeout = setTimeout(() => {
+      setLines(prev => {
+        const next = [...prev]
+        if (!next[lineIdx]) {
+          next[lineIdx] = ""
+        }
+        next[lineIdx] = "> " + currentLineText.slice(0, charIdx + 1)
+        return next
+      })
+
+      if (charIdx < currentLineText.length - 1) {
+        setCharIdx(prev => prev + 1)
+      } else {
+        setLineIdx(prev => prev + 1)
+        setCharIdx(0)
+      }
+    }, 20)
+
+    return () => clearTimeout(timeout)
+  }, [lineIdx, charIdx])
+
+  // Post-typing telemetry loop
+  useEffect(() => {
+    if (!isDone) return
+
+    const interval = setInterval(() => {
+      setTelemetryTicks(t => t + 1)
+    }, 1500)
+
+    return () => clearInterval(interval)
+  }, [isDone])
+
+  const getTelemetryLog = () => {
+    const ticks = telemetryTicks
+    const cpuBar = "=".repeat(1 + (ticks % 8)) + " ".repeat(8 - (ticks % 8))
+    const ramBar = "=".repeat(3 + ((ticks * 2) % 6)) + " ".repeat(8 - ((ticks * 2) % 6))
+    return `
+> CPU_CORE_LOAD: [${cpuBar}] ${(30 + (ticks * 7) % 65)}%
+> MEMORY_ALLOC:  [${ramBar}] ${(20 + (ticks * 5) % 45)}%
+> STATE:         STABLE_FLOW`
+  }
+
+  return (
+    <pre className="overflow-hidden font-mono text-[10px] leading-relaxed text-foreground/80 md:text-xs min-h-[120px]">
+      {lines.map((line, idx) => (
+        <div key={idx}>{line}</div>
+      ))}
+      {isDone && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-emerald-500/90"
+        >
+          {getTelemetryLog()}
+        </motion.div>
+      )}
+      {!isDone && (
+        <span>
+          &gt; _<span className="animate-blink">{"█"}</span>
+        </span>
+      )}
+      {isDone && (
+        <div className="mt-1">
+          <span>&gt; _</span>
+          <span className="animate-blink">{"█"}</span>
+        </div>
+      )}
+    </pre>
+  )
+}
+
 export function HeroSection() {
   const [motionEnabled, setMotionEnabled] = useState(true)
 
@@ -61,6 +192,16 @@ export function HeroSection() {
   }, [])
 
   const asciiFrame = useAsciiFrame(30, 80, motionEnabled)
+
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) {
+      const offset = 80
+      const top = el.getBoundingClientRect().top + window.scrollY - offset
+      window.scrollTo({ top, behavior: "smooth" })
+    }
+  }
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
@@ -96,10 +237,10 @@ export function HeroSection() {
           </div>
 
           <h1 className="font-pixel-line text-5xl font-bold leading-none tracking-tight text-foreground text-balance md:text-7xl lg:text-8xl">
-            Thayanithi S
+            <DecryptedText text="Thayanithi S" delay={600} speed={40} />
             <br />
-            <span className="text-muted-foreground text-7xl text-nowrap">
-              Software Development Engineer
+            <span className="text-muted-foreground text-3xl text-nowrap sm:text-5xl md:text-6xl lg:text-7xl block mt-2 leading-[1.1] font-semibold">
+              <DecryptedText text="Software Development Engineer" delay={1200} speed={25} />
             </span>
           </h1>
 
@@ -116,6 +257,7 @@ export function HeroSection() {
         >
           <a
             href="#kernel-systems"
+            onClick={(e) => handleScrollTo(e, "kernel-systems")}
             className="group flex items-center gap-2 border border-foreground bg-foreground px-6 py-3 font-mono text-sm text-background transition-all duration-200 hover:bg-transparent hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
           >
             Explore the Systems
@@ -124,9 +266,8 @@ export function HeroSection() {
             </span>
           </a>
           <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#hardware-abstraction"
+            onClick={(e) => handleScrollTo(e, "hardware-abstraction")}
             className="flex items-center gap-2 border border-border px-6 py-3 font-mono text-sm text-muted-foreground transition-all duration-200 hover:border-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
           >
             View Projects
@@ -150,15 +291,7 @@ export function HeroSection() {
               thayanithi-s ~ terminal-showcase
             </span>
           </div>
-          <pre className="overflow-hidden font-mono text-[10px] leading-relaxed text-foreground/80 md:text-xs">
-{`> initializing portfolio_env...
-> systems_engineer: Thayanithi S
-> domain: Fullstack / Mobile App / Backend Architect
-> active_stack: React Native, Next.js, Node.js, Go, Kubernetes, MongoDB
-> status: OPERATIONAL
-> _`}
-            <span className="animate-blink">{"█"}</span>
-          </pre>
+          <TerminalShowcase />
         </motion.div>
       </div>
 
@@ -167,7 +300,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 flex flex-col items-center gap-2"
+        className="absolute bottom-8 flex flex-col items-center gap-2 z-30"
       >
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           Scroll to Explore

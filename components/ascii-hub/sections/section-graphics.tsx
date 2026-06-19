@@ -3,6 +3,14 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import type { TechSection } from "@/lib/sections-data"
+import Image from "next/image"
+
+import crayonImg from "@/assets/cert/crayon.jpg"
+import ciscoOsImg from "@/assets/cert/cisco_operating_system.png"
+import nptelJavaImg from "@/assets/cert/nptel_java.png"
+import sakthiImg from "@/assets/cert/sakthi.jpg"
+import nkImg from "@/assets/cert/naalaiyakalam.jpg"
+import ciscoCyberImg from "@/assets/cert/cisco_cybersecurity.png"
 
 const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
 
@@ -231,7 +239,7 @@ function Oscilloscope() {
         {hoveredPoint ? (
           <div className="flex items-center justify-between w-full">
             <span className="text-foreground font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping shrink-0" />
+              <span className="w-1.5 h-1.5 bg-foreground rounded-full animate-pulse shrink-0" />
               [{hoveredPoint.type}] {hoveredPoint.text}
             </span>
             <span className="text-muted-foreground uppercase text-[10px]">
@@ -258,38 +266,85 @@ function Oscilloscope() {
 
 const credentials = [
   {
+    title: "Crayon'd Full-Stack Internship",
+    issuer: "Crayon'd",
+    date: "July 30, 2025",
+    duration: "Sept 19, 2024 – Apr 5, 2025",
+    badge: "Internship Complete",
+    desc: "1000+ hours of fullstack web development engineering and client feature delivery.",
+    type: "INTERNSHIP",
+    code: "CRYND-FS-25",
+    image: crayonImg
+  },
+  {
+    title: "Operating System Basics",
+    issuer: "Cisco Networking Academy",
+    date: "June 2024",
+    duration: "Independent Certification",
+    badge: "OS Core",
+    desc: "Acquired fundamental expertise in Operating System architectures, memory processes, and virtualization.",
+    type: "CERTIFICATION",
+    code: "CSCO-OS-24",
+    image: ciscoOsImg
+  },
+  {
     title: "Programming in Java",
     issuer: "NPTEL (IIT Kharagpur)",
     date: "December 2025",
     duration: "12 Weeks Online Course",
     badge: "90% Elite Badge",
-    desc: "Successfully completed the Programming in Java course offered by NPTEL.",
+    desc: "Successfully completed the advanced Programming in Java course with Elite status classification.",
     type: "COURSE",
-    code: "NPTEL-JV-25"
+    code: "NPTEL-JV-25",
+    image: nptelJavaImg
   },
   {
     title: "Sakthi Hackathon 1.0",
-    issuer: "Dr. Mahalingam College of Engineering and Technology",
+    issuer: "Dr. Mahalingam College of Eng & Tech",
     date: "August 13-14, 2025",
-    duration: "24 Hours National Level Event",
+    duration: "24 Hours National Event",
     badge: "Finalist",
-    desc: "Recognized for valuable participation and performance in 24 Hours National Level hackathon with exceptional problem-solving skills.",
+    desc: "Recognized for valuable participation and engineering a robust software prototype in 24 hours.",
     type: "HACKATHON",
-    code: "SAKTHI-HACK-1.0"
+    code: "SAKTHI-HACK-1.0",
+    image: sakthiImg
   },
   {
     title: "Naalaiya Kalam'24",
-    issuer: "Bannari Amman Institute of Technology",
+    issuer: "Bannari Amman Institute of Tech",
     date: "November 2024",
     duration: "Makkal Sinthanai Peravai",
     badge: "Completed",
-    desc: "Participated in NAALAIYA KALAM'24 event focusing on educational and cultural development initiatives.",
+    desc: "Participated in NAALAIYA KALAM'24 event focusing on educational and community-oriented tech projects.",
     type: "EVENT",
-    code: "NK-24"
+    code: "NK-24",
+    image: nkImg
+  },
+  {
+    title: "Cybersecurity Essentials",
+    issuer: "Cisco Networking Academy",
+    date: "July 2024",
+    duration: "Independent Certification",
+    badge: "Security Core",
+    desc: "Comprehensive foundation in network vulnerabilities, encryption systems, and cyber security protocols.",
+    type: "CERTIFICATION",
+    code: "CSCO-SEC-24",
+    image: ciscoCyberImg
   }
 ]
 
 export function SectionGraphics({ section }: { section: TechSection }) {
+  const [activeIdx, setActiveIdx] = useState(0) // Start with first certificate loaded
+  const [isPaused, setIsPaused] = useState(false)
+
+  useEffect(() => {
+    if (isPaused) return
+    const timer = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % credentials.length)
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [isPaused])
+
   return (
     <div className="py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -336,78 +391,110 @@ export function SectionGraphics({ section }: { section: TechSection }) {
           {section.description}
         </motion.p>
 
-        {/* Credentials Grid */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {credentials.map((cred, i) => (
-            <motion.div
-              key={cred.code}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + i * 0.1 }}
-              className="border border-border p-6 bg-secondary/5 font-mono text-xs flex flex-col justify-between"
-              style={{ boxShadow: shadow }}
-            >
-              <div>
-                <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-                  <span className="text-[10px] uppercase font-bold text-muted-foreground">[{cred.type}]</span>
-                  <span className="text-[9px] text-muted-foreground/60">{cred.code}</span>
+        {/* Interactive Telemetry Dashboard (Replaces standard Grid) */}
+        <div 
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch font-mono"
+        >
+          {/* Left Panel: Compact Registry Rows (5 columns) */}
+          <div className="lg:col-span-5 flex flex-col border border-border bg-secondary/5 rounded-sm overflow-hidden" style={{ boxShadow: shadow }}>
+            <div className="flex items-center justify-between border-b border-border px-4 py-3 bg-secondary/10">
+              <span className="text-[10px] uppercase font-bold text-foreground tracking-wider">Credentials Registry Log</span>
+              <span className="text-[8px] text-muted-foreground/60">// SYS_REG_MATRIX</span>
+            </div>
+            
+            <div className="flex flex-col divide-y divide-border/40">
+              {credentials.map((cred, idx) => {
+                const isActive = activeIdx === idx
+                return (
+                  <button
+                    key={cred.code}
+                    onMouseEnter={() => setActiveIdx(idx)}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`flex flex-col gap-1 p-3.5 text-left transition-all duration-200 border-l-2 focus:outline-none ${
+                      isActive 
+                        ? "border-l-foreground bg-secondary/15" 
+                        : "border-l-transparent hover:bg-secondary/10"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="text-[8px] uppercase tracking-wider text-muted-foreground/75">
+                        [{cred.type}] {cred.code}
+                      </span>
+                      <span className="text-[9px] text-muted-foreground/60">{cred.date}</span>
+                    </div>
+                    <span className={`text-xs font-bold transition-colors duration-250 ${
+                      isActive ? "text-foreground" : "text-foreground/70"
+                    }`}>
+                      {cred.title}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/80 truncate">
+                      {cred.issuer}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Right Panel: Telemetry Monitor Viewport (7 columns) */}
+          <div className="lg:col-span-7 border border-border p-5 bg-[#0a0c0f] rounded-sm flex flex-col justify-between" style={{ boxShadow: shadow }}>
+            <div className="flex flex-col gap-4 h-full">
+              {/* Telemetry Header */}
+              <div className="flex items-center justify-between border-b border-border/40 pb-2">
+                <div className="flex items-center gap-2">
+                  <div className="h-1.5 w-1.5 bg-foreground rounded-full animate-pulse" />
+                  <span className="text-[9px] uppercase tracking-wider text-foreground/80 font-bold">
+                    IMAGE VIEWPORT: TELEMETRY_STREAM
+                  </span>
                 </div>
-                
-                <h3 className="font-bold text-sm text-foreground mb-1">{cred.title}</h3>
-                <p className="text-[11px] text-foreground/90 font-medium mb-3">{cred.issuer}</p>
-                <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">{cred.desc}</p>
+                <span className="text-[8px] text-muted-foreground/50">REF_ID: {credentials[activeIdx].code}</span>
               </div>
 
-              <div className="border-t border-border/60 pt-3 mt-4 flex flex-col gap-1 text-[10px]">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Issued:</span>
-                  <span className="text-foreground font-semibold">{cred.date}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Duration:</span>
-                  <span className="text-foreground">{cred.duration}</span>
-                </div>
-                <div className="flex justify-between items-center mt-2 bg-foreground/5 px-2 py-1 rounded-sm">
-                  <span className="text-muted-foreground">Status / Badge:</span>
-                  <span className="text-foreground font-bold text-[9px] uppercase tracking-wider">{cred.badge}</span>
-                </div>
+              {/* Monitor Screen Frame */}
+              <div className="relative w-full aspect-[16/10] border border-border/80 overflow-hidden bg-black/40 rounded-[2px]" style={{ boxShadow: shadow }}>
+                <Image
+                  src={credentials[activeIdx].image}
+                  alt={credentials[activeIdx].title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 550px"
+                  className="object-contain grayscale hover:grayscale-0 transition-all duration-500 ease-in-out cursor-crosshair hover:scale-[1.02]"
+                />
               </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Dynamic Bento specs grid */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { title: "Competitive Coding", desc: "LeetCode & HackerRank Developer Profiles", badge: "ALGORITHMS" },
-            { title: "Hackathons", desc: "Top rankings in local & state hackathons", badge: "SYSTEMS & SPEED" },
-            { title: "Certifications", desc: "Google Cloud, Fullstack React, Node.js Architectures", badge: "VERIFIED CRED" },
-            { title: "Open Source", desc: "Active contributor to developer tools & templates", badge: "GIT CONTRIBS" }
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.08 }}
-              className="flex flex-col justify-between border border-border p-6 bg-secondary/5 hover:border-foreground transition-all duration-300 relative group cursor-pointer"
-              style={{ boxShadow: shadow }}
-            >
-              <div>
-                <div className="flex items-center justify-between border-b border-border/40 pb-2 mb-3">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">{item.badge}</span>
-                  <span className="font-mono text-[8px] text-muted-foreground/40">// SYSTEM_{i + 1}</span>
+              {/* Selected Credentials Metadata */}
+              <div className="flex flex-col gap-2 text-xs text-neutral-300">
+                <div>
+                  <h4 className="font-bold text-sm text-foreground">{credentials[activeIdx].title}</h4>
+                  <p className="text-[11px] text-foreground/80 font-semibold">{credentials[activeIdx].issuer}</p>
                 </div>
-                <h4 className="font-mono text-xs font-bold text-foreground group-hover:text-foreground/80 transition-colors uppercase">{item.title}</h4>
-                <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted-foreground">{item.desc}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  {credentials[activeIdx].desc}
+                </p>
               </div>
-              <div className="mt-4 pt-2 border-t border-border/40 flex items-center justify-between text-[8px] font-mono text-muted-foreground/50">
-                <span>SYSTEM STATUS: OK</span>
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity">{"->"}</span>
+            </div>
+
+            {/* Bottom telemetry indicators */}
+            <div className="border-t border-border/40 pt-3.5 mt-5 flex flex-col sm:flex-row justify-between gap-3 text-[10px] text-neutral-400 font-mono">
+              <div className="flex gap-4">
+                <div>
+                  <span className="text-muted-foreground">Issued: </span>
+                  <span className="text-foreground font-semibold">{credentials[activeIdx].date}</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground">Duration: </span>
+                  <span className="text-foreground">{credentials[activeIdx].duration}</span>
+                </div>
               </div>
-            </motion.div>
-          ))}
+              
+              <div className="flex items-center gap-1.5 bg-secondary/15 border border-border px-2 py-0.5 rounded-[2px]">
+                <span className="text-foreground font-bold text-[9px] tracking-wider uppercase">
+                  {credentials[activeIdx].badge}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

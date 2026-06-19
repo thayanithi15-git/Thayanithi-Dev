@@ -94,15 +94,17 @@ function BlockCard({ block, index, isSelected, onSelect }: {
         <span className={`text-[10px] uppercase tracking-wider ${isSelected ? "text-background/50" : "text-muted-foreground"}`}>
           {block.timeline}
         </span>
-        <div className={`relative h-7 w-7 shrink-0 bg-zinc-100 p-0.5 rounded-sm overflow-hidden ${
+        <div className={`relative h-11 w-11 shrink-0 bg-zinc-100 p-1 rounded-sm overflow-hidden ${
           isSelected ? "border-0" : "border border-border"
         }`} style={{ boxShadow: isSelected ? "none" : shadow }}>
           <Image
             src={block.logoDark}
             alt={block.company}
             fill
-            sizes="28px"
-            className="object-contain"
+            sizes="44px"
+            className={`object-contain transition-all duration-300 ${
+              isSelected ? "grayscale-0" : "grayscale hover:grayscale-0"
+            }`}
           />
         </div>
       </div>
@@ -124,9 +126,28 @@ function BlockCard({ block, index, isSelected, onSelect }: {
       </div>
       {/* Chain connector */}
       {index < blocks.length - 1 && (
-        <div className="absolute -right-6 top-1/2 hidden -translate-y-1/2 items-center md:flex" aria-hidden="true">
-          <div className="h-px w-6 bg-border" />
-          <div className="h-0 w-0 border-y-[3px] border-l-[5px] border-y-transparent border-l-border" />
+        <div className="absolute -right-[40px] top-1/2 hidden -translate-y-1/2 items-center md:flex w-8 h-8" aria-hidden="true">
+          <svg className="w-full h-full text-foreground/45" viewBox="0 0 24 24" fill="none">
+            {/* Background line */}
+            <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="1" className="opacity-25" />
+            {/* Moving arrow path */}
+            <motion.path
+              d="M 0 12 L 20 12"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeDasharray="4 4"
+              animate={{ strokeDashoffset: [0, -8] }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
+            />
+            {/* Arrowhead */}
+            <path
+              d="M 16 8 L 20 12 L 16 16"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       )}
     </motion.button>
@@ -171,7 +192,7 @@ export function SectionLedger({ section }: { section: TechSection }) {
 
       {/* Horizontal scrolling chain */}
       <div className="mt-12 overflow-x-auto">
-        <div className="mx-auto flex w-max items-center gap-6 px-8 pb-4">
+        <div className="mx-auto flex w-max items-center gap-12 px-8 pb-4">
           {blocks.map((block, i) => (
             <BlockCard
               key={block.hash}
@@ -200,13 +221,13 @@ export function SectionLedger({ section }: { section: TechSection }) {
                 <div className="h-1.5 w-1.5 bg-foreground" />
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Ledger inspector</span>
               </div>
-              <div className="relative h-7 w-7 border border-border bg-zinc-100 p-0.5 rounded-sm overflow-hidden" style={{ boxShadow: shadow }}>
+              <div className="relative h-12 w-12 border border-border bg-zinc-100 p-1 rounded-sm overflow-hidden" style={{ boxShadow: shadow }}>
                 <Image
                   src={blocks[selectedBlock].logoDark}
                   alt={blocks[selectedBlock].company}
                   fill
-                  sizes="28px"
-                  className="object-contain"
+                  sizes="48px"
+                  className="object-contain grayscale-0 transition-all duration-300"
                 />
               </div>
             </div>

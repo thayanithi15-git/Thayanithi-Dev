@@ -143,7 +143,7 @@ export function Footer() {
             </button>
           </div>
           <span className="font-mono text-[10px] text-muted-foreground">
-            Built with React Native, Next.js, and Node.js.
+            Built with Next.js, Typescript, and Node.js.
           </span>
         </div>
       </div>

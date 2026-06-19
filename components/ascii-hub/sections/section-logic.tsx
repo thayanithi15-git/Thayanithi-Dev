@@ -257,6 +257,294 @@ function ContributionHeatmap() {
             </div>
           </div>
         </div>
+
+        {/* New Animated GitHub Telemetry Monitor */}
+        <GithubPulseMonitor 
+          displayedDays={displayedDays} 
+          totalInPeriod={totalInPeriod} 
+          repoCount={repoCount} 
+          followers={followers} 
+        />
+      </div>
+    </div>
+  )
+}
+
+interface GithubPulseMonitorProps {
+  displayedDays: ContributionDay[]
+  totalInPeriod: number
+  repoCount: number | null
+  followers: number | null
+}
+
+function GithubPulseMonitor({ displayedDays, totalInPeriod, repoCount, followers }: GithubPulseMonitorProps) {
+  const [terminalLogs, setTerminalLogs] = useState<string[]>([])
+  const [scanIndex, setScanIndex] = useState(0)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  
+  // Group 364 days into 52 weeks
+  const weeksData: number[] = []
+  for (let i = 0; i < displayedDays.length; i += 7) {
+    const week = displayedDays.slice(i, i + 7)
+    const sum = week.reduce((acc, curr) => acc + curr.count, 0)
+    weeksData.push(sum)
+  }
+  
+  const maxVal = Math.max(...weeksData, 1)
+  
+  // Helper to extract month and year of a given week index
+  const getWeekDetails = (idx: number) => {
+    const startDay = displayedDays[idx * 7]
+    if (!startDay) return { month: "", year: "" }
+    
+    const parts = startDay.date.split("-")
+    if (parts.length < 3) return { month: "", year: "" }
+    
+    const year = parts[0]
+    const monthIdx = parseInt(parts[1], 10) - 1
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const month = monthNames[monthIdx] || ""
+    
+    return { month, year }
+  }
+  
+  // Calculate SVG dimensions
+  const svgWidth = 600
+  const svgHeight = 120
+  const paddingX = 20
+  const paddingY = 15
+  
+  const points = weeksData.map((val, idx) => {
+    const x = paddingX + (idx / (weeksData.length - 1)) * (svgWidth - paddingX * 2)
+    const y = svgHeight - paddingY - (val / maxVal) * (svgHeight - paddingY * 2)
+    return { x, y, val }
+  })
+  
+  const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')
+  
+  // Simulated telemetry sequence
+  useEffect(() => {
+    const templates = [
+      `[sys] established telemetry link to github.com/thayanithi15-git...`,
+      `[query] compiled ${displayedDays.length} days of activity data`,
+      `[metrics] payload verified: total_contributions=${totalInPeriod}`,
+      `[metrics] query complete: active_repos=${repoCount ?? 22} followers=${followers ?? 18}`,
+      `[logic] computed high-density contribution wave vector`,
+      `[telemetry] latency check: 42ms (connection status: OPTIMAL)`,
+      `[security] gpg signature verification: PASS`,
+      `[event] git push origin dev --status=clean`,
+      `[sys] memory stack allocation stable: dev-cluster-1`,
+    ]
+    
+    setTerminalLogs([templates[0]])
+    
+    let logIdx = 1
+    const interval = setInterval(() => {
+      setTerminalLogs(prev => {
+        const next = [...prev, templates[logIdx % templates.length]]
+        if (next.length > 5) next.shift() // Keep only last 5 lines
+        return next
+      })
+      logIdx++
+    }, 3200)
+    
+    return () => clearInterval(interval)
+  }, [displayedDays.length, totalInPeriod, repoCount, followers])
+
+  // Track scanning index
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScanIndex(prev => (prev + 1) % weeksData.length)
+    }, 110)
+    return () => clearInterval(interval)
+  }, [weeksData.length])
+
+  return (
+    <div className="border border-border/60 p-5 bg-secondary/5 mt-2 flex flex-col gap-4 font-mono text-xs w-full" style={{ boxShadow: shadow }}>
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-border/40 pb-2">
+        <div className="flex items-center gap-2">
+          <div className="h-1.5 w-1.5 bg-green-500 rounded-full animate-ping" />
+          <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground font-bold">
+            Real-time GitHub Activity Spectrum
+          </span>
+        </div>
+        <span className="text-[8px] text-muted-foreground/60">// CORE ENGINEERING PULSE</span>
+      </div>
+
+      {/* SVG Oscilloscope Graph */}
+      <div className="relative border border-border/40 p-2 bg-background/50 overflow-hidden rounded-sm select-none">
+        {/* Background Grids */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <div className="w-full h-full" style={{
+            backgroundImage: `linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)`,
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
+
+        {/* Scanline Sweep */}
+        <motion.div 
+          className="absolute top-0 bottom-0 w-[2px] bg-emerald-500/80 shadow-[0_0_8px_#10b981] pointer-events-none"
+          animate={{ x: ["-2%", "102%"] }}
+          transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+        />
+
+        {/* Hover Tooltip Info Overlay */}
+        {hoveredIndex !== null && points[hoveredIndex] && (
+          <div 
+            className="absolute bg-background/95 border border-emerald-500/70 p-2 font-mono text-[9px] text-emerald-400 pointer-events-none rounded-[2px] shadow-[0_4px_12px_rgba(0,0,0,0.5)] z-20 flex flex-col gap-0.5"
+            style={{
+              left: `${(points[hoveredIndex].x / svgWidth) * 100}%`,
+              top: `${(points[hoveredIndex].y / svgHeight) * 100 - 20}%`,
+              transform: 'translate(-50%, -100%)',
+              transition: 'left 0.1s ease-out, top 0.1s ease-out'
+            }}
+          >
+            <div className="font-bold border-b border-emerald-500/30 pb-0.5 mb-1 text-[8px] uppercase tracking-widest text-neutral-300">
+              {getWeekDetails(hoveredIndex).month} {getWeekDetails(hoveredIndex).year} | WK {(hoveredIndex + 1).toString().padStart(2, '0')}
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="h-1 w-1 bg-emerald-500 rounded-full" />
+              <span>ACTV: <span className="font-bold text-white">{weeksData[hoveredIndex]}</span> CONTRIBS</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-[8px] text-neutral-400">
+              <span className="h-1 w-1 bg-neutral-600 rounded-full" />
+              <span>DENSITY: {((weeksData[hoveredIndex] / maxVal) * 100).toFixed(0)}% MAX</span>
+            </div>
+          </div>
+        )}
+
+        <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="w-full h-32 text-foreground">
+          <defs>
+            <linearGradient id="cyan-glow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#0e4429" />
+              <stop offset="50%" stopColor="#26a641" />
+              <stop offset="100%" stopColor="#39d353" />
+            </linearGradient>
+          </defs>
+
+          {/* Dotted threshold lines */}
+          <line x1={paddingX} y1={svgHeight / 2} x2={svgWidth - paddingX} y2={svgHeight / 2} stroke="currentColor" strokeWidth="1" strokeDasharray="3 6" className="opacity-25" />
+          <line x1={paddingX} y1={svgHeight / 4} x2={svgWidth - paddingX} y2={svgHeight / 4} stroke="currentColor" strokeWidth="1" strokeDasharray="1 9" className="opacity-15" />
+          <line x1={paddingX} y1={(svgHeight * 3) / 4} x2={svgWidth - paddingX} y2={(svgHeight * 3) / 4} stroke="currentColor" strokeWidth="1" strokeDasharray="1 9" className="opacity-15" />
+
+          {/* Vertical Guide Line on Hover */}
+          {hoveredIndex !== null && points[hoveredIndex] && (
+            <line
+              x1={points[hoveredIndex].x}
+              y1={paddingY}
+              x2={points[hoveredIndex].x}
+              y2={svgHeight - paddingY}
+              stroke="rgba(16, 185, 129, 0.4)"
+              strokeWidth="1.5"
+              strokeDasharray="2 3"
+            />
+          )}
+
+          {/* Activity curve */}
+          <motion.path
+            d={pathD}
+            fill="none"
+            stroke="url(#cyan-glow)"
+            strokeWidth="2"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          />
+
+          {/* Glow effect blur duplicate */}
+          <path
+            d={pathD}
+            fill="none"
+            stroke="#26a641"
+            strokeWidth="4"
+            className="opacity-20 blur-[2px]"
+          />
+
+          {/* Glowing peaks/nodes */}
+          {points.map((p, idx) => {
+            const isScanning = Math.abs(idx - scanIndex) < 3
+            if (p.val === 0) return null
+            return (
+              <circle
+                key={idx}
+                cx={p.x}
+                cy={p.y}
+                r={isScanning ? 4.5 : 2}
+                className={`${isScanning ? 'fill-emerald-400 stroke-white stroke-1' : 'fill-emerald-600/80'} transition-all duration-150`}
+              />
+            )
+          })}
+
+          {/* Glowing marker dot at hovered index */}
+          {hoveredIndex !== null && points[hoveredIndex] && (
+            <g>
+              <circle
+                cx={points[hoveredIndex].x}
+                cy={points[hoveredIndex].y}
+                r={6.5}
+                className="fill-emerald-400/30 stroke-emerald-400 stroke-[1.5px] animate-ping"
+              />
+              <circle
+                cx={points[hoveredIndex].x}
+                cy={points[hoveredIndex].y}
+                r={4}
+                className="fill-white stroke-emerald-500 stroke-[2px]"
+              />
+            </g>
+          )}
+
+          {/* Transparent hit boxes for mouse interactions */}
+          {points.map((p, idx) => {
+            const triggerWidth = (svgWidth - paddingX * 2) / (weeksData.length - 1)
+            return (
+              <rect
+                key={`trigger-${idx}`}
+                x={p.x - triggerWidth / 2}
+                y={0}
+                width={triggerWidth}
+                height={svgHeight}
+                fill="transparent"
+                className="cursor-crosshair pointer-events-all"
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              />
+            )
+          })}
+        </svg>
+
+        {/* HUD Overlay text */}
+        <div className="absolute top-2 left-3 flex gap-4 text-[8px] font-bold tracking-widest text-emerald-500/80 uppercase">
+          <div>CH_1: STABLE_ACTV</div>
+          <div>SWEEP: 52_WKS</div>
+          <div>GAIN: {(maxVal/10).toFixed(1)}x</div>
+        </div>
+
+        <div className="absolute bottom-2 right-3 text-[8px] text-muted-foreground/60 font-mono">
+          SCAN Wk: {(scanIndex + 1).toString().padStart(2, '0')} / 52 | VALUE: {weeksData[scanIndex] || 0}
+        </div>
+      </div>
+
+      {/* Terminal Live telemetry log stream */}
+      <div className="border border-border/40 bg-[#090b0d] p-3 rounded-sm font-mono text-[10px] min-h-[110px] flex flex-col gap-1 justify-end shadow-inner">
+        {terminalLogs.map((log, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center gap-1.5 select-none"
+          >
+            <span className="text-emerald-500 font-bold select-none">&gt;</span>
+            <span className={log.includes('[sys]') ? 'text-sky-400' : log.includes('[metrics]') ? 'text-emerald-400' : 'text-neutral-400'}>
+              {log}
+            </span>
+          </motion.div>
+        ))}
+        <div className="flex items-center gap-1">
+          <span className="text-emerald-500 font-bold">&gt;</span>
+          <span className="w-1.5 h-3 bg-emerald-400 animate-pulse" />
+        </div>
       </div>
     </div>
   )

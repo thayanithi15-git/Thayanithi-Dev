@@ -261,42 +261,31 @@ export function SectionNetwork({ section }: { section: TechSection }) {
             <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground block mb-2">Category</span>
             <h3 className="font-pixel-line text-2xl font-bold text-foreground">{nodes[selectedNode].name}</h3>
           </div>
-          {nodes[selectedNode].items.map((m, i) => (
-            <motion.div
-              key={m.name}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className="flex flex-col gap-2 border border-border p-4 bg-background"
-              style={{ boxShadow: shadow }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  {techItemLogos[m.name] && (
-                    <div className="relative h-6 w-6 shrink-0 border border-border bg-zinc-100 p-1" style={{ boxShadow: shadow }}>
-                      <Image
-                        src={techItemLogos[m.name]}
-                        alt={m.name}
-                        fill
-                        sizes="24px"
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-semibold">{m.name}</span>
-                </div>
-                <span className="font-mono text-xs font-bold text-foreground">{m.pct}%</span>
-              </div>
-              <div className="h-1 w-full bg-border">
-                <motion.div
-                  className="h-full bg-foreground"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${m.pct}%` }}
-                  transition={{ duration: 0.8 }}
-                />
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
+            {nodes[selectedNode].items.map((m, i) => (
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className="flex items-center gap-2.5 border border-border p-4 bg-background"
+                style={{ boxShadow: shadow }}
+              >
+                {techItemLogos[m.name] && (
+                  <div className="relative h-9 w-9 shrink-0 border border-border bg-zinc-100 p-1" style={{ boxShadow: shadow }}>
+                    <Image
+                      src={techItemLogos[m.name]}
+                      alt={m.name}
+                      fill
+                      sizes="36px"
+                      className="object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                    />
+                  </div>
+                )}
+                <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-semibold">{m.name}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
