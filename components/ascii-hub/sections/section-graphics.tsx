@@ -175,13 +175,15 @@ function Oscilloscope() {
         ctx.setLineDash([])
 
         // Info Text Label (title is now primary/large, date is secondary/smaller below it)
-        ctx.fillStyle = isDark ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.95)"
-        ctx.font = isCurrentHovered ? "bold 12px monospace" : "bold 11px monospace"
-        ctx.fillText(point.text, x + 8, y - 6)
-        
-        ctx.fillStyle = isDark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.6)"
-        ctx.font = isCurrentHovered ? "bold 11px monospace" : "11px monospace"
-        ctx.fillText(point.date, x + 8, y + 8)
+        if (W > 768 || isCurrentHovered) {
+          ctx.fillStyle = isDark ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.95)"
+          ctx.font = isCurrentHovered ? "bold 12px monospace" : "bold 11px monospace"
+          ctx.fillText(point.text, x + 8, y - 6)
+          
+          ctx.fillStyle = isDark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.6)"
+          ctx.font = isCurrentHovered ? "bold 11px monospace" : "11px monospace"
+          ctx.fillText(point.date, x + 8, y + 8)
+        }
       })
 
       // Update canvas cursor style

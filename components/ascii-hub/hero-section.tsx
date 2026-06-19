@@ -152,7 +152,7 @@ function TerminalShowcase() {
   }
 
   return (
-    <pre className="overflow-hidden font-mono text-[10px] leading-relaxed text-foreground/80 md:text-xs min-h-[120px]">
+    <pre className="overflow-hidden whitespace-pre-wrap break-all font-mono text-[10px] leading-relaxed text-foreground/80 md:text-xs min-h-[120px]">
       {lines.map((line, idx) => (
         <div key={idx}>{line}</div>
       ))}
@@ -204,7 +204,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 sm:px-8 lg:px-12">
       {/* Scanline overlay */}
       {motionEnabled && (
         <div
@@ -224,7 +224,7 @@ export function HeroSection() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 flex max-w-5xl flex-col items-start gap-8 text-left">
+      <div className="relative z-20 flex w-full max-w-5xl flex-col items-start gap-8 text-left">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -239,7 +239,7 @@ export function HeroSection() {
           <h1 className="font-pixel-line text-5xl font-bold leading-none tracking-tight text-foreground text-balance md:text-7xl lg:text-8xl">
             <DecryptedText text="Thayanithi S" delay={600} speed={40} />
             <br />
-            <span className="text-muted-foreground text-3xl text-nowrap sm:text-5xl md:text-6xl lg:text-7xl block mt-2 leading-[1.1] font-semibold">
+            <span className="text-muted-foreground text-3xl text-wrap md:text-nowrap sm:text-5xl md:text-6xl lg:text-7xl block mt-2 leading-[1.1] font-semibold">
               <DecryptedText text="Software Development Engineer" delay={1200} speed={25} />
             </span>
           </h1>
@@ -253,12 +253,12 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="flex flex-col items-start gap-4 sm:flex-row"
+          className="flex flex-col items-stretch gap-4 sm:flex-row w-full sm:w-auto"
         >
           <a
             href="#kernel-systems"
             onClick={(e) => handleScrollTo(e, "kernel-systems")}
-            className="group flex items-center gap-2 border border-foreground bg-foreground px-6 py-3 font-mono text-sm text-background transition-all duration-200 hover:bg-transparent hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
+            className="group flex items-center justify-center gap-2 border border-foreground bg-foreground px-6 py-3 font-mono text-sm text-background transition-all duration-200 hover:bg-transparent hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none w-full sm:w-auto"
           >
             Explore the Systems
             <span className="transition-transform duration-200 group-hover:translate-x-1">
@@ -268,7 +268,7 @@ export function HeroSection() {
           <a
             href="#hardware-abstraction"
             onClick={(e) => handleScrollTo(e, "hardware-abstraction")}
-            className="flex items-center gap-2 border border-border px-6 py-3 font-mono text-sm text-muted-foreground transition-all duration-200 hover:border-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
+            className="flex items-center justify-center gap-2 border border-border px-6 py-3 font-mono text-sm text-muted-foreground transition-all duration-200 hover:border-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none w-full sm:w-auto"
           >
             View Projects
           </a>

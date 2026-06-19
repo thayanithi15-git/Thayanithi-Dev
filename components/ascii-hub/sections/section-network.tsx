@@ -108,7 +108,7 @@ function NetworkMap({ selectedNode, onSelectNode }: {
   onSelectNode: (idx: number) => void
 }) {
   return (
-    <div className="relative aspect-[2/1] w-full overflow-hidden border border-border bg-background p-4" style={{ boxShadow: shadow }}>
+    <div className="relative aspect-[1.2/1] sm:aspect-[2/1] w-full overflow-hidden border border-border bg-background p-4" style={{ boxShadow: shadow }}>
       {/* Grid lines */}
       <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         {Array.from({ length: 10 }).map((_, i) => (

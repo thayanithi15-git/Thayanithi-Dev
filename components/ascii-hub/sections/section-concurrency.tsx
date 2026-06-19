@@ -118,7 +118,7 @@ function TimelineView() {
 
       {/* Time scale */}
       <div className="flex border-b border-border px-4 py-1">
-        <div className="w-48 flex-shrink-0" />
+        <div className="hidden md:block w-48 flex-shrink-0" />
         <div className="flex flex-1 justify-between font-mono text-[9px] text-muted-foreground/50">
           {[0, 20, 40, 60, 80, 100].map((t) => (
             <span key={t}>{t}ms</span>
@@ -176,7 +176,7 @@ function TimelineView() {
       ))}
 
       {/* Legend */}
-      <div className="flex gap-6 border-t border-border px-4 py-2">
+      <div className="flex flex-wrap gap-4 md:gap-6 border-t border-border px-4 py-2">
         {[
           { label: "Active Learning & Labs", cls: "bg-foreground" },
           { label: "Structured Research", cls: "bg-foreground/25" },
