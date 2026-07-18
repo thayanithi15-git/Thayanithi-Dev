@@ -2,9 +2,9 @@
     <rect width="100%" height="100%" fill="#ffffff"/>
     <rect x="20" y="10" width="760" height="90" rx="4" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
     
-    <text x="50" y="45" font-family="monospace" font-size="13" fill="#0d1117">🤖 Commits (Total): <tspan fill="#0969da" font-weight="bold">2,000+</tspan></text>
-    <text x="50" y="70" font-family="monospace" font-size="13" fill="#0d1117">💡 LeetCode Problems: <tspan fill="#0969da" font-weight="bold">300+</tspan></text>
+    <text x="50" y="45" font-family="monospace" font-size="13" fill="#0d1117">Commits (Total): <tspan fill="#0969da" font-weight="bold">2,000+</tspan></text>
+    <text x="50" y="70" font-family="monospace" font-size="13" fill="#0d1117">LeetCode Problems: <tspan fill="#0969da" font-weight="bold">300+</tspan></text>
 
-    <text x="450" y="45" font-family="monospace" font-size="13" fill="#0d1117">🚀 Deployment Success: <tspan fill="#2ea44f" font-weight="bold">100%</tspan></text>
-    <text x="450" y="70" font-family="monospace" font-size="13" fill="#0d1117">🔥 Active Contribution Streak: <tspan fill="#e51b24" font-weight="bold">Continuous</tspan></text>
+    <text x="450" y="45" font-family="monospace" font-size="13" fill="#0d1117">Deployment Success: <tspan fill="#2ea44f" font-weight="bold">100%</tspan></text>
+    <text x="450" y="70" font-family="monospace" font-size="13" fill="#0d1117">Active Contribution Streak: <tspan fill="#e51b24" font-weight="bold">Continuous</tspan></text>
   </svg>

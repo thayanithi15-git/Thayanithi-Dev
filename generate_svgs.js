@@ -88,21 +88,17 @@ const createEcosystem = (themeName) => {
     <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}" text-anchor="middle">Databases & Cloud</text>
     <text x="660" y="80" font-family="monospace" font-size="11" fill="${t.muted}" text-anchor="middle">GCP / Postgres / Mongo</text>
 
-    <!-- Connectors -->
-    <path d="M 230 65 L 310 65" stroke="${t.border}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-    <path d="M 490 65 L 570 65" stroke="${t.border}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <!-- Connectors (Vector Arrows) -->
+    <line x1="230" y1="65" x2="300" y2="65" stroke="${t.border}" stroke-width="2"/>
+    <polygon points="300,61 308,65 300,69" fill="${t.border}"/>
+
+    <line x1="490" y1="65" x2="560" y2="65" stroke="${t.border}" stroke-width="2"/>
+    <polygon points="560,61 568,65 560,69" fill="${t.border}"/>
 
     <!-- Bottom Description -->
     <rect x="50" y="140" width="700" height="70" rx="4" fill="${themeName === 'dark' ? '#0d1117' : '#ffffff'}" stroke="${t.border}" stroke-width="1"/>
     <text x="70" y="165" font-family="monospace" font-size="13" fill="${t.text}">SYSTEM TOPO: Decentralized API integration, scalable microservices, telemetry visualization</text>
     <text x="70" y="190" font-family="monospace" font-size="13" fill="${t.muted}">Status: Operational [100% stable execution]</text>
-
-    <!-- Arrow Marker -->
-    <defs>
-      <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1 L 10 5 L 0 9 z" fill="${t.border}"/>
-      </marker>
-    </defs>
   </svg>`;
 };
 
@@ -112,7 +108,7 @@ const createProjects = (themeName) => {
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <!-- Project 1 -->
     <rect x="20" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
-    <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">🔐 CNC VAULT</text>
+    <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">CNC VAULT</text>
     <text x="40" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Centralized CNC/PLC backup with</text>
     <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.muted}">version control & live reporting.</text>
     <text x="40" y="130" font-family="monospace" font-size="12" fill="${t.muted}">Efficiency improved by 70%.</text>
@@ -120,7 +116,7 @@ const createProjects = (themeName) => {
 
     <!-- Project 2 -->
     <rect x="285" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
-    <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">🧑‍💻 DEV RANK</text>
+    <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">DEV RANK</text>
     <text x="305" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Developer discovery & ranking</text>
     <text x="305" y="110" font-family="monospace" font-size="12" fill="${t.muted}">via Github/LeetCode profiling</text>
     <text x="305" y="130" font-family="monospace" font-size="12" fill="${t.muted}">and dynamic data scrapers.</text>
@@ -128,7 +124,7 @@ const createProjects = (themeName) => {
 
     <!-- Project 3 -->
     <rect x="550" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
-    <text x="570" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">📊 EQ REV</text>
+    <text x="570" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">EQ REV</text>
     <text x="570" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Quick commerce SaaS analytics</text>
     <text x="570" y="110" font-family="monospace" font-size="12" fill="${t.muted}">mapping 1,000+ D2C stores on</text>
     <text x="570" y="130" font-family="monospace" font-size="12" fill="${t.muted}">Blinkit, Zepto, and Instamart.</text>
@@ -136,7 +132,7 @@ const createProjects = (themeName) => {
 
     <!-- Project 4 -->
     <rect x="815" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
-    <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">🌐 BITLINKS</text>
+    <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">BITLINKS</text>
     <text x="835" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Collaborative discovery & community</text>
     <text x="835" y="110" font-family="monospace" font-size="12" fill="${t.muted}">network platform built for student</text>
     <text x="835" y="130" font-family="monospace" font-size="12" fill="${t.muted}">interactions & networking.</text>
@@ -150,11 +146,11 @@ const createTelemetry = (themeName) => {
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <rect x="20" y="10" width="760" height="90" rx="4" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     
-    <text x="50" y="45" font-family="monospace" font-size="13" fill="${t.text}">🤖 Commits (Total): <tspan fill="${t.accent}" font-weight="bold">2,000+</tspan></text>
-    <text x="50" y="70" font-family="monospace" font-size="13" fill="${t.text}">💡 LeetCode Problems: <tspan fill="${t.accent}" font-weight="bold">300+</tspan></text>
+    <text x="50" y="45" font-family="monospace" font-size="13" fill="${t.text}">Commits (Total): <tspan fill="${t.accent}" font-weight="bold">2,000+</tspan></text>
+    <text x="50" y="70" font-family="monospace" font-size="13" fill="${t.text}">LeetCode Problems: <tspan fill="${t.accent}" font-weight="bold">300+</tspan></text>
 
-    <text x="450" y="45" font-family="monospace" font-size="13" fill="${t.text}">🚀 Deployment Success: <tspan fill="#2ea44f" font-weight="bold">100%</tspan></text>
-    <text x="450" y="70" font-family="monospace" font-size="13" fill="${t.text}">🔥 Active Contribution Streak: <tspan fill="#e51b24" font-weight="bold">Continuous</tspan></text>
+    <text x="450" y="45" font-family="monospace" font-size="13" fill="${t.text}">Deployment Success: <tspan fill="#2ea44f" font-weight="bold">100%</tspan></text>
+    <text x="450" y="70" font-family="monospace" font-size="13" fill="${t.text}">Active Contribution Streak: <tspan fill="#e51b24" font-weight="bold">Continuous</tspan></text>
   </svg>`;
 };
 
@@ -191,10 +187,10 @@ const createExperience = (themeName) => {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" width="100%" height="100%">
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <rect x="20" y="10" width="760" height="190" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
-    <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}">💼 Professional Overview</text>
-    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">• EQREV: Built geo-tracking & analytics UI mapping 1,000+ active retail outlets</text>
-    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">• Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
-    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">• Thinkuni: Engineered modular dashboards and role-based learning portals</text>
+    <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}">Professional Overview</text>
+    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">- EQREV: Built geo-tracking & analytics UI mapping 1,000+ active retail outlets</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">- Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
+    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">- Thinkuni: Engineered modular dashboards and role-based learning portals</text>
     <text x="40" y="170" font-family="monospace" font-size="11" fill="${t.muted}">Total Tenure: 1.5+ Years Product Delivery Experience</text>
   </svg>`;
 };

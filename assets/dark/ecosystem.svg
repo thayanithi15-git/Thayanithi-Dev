@@ -16,19 +16,15 @@
     <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#c9d1d9" text-anchor="middle">Databases & Cloud</text>
     <text x="660" y="80" font-family="monospace" font-size="11" fill="#8b949e" text-anchor="middle">GCP / Postgres / Mongo</text>
 
-    <!-- Connectors -->
-    <path d="M 230 65 L 310 65" stroke="#30363d" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-    <path d="M 490 65 L 570 65" stroke="#30363d" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <!-- Connectors (Vector Arrows) -->
+    <line x1="230" y1="65" x2="300" y2="65" stroke="#30363d" stroke-width="2"/>
+    <polygon points="300,61 308,65 300,69" fill="#30363d"/>
+
+    <line x1="490" y1="65" x2="560" y2="65" stroke="#30363d" stroke-width="2"/>
+    <polygon points="560,61 568,65 560,69" fill="#30363d"/>
 
     <!-- Bottom Description -->
     <rect x="50" y="140" width="700" height="70" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
     <text x="70" y="165" font-family="monospace" font-size="13" fill="#c9d1d9">SYSTEM TOPO: Decentralized API integration, scalable microservices, telemetry visualization</text>
     <text x="70" y="190" font-family="monospace" font-size="13" fill="#8b949e">Status: Operational [100% stable execution]</text>
-
-    <!-- Arrow Marker -->
-    <defs>
-      <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-        <path d="M 0 1 L 10 5 L 0 9 z" fill="#30363d"/>
-      </marker>
-    </defs>
   </svg>

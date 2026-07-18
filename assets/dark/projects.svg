@@ -2,7 +2,7 @@
     <rect width="100%" height="100%" fill="#0d1117"/>
     <!-- Project 1 -->
     <rect x="20" y="20" width="245" height="200" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">🔐 CNC VAULT</text>
+    <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">CNC VAULT</text>
     <text x="40" y="90" font-family="monospace" font-size="12" fill="#8b949e">Centralized CNC/PLC backup with</text>
     <text x="40" y="110" font-family="monospace" font-size="12" fill="#8b949e">version control & live reporting.</text>
     <text x="40" y="130" font-family="monospace" font-size="12" fill="#8b949e">Efficiency improved by 70%.</text>
@@ -10,7 +10,7 @@
 
     <!-- Project 2 -->
     <rect x="285" y="20" width="245" height="200" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">🧑‍💻 DEV RANK</text>
+    <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">DEV RANK</text>
     <text x="305" y="90" font-family="monospace" font-size="12" fill="#8b949e">Developer discovery & ranking</text>
     <text x="305" y="110" font-family="monospace" font-size="12" fill="#8b949e">via Github/LeetCode profiling</text>
     <text x="305" y="130" font-family="monospace" font-size="12" fill="#8b949e">and dynamic data scrapers.</text>
@@ -18,7 +18,7 @@
 
     <!-- Project 3 -->
     <rect x="550" y="20" width="245" height="200" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="570" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">📊 EQ REV</text>
+    <text x="570" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">EQ REV</text>
     <text x="570" y="90" font-family="monospace" font-size="12" fill="#8b949e">Quick commerce SaaS analytics</text>
     <text x="570" y="110" font-family="monospace" font-size="12" fill="#8b949e">mapping 1,000+ D2C stores on</text>
     <text x="570" y="130" font-family="monospace" font-size="12" fill="#8b949e">Blinkit, Zepto, and Instamart.</text>
@@ -26,7 +26,7 @@
 
     <!-- Project 4 -->
     <rect x="815" y="20" width="245" height="200" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">🌐 BITLINKS</text>
+    <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#c9d1d9">BITLINKS</text>
     <text x="835" y="90" font-family="monospace" font-size="12" fill="#8b949e">Collaborative discovery & community</text>
     <text x="835" y="110" font-family="monospace" font-size="12" fill="#8b949e">network platform built for student</text>
     <text x="835" y="130" font-family="monospace" font-size="12" fill="#8b949e">interactions & networking.</text>
