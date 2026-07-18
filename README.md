@@ -1,16 +1,15 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=slice&color=gradient&customColorList=03001e,7303c0,ec38bc,fdeff9&height=200&section=header&text=THAYANITHI%20S&fontSize=70&fontAlignY=35&desc=Full%20Stack%20Software%20Engineer%20%7C%20SaaS%20Architect&descSize=18&descAlignY=60&animation=twinkling" width="100%"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=00D9FF,0077B5,100000,FF5722&height=220&section=header&text=THAYANITHI%20S&fontSize=75&fontAlignY=35&desc=Full%20Stack%20Software%20Engineer%20%7C%20SaaS%20Architect&descSize=18&descAlignY=58&animation=twinkling" width="100%"/>
 </div>
 
 <br/>
 
 <div align="center">
-  <h3>💻 Full Stack Engineer | CSE'27 | Building the Future, One Commit at a Time 🚀</h3>
+  <h3>⚡ Full Stack Engineer | CSE'27 | Engineering Scalable Solutions 🚀</h3>
   <p>
     <em>
       Crafting scalable, user-centric applications with modern tech stacks.<br/>
-      Passionate about clean code, robust APIs, and high-performance digital solutions.<br/>
-      Transforming ideas into reality through hands-on experience and innovation.
+      Passionate about clean code, robust APIs, and high-performance digital architectures.
     </em>
   </p>
 </div>
@@ -33,6 +32,16 @@
 
 ---
 
+## 🏆 Achievements & Milestones
+
+<p align="center">
+  <a href="https://github.com/ryo-ma/github-profile-trophy">
+    <img src="https://github-profile-trophy.vercel.app/?username=thayanithi15-git&theme=radical&row=1&column=5&margin-w=15&no-bg=true&no-frame=true" alt="GitHub Trophies" />
+  </a>
+</p>
+
+---
+
 ## 👤 About Me
 
 <img align="right" alt="Coding Animation" width="380" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif"/>
@@ -44,7 +53,7 @@ const thayanithi = {
   role: "Full Stack Software Engineer",
   education: "B.E. Computer Science Engineering (2023 - 2027)",
   institution: "Bannari Amman Institute of Technology",
-  cgpa: 8.2, // Verified 8.2 CGPA
+  cgpa: 8.2,
   location: "Namakkal, Tamil Nadu, India 🇮🇳",
 
   currentFocus: [
@@ -56,7 +65,6 @@ const thayanithi = {
   ],
 
   languages: ["TypeScript", "JavaScript", "Java", "Python", "C"],
-
   motto: "The best way to predict the future is to create it."
 };
 ```
@@ -69,7 +77,7 @@ const thayanithi = {
 
 | Duration | Role | Company | Stack & Impact |
 |:---|:---|:---|:---|
-| **Jan 2025 – Dec 2025** | 🏢 **Software Developer** *(Product Dev)* | **EQREV – Sai Sakthi Enterprises** | React.js, Zustand, Chart.js, Recharts, Hero UI. Built SaaS analytics giving D2C brands pin-code level insights across 1,000+ stores on Zepto, Blinkit & Instamart. |
+| **Jan 2025 – Dec 2025** | 🏢 **Software Developer** | **EQREV – Sai Sakthi Enterprises** | React.js, Zustand, Chart.js, Recharts, Hero UI. Built SaaS analytics giving D2C brands pin-code level insights across 1,000+ stores on Zepto, Blinkit & Instamart. |
 | **Sep 2024 – Apr 2025** | 🎨 **Full Stack Engineer** | **Crayon'd** | Next.js, Node.js, Express.js, APIs. Delivered 2+ client-facing products with BDD testing & modular design, boosting feature delivery by **20%**. |
 | **Sep 2025 – Jan 2026** | 🌐 **Frontend Engineer** | **Thinkuni** | Vue.js, State Management. Built multi-role dashboards and interactive learning visualizations with role-based access control. |
 
@@ -90,7 +98,6 @@ const thayanithi = {
         <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
         <img src="https://img.shields.io/badge/Express-339933?style=flat-square&logo=node.js&logoColor=white"/>
         <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-        <img src="https://img.shields.io/badge/GCP-4285F4?style=flat-square&logo=google-cloud&logoColor=white"/>
       </p>
     </td>
     <td width="33%" valign="top">
@@ -103,7 +110,6 @@ const thayanithi = {
         <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=next.js&logoColor=white"/>
         <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
         <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-        <img src="https://img.shields.io/badge/Scraping-FF6B35?style=flat-square&logo=dynamic&logoColor=white"/>
       </p>
     </td>
     <td width="33%" valign="top">
@@ -116,7 +122,6 @@ const thayanithi = {
         <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black"/>
         <img src="https://img.shields.io/badge/Zustand-orange?style=flat-square"/>
         <img src="https://img.shields.io/badge/BigQuery-4285F4?style=flat-square&logo=google-cloud&logoColor=white"/>
-        <img src="https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white"/>
       </p>
     </td>
   </tr>
@@ -147,24 +152,9 @@ const thayanithi = {
   </a>
 </p>
 
-<details>
-<summary><b>📦 Full Tech Stack Breakdown</b></summary>
-<br/>
-
-| Category | Technologies |
-|----------|-------------|
-| **Frontend** | React.js, Next.js, Vue.js, React Native, HTML5, CSS3, Tailwind CSS, Material-UI, Zustand, Redux |
-| **Backend** | Node.js, Express.js, Fastify, REST APIs, JWT, Middleware, Microservices |
-| **Databases** | MongoDB, MySQL, PostgreSQL, BigQuery, Sequelize |
-| **Cloud & Infra** | Google Cloud Platform, Vercel, Onrender, Cloudflare, Firebase |
-| **Languages** | TypeScript, JavaScript, Java, Python, C |
-| **Dev Tools** | VS Code, Git, GitHub, Postman, Swagger, Figma, BDD, Web Scraping |
-
-</details>
-
 ---
 
-## 📊 GitHub Analytics
+## 📊 GitHub Analytics & Activity
 
 <p align="center">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=thayanithi15-git&theme=radical" height="175"/>
@@ -173,14 +163,18 @@ const thayanithi = {
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=thayanithi15-git&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF" height="175"/>
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=thayanithi15-git&theme=react-dark&bg_color=0D1117&hide_border=true" width="100%"/>
+</p>
+
+<p align="center">
+  <img src="https://streak-stats.demolab.com?user=thayanithi15-git&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF&hide_border=true" height="175"/>
 </p>
 
 ---
 
-## 🏆 Achievements
+## 🏆 Highlighted Achievements
 
-| 🎯 | Highlight |
+| 🎯 | Achievement |
 |:--|:---------|
 | 🔢 | Solved **300+ problems** on LeetCode - strong DSA fundamentals |
 | 💻 | **2K+ commits** across projects and internships on GitHub |
@@ -204,5 +198,5 @@ const thayanithi = {
 <br/>
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,14,18,20,24&height=100&section=footer" width="100%"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=00D9FF,0077B5,100000,FF5722&height=100&section=footer" width="100%"/>
 </div>
