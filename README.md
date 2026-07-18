@@ -10,40 +10,78 @@
 
 ---
 
-### 🧬 Profile Overview
+### 💻 01 — System Terminal
 
-> **"The best way to predict the future is to create it."**
-> 
-> Highly passionate Full Stack Software Engineer specializing in Next.js, cross-platform mobile development, and scalable backend/cloud architectures. Deeply focused on performance tuning, custom API design, and building production-ready SaaS systems.
+<!-- Inline Animated SVG Terminal -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="240">
+  <style>
+    .bg { fill: #0d1117; rx: 6px; }
+    .header { fill: #161b22; }
+    .dot { r: 6px; cy: 15px; }
+    .dot-red { fill: #ff5f56; cx: 20px; }
+    .dot-yellow { fill: #ffbd2e; cx: 40px; }
+    .dot-green { fill: #27c93f; cx: 60px; }
+    .title { fill: #8b949e; font-family: monospace; font-size: 11px; }
+    .text { font-family: monospace; font-size: 14px; }
+    .cmd { fill: #58a6ff; }
+    .output { fill: #c9d1d9; }
+    .cursor { fill: #58a6ff; animation: blink 0.8s infinite; }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+  </style>
+  <rect width="100%" height="100%" class="bg" />
+  <path d="M 0,0 L 800,0 L 800,30 L 0,30 Z" class="header" />
+  <circle class="dot dot-red" />
+  <circle class="dot dot-yellow" />
+  <circle class="dot dot-green" />
+  <text x="400" y="20" text-anchor="middle" class="title">thayanithi@node-terminal:~</text>
+
+  <!-- Commands & outputs -->
+  <text x="25" y="65" class="text cmd">$ whoami</text>
+  <text x="25" y="85" class="text output">Thayanithi S — Software Development Engineer</text>
+  
+  <text x="25" y="115" class="text cmd">$ locate --focus</text>
+  <text x="25" y="135" class="text output">Next.js | React Native | Node.js | GCP | PostgreSQL | MongoDB</text>
+
+  <text x="25" y="165" class="text cmd">$ cat bio.txt</text>
+  <text x="25" y="185" class="text output">Fueled by logic, coffee, and a passion for scalable product delivery.</text>
+  
+  <text x="25" y="215" class="text cmd">$ initialized<rect x="135" y="202" width="8" height="15" class="cursor"/></text>
+</svg>
 
 ---
 
-### 🛠️ Core Stack
+### ⚡ 02 — Technology Marquee
 
-#### Languages & Frontend Platforms
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=ts,js,java,python,c,react,nextjs,vue,html,css,tailwind,redux&theme=dark" />
-  </a>
-</p>
-
-#### Backend, Databases & Cloud
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nodejs,express,fastify,mongodb,mysql,postgresql,firebase,gcp,docker,vercel,cloudflare&theme=dark" />
-  </a>
-</p>
-
-#### Developer Tools
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git,github,postman,figma,vscode&theme=dark" />
-  </a>
-</p>
+<!-- Inline SVG Tech Ticker Marquee Animation -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 60" width="100%" height="60">
+  <style>
+    .ticker-bg { fill: #0d1117; rx: 4px; stroke: #30363d; stroke-width: 1; }
+    .ticker-text {
+      font-family: monospace;
+      font-size: 16px;
+      font-weight: bold;
+      fill: #00D9FF;
+      white-space: nowrap;
+      animation: marquee 25s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+  <rect width="100%" height="100%" class="ticker-bg"/>
+  <text y="37" class="ticker-text">
+    NEXT.JS • TYPESCRIPT • REACT NATIVE • NODE.JS • EXPRESS • GO • POSTGRESQL • MONGODB • GOOGLE CLOUD • BIGQUERY • DOCKER • FLUTTER • ZUSTAND • REDUX
+  </text>
+</svg>
 
 ---
 
-### 🚀 Featured Work & Demos
+### 🚀 03 — Featured Projects
 
 * 🔐 **[CNC Vault](https://cnc-machines.vercel.app/)**
   * Centralized CNC/PLC backup system with version control, role-based machine assignment, live reporting, and automatic failure alerts. Improved workshop efficiency by **70%**.
@@ -60,7 +98,7 @@
 
 ---
 
-### 💼 Career Timeline
+### 💼 04 — Experience Ledger
 
 * 🏢 **Software Developer | EQREV – Sai Sakthi Enterprises** *(Jan 2025 – Dec 2025)*
   * Developed geo-analytics UI mapping active retail outlets on Q-Commerce apps using React, Zustand, and Recharts.
@@ -71,7 +109,7 @@
 
 ---
 
-### 🎓 Education & Credentials
+### 🎓 05 — Education & Credentials
 
 * 🏫 **B.E. Computer Science and Engineering** *(2023 - 2027)*
   * Bannari Amman Institute of Technology — **8.2 CGPA**
@@ -81,7 +119,7 @@
 
 ---
 
-### 📊 Github Telemetry
+### 📊 06 — Real-Time Telemetry
 
 <p align="center">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=thayanithi15-git&theme=radical" height="175"/>
@@ -96,3 +134,23 @@
 <p align="center">
   <img src="https://streak-stats.demolab.com?user=thayanithi15-git&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF&hide_border=true" height="175"/>
 </p>
+
+---
+
+## 🤝 Let's Connect
+
+<div align="center">
+
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-FF5722?style=for-the-badge&logoColor=white)](https://thayanithi.tech)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thayanithi15/)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:thayanithi2006s@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/thayanithi15-git)
+[![Resume](https://img.shields.io/badge/Resume-4CAF50?style=for-the-badge&logo=adobeacrobat&logoColor=white)](https://drive.google.com/file/d/1glUE-aanYT9BwxvJBjoAIVynuLLqm12N/view)
+
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,14,18,20,24&height=100&section=footer" width="100%"/>
+</div>
