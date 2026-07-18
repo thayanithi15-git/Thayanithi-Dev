@@ -85,7 +85,7 @@ const createEcosystem = (themeName) => {
 
     <!-- Box: Databases & Cloud -->
     <rect x="570" y="30" width="180" height="70" rx="4" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.accent}" stroke-width="1.5"/>
-    <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}" text-anchor="middle">Databases & Cloud</text>
+    <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}" text-anchor="middle">Databases &amp; Cloud</text>
     <text x="660" y="80" font-family="monospace" font-size="11" fill="${t.muted}" text-anchor="middle">GCP / Postgres / Mongo</text>
 
     <!-- Connectors (Vector Arrows) -->
@@ -110,14 +110,14 @@ const createProjects = (themeName) => {
     <rect x="20" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">CNC VAULT</text>
     <text x="40" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Centralized CNC/PLC backup with</text>
-    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.muted}">version control & live reporting.</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.muted}">version control &amp; live reporting.</text>
     <text x="40" y="130" font-family="monospace" font-size="12" fill="${t.muted}">Efficiency improved by 70%.</text>
     <text x="40" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Express | MongoDB | GCP</text>
 
     <!-- Project 2 -->
     <rect x="285" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">DEV RANK</text>
-    <text x="305" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Developer discovery & ranking</text>
+    <text x="305" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Developer discovery &amp; ranking</text>
     <text x="305" y="110" font-family="monospace" font-size="12" fill="${t.muted}">via Github/LeetCode profiling</text>
     <text x="305" y="130" font-family="monospace" font-size="12" fill="${t.muted}">and dynamic data scrapers.</text>
     <text x="305" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Scraping | MongoDB</text>
@@ -133,9 +133,9 @@ const createProjects = (themeName) => {
     <!-- Project 4 -->
     <rect x="815" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="${t.text}">BITLINKS</text>
-    <text x="835" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Collaborative discovery & community</text>
+    <text x="835" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Collaborative discovery &amp; community</text>
     <text x="835" y="110" font-family="monospace" font-size="12" fill="${t.muted}">network platform built for student</text>
-    <text x="835" y="130" font-family="monospace" font-size="12" fill="${t.muted}">interactions & networking.</text>
+    <text x="835" y="130" font-family="monospace" font-size="12" fill="${t.muted}">interactions &amp; networking.</text>
     <text x="835" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Framer Motion | Vercel</text>
   </svg>`;
 };
@@ -188,9 +188,9 @@ const createExperience = (themeName) => {
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <rect x="20" y="10" width="760" height="190" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}">Professional Overview</text>
-    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">| EQREV: Built geo-tracking & analytics UI mapping 1,000+ active retail outlets</text>
-    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">| Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
-    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">| Thinkuni: Engineered modular dashboards and role-based learning portals</text>
+    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">- EQREV: Built geo-tracking &amp; analytics UI mapping 1,000+ active retail outlets</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">- Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
+    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">- Thinkuni: Engineered modular dashboards and role-based learning portals</text>
     <text x="40" y="170" font-family="monospace" font-size="11" fill="${t.muted}">Total Tenure: 1.5+ Years Product Delivery Experience</text>
   </svg>`;
 };
@@ -201,10 +201,10 @@ const createStack = (themeName) => {
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <rect x="20" y="10" width="760" height="190" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     
-    <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.accent}">Languages & Frontend</text>
+    <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.accent}">Languages &amp; Frontend</text>
     <text x="40" y="70" font-family="monospace" font-size="12" fill="${t.text}">TypeScript, JavaScript, Java, Python, C / Next.js, React.js, Vue, Tailwind CSS, Redux, Zustand</text>
 
-    <text x="40" y="110" font-family="monospace" font-size="14" font-weight="bold" fill="${t.accent}">Backend, Databases & Cloud</text>
+    <text x="40" y="110" font-family="monospace" font-size="14" font-weight="bold" fill="${t.accent}">Backend, Databases &amp; Cloud</text>
     <text x="40" y="135" font-family="monospace" font-size="12" fill="${t.text}">Node.js, Express, Fastify, MongoDB, MySQL, PostgreSQL, GCP, Firebase, Docker, Vercel, Git</text>
 
     <text x="40" y="170" font-family="monospace" font-size="14" font-weight="bold" fill="${t.accent}">ORMs, Testing & Architecture</text>

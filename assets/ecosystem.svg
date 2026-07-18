@@ -13,7 +13,7 @@
 
     <!-- Box: Databases & Cloud -->
     <rect x="570" y="30" width="180" height="70" rx="4" fill="#f6f8fa" stroke="#0969da" stroke-width="1.5"/>
-    <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#0d1117" text-anchor="middle">Databases & Cloud</text>
+    <text x="660" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#0d1117" text-anchor="middle">Databases &amp; Cloud</text>
     <text x="660" y="80" font-family="monospace" font-size="11" fill="#57606a" text-anchor="middle">GCP / Postgres / Mongo</text>
 
     <!-- Connectors (Vector Arrows) -->
