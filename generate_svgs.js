@@ -112,7 +112,7 @@ const createProjects = (themeName) => {
     <text x="40" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Centralized CNC/PLC backup with</text>
     <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.muted}">version control & live reporting.</text>
     <text x="40" y="130" font-family="monospace" font-size="12" fill="${t.muted}">Efficiency improved by 70%.</text>
-    <text x="40" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js • Express • MongoDB • GCP</text>
+    <text x="40" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Express | MongoDB | GCP</text>
 
     <!-- Project 2 -->
     <rect x="285" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
@@ -120,7 +120,7 @@ const createProjects = (themeName) => {
     <text x="305" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Developer discovery & ranking</text>
     <text x="305" y="110" font-family="monospace" font-size="12" fill="${t.muted}">via Github/LeetCode profiling</text>
     <text x="305" y="130" font-family="monospace" font-size="12" fill="${t.muted}">and dynamic data scrapers.</text>
-    <text x="305" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js • Scraping • MongoDB</text>
+    <text x="305" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Scraping | MongoDB</text>
 
     <!-- Project 3 -->
     <rect x="550" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
@@ -128,7 +128,7 @@ const createProjects = (themeName) => {
     <text x="570" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Quick commerce SaaS analytics</text>
     <text x="570" y="110" font-family="monospace" font-size="12" fill="${t.muted}">mapping 1,000+ D2C stores on</text>
     <text x="570" y="130" font-family="monospace" font-size="12" fill="${t.muted}">Blinkit, Zepto, and Instamart.</text>
-    <text x="570" y="170" font-family="monospace" font-size="12" fill="${t.accent}">React • BigQuery • Cloudflare • Zustand</text>
+    <text x="570" y="170" font-family="monospace" font-size="12" fill="${t.accent}">React | BigQuery | Cloudflare | Zustand</text>
 
     <!-- Project 4 -->
     <rect x="815" y="20" width="245" height="200" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
@@ -136,7 +136,7 @@ const createProjects = (themeName) => {
     <text x="835" y="90" font-family="monospace" font-size="12" fill="${t.muted}">Collaborative discovery & community</text>
     <text x="835" y="110" font-family="monospace" font-size="12" fill="${t.muted}">network platform built for student</text>
     <text x="835" y="130" font-family="monospace" font-size="12" fill="${t.muted}">interactions & networking.</text>
-    <text x="835" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js • Framer Motion • Vercel</text>
+    <text x="835" y="170" font-family="monospace" font-size="12" fill="${t.accent}">Next.js | Framer Motion | Vercel</text>
   </svg>`;
 };
 
@@ -188,9 +188,9 @@ const createExperience = (themeName) => {
     <rect width="100%" height="100%" fill="${t.bg}"/>
     <rect x="20" y="10" width="760" height="190" rx="6" fill="${themeName === 'dark' ? '#161b22' : '#f6f8fa'}" stroke="${t.border}" stroke-width="1.5"/>
     <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="${t.text}">Professional Overview</text>
-    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">- EQREV: Built geo-tracking & analytics UI mapping 1,000+ active retail outlets</text>
-    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">- Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
-    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">- Thinkuni: Engineered modular dashboards and role-based learning portals</text>
+    <text x="40" y="80" font-family="monospace" font-size="12" fill="${t.text}">| EQREV: Built geo-tracking & analytics UI mapping 1,000+ active retail outlets</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="${t.text}">| Crayon'd: Led implementation of client projects, slashing API delivery lag by 20%</text>
+    <text x="40" y="140" font-family="monospace" font-size="12" fill="${t.text}">| Thinkuni: Engineered modular dashboards and role-based learning portals</text>
     <text x="40" y="170" font-family="monospace" font-size="11" fill="${t.muted}">Total Tenure: 1.5+ Years Product Delivery Experience</text>
   </svg>`;
 };
