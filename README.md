@@ -190,28 +190,40 @@ const thayanithi = {
 
 <table>
   <tr>
-    <td width="30%"><strong>Frontend</strong></td>
-    <td>React.js, Next.js, Vue.js, React Native, HTML5, CSS3, Tailwind CSS, Material-UI, Zustand, Redux</td>
+    <td width="30%"><strong>Frontend & Mobile</strong></td>
+    <td>React.js, Next.js (SSR/CSR), Vue.js, React Native (Bridge/Native Modules), Flutter, HTML5, CSS3, Tailwind CSS, Material-UI</td>
   </tr>
   <tr>
-    <td><strong>Backend</strong></td>
-    <td>Node.js, Express.js, Fastify, REST APIs, JWT, Middleware, Microservices</td>
+    <td><strong>State Management</strong></td>
+    <td>Zustand, Redux, Context Providers, State Hydration</td>
   </tr>
   <tr>
-    <td><strong>Databases</strong></td>
-    <td>MongoDB, MySQL, PostgreSQL, BigQuery, Sequelize</td>
+    <td><strong>Backend & Runtimes</strong></td>
+    <td>Node.js (Event Loop, Cluster, Worker Threads), Express.js, Fastify, REST APIs, Microservices</td>
+  </tr>
+  <tr>
+    <td><strong>Databases & ORMs</strong></td>
+    <td>MongoDB, MySQL, PostgreSQL, BigQuery, Prisma, Sequelize</td>
+  </tr>
+  <tr>
+    <td><strong>Testing & Scraping</strong></td>
+    <td>BDD Testing, Unit and Integration suites, Web Scraping (Data collection engines)</td>
+  </tr>
+  <tr>
+    <td><strong>Security & Auth</strong></td>
+    <td>JWT Authentication, OAuth, Role-Based Access Control (RBAC), SSL Encryption</td>
   </tr>
   <tr>
     <td><strong>Cloud & Infra</strong></td>
-    <td>Google Cloud Platform, Vercel, Onrender, Cloudflare, Firebase</td>
+    <td>Google Cloud Platform (GCP), Vercel, Onrender, Cloudflare, Firebase, Docker</td>
   </tr>
   <tr>
     <td><strong>Languages</strong></td>
-    <td>TypeScript, JavaScript, Java, Python, C</td>
+    <td>TypeScript, JavaScript, Java (OOP), Python, C</td>
   </tr>
   <tr>
-    <td><strong>Dev Tools</strong></td>
-    <td>VS Code, Git, GitHub, Postman, Swagger, Figma, BDD, Web Scraping</td>
+    <td><strong>Developer Tools</strong></td>
+    <td>VS Code, Git, GitHub, Postman, Swagger, Figma</td>
   </tr>
 </table>
 
