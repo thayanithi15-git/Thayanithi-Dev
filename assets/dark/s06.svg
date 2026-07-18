@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 60" width="100%" height="100%">
+    <rect width="100%" height="100%" fill="#0d1117"/>
+    <line x1="20" y1="30" x2="80" y2="30" stroke="#58a6ff" stroke-width="2"/>
+    <text x="100" y="36" font-family="monospace" font-size="18" font-weight="bold" fill="#c9d1d9">06 — STACK</text>
+    <line x1="300" y1="30" x2="780" y2="30" stroke="#30363d" stroke-width="1" stroke-dasharray="2 4"/>
+  </svg>

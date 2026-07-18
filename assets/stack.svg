@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" width="100%" height="100%">
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <rect x="20" y="10" width="760" height="190" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <text x="40" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="#0969da">Languages & Frontend</text>
+    <text x="40" y="70" font-family="monospace" font-size="12" fill="#0d1117">TypeScript, JavaScript, Java, Python, C / Next.js, React.js, Vue, Tailwind CSS, Redux, Zustand</text>
+
+    <text x="40" y="110" font-family="monospace" font-size="14" font-weight="bold" fill="#0969da">Backend, Databases & Cloud</text>
+    <text x="40" y="135" font-family="monospace" font-size="12" fill="#0d1117">Node.js, Express, Fastify, MongoDB, MySQL, PostgreSQL, GCP, Firebase, Docker, Vercel, Git</text>
+
+    <text x="40" y="170" font-family="monospace" font-size="14" font-weight="bold" fill="#0969da">ORMs, Testing & Architecture</text>
+    <text x="40" y="195" font-family="monospace" font-size="12" fill="#0d1117">Prisma, Sequelize, BDD Testing, Unit and Integration suites, REST APIs, Web Scraping</text>
+  </svg>

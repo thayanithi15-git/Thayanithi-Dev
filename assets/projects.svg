@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 240" width="100%" height="100%">
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    <!-- Project 1 -->
+    <rect x="20" y="20" width="245" height="200" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="40" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#0d1117">🔐 CNC VAULT</text>
+    <text x="40" y="90" font-family="monospace" font-size="12" fill="#57606a">Centralized CNC/PLC backup with</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="#57606a">version control & live reporting.</text>
+    <text x="40" y="130" font-family="monospace" font-size="12" fill="#57606a">Efficiency improved by 70%.</text>
+    <text x="40" y="170" font-family="monospace" font-size="12" fill="#0969da">Next.js • Express • MongoDB • GCP</text>
+
+    <!-- Project 2 -->
+    <rect x="285" y="20" width="245" height="200" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="305" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#0d1117">🧑‍💻 DEV RANK</text>
+    <text x="305" y="90" font-family="monospace" font-size="12" fill="#57606a">Developer discovery & ranking</text>
+    <text x="305" y="110" font-family="monospace" font-size="12" fill="#57606a">via Github/LeetCode profiling</text>
+    <text x="305" y="130" font-family="monospace" font-size="12" fill="#57606a">and dynamic data scrapers.</text>
+    <text x="305" y="170" font-family="monospace" font-size="12" fill="#0969da">Next.js • Scraping • MongoDB</text>
+
+    <!-- Project 3 -->
+    <rect x="550" y="20" width="245" height="200" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="570" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#0d1117">📊 EQ REV</text>
+    <text x="570" y="90" font-family="monospace" font-size="12" fill="#57606a">Quick commerce SaaS analytics</text>
+    <text x="570" y="110" font-family="monospace" font-size="12" fill="#57606a">mapping 1,000+ D2C stores on</text>
+    <text x="570" y="130" font-family="monospace" font-size="12" fill="#57606a">Blinkit, Zepto, and Instamart.</text>
+    <text x="570" y="170" font-family="monospace" font-size="12" fill="#0969da">React • BigQuery • Cloudflare • Zustand</text>
+
+    <!-- Project 4 -->
+    <rect x="815" y="20" width="245" height="200" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="835" y="55" font-family="monospace" font-size="16" font-weight="bold" fill="#0d1117">🌐 BITLINKS</text>
+    <text x="835" y="90" font-family="monospace" font-size="12" fill="#57606a">Collaborative discovery & community</text>
+    <text x="835" y="110" font-family="monospace" font-size="12" fill="#57606a">network platform built for student</text>
+    <text x="835" y="130" font-family="monospace" font-size="12" fill="#57606a">interactions & networking.</text>
+    <text x="835" y="170" font-family="monospace" font-size="12" fill="#0969da">Next.js • Framer Motion • Vercel</text>
+  </svg>
