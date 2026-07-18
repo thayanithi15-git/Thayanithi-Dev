@@ -1,29 +1,27 @@
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=venom&color=gradient&customColorList=12,14,18,20,24&height=220&section=header&text=THAYANITHI%20S&fontSize=80&fontAlignY=45&desc=Full%20Stack%20Software%20Engineer%20%7C%20SaaS%20Architect%20%7C%20Problem%20Solver&descSize=20&descAlignY=65&animation=twinkling" width="100%"/>
-</div>
+# 💻 Thayanithi S | Software Development Engineer
 
-<br/>
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=24&duration=3500&pause=1000&color=00D9FF&center=true&vCenter=true&width=900&lines=Next.js+%7C+React+Native+%7C+TypeScript;SaaS+Platform+Builder;Node.js+%7C+Express.js+%7C+Go+%7C+GCP;300%2B+LeetCode+Problems+Solved;2K%2B+GitHub+Commits" alt="Typing SVG" />
+</p>
 
-<div align="center">
-  <h3>💻 Full Stack Engineer | CSE'27 | Building the Future, One Commit at a Time 🚀</h3>
-  <p>
-    <em>
-      Crafting scalable, user-centric applications with modern tech stacks.<br/>
-      Passionate about clean code, robust APIs, and high-performance digital solutions.<br/>
-      Transforming ideas into reality through hands-on experience and innovation.
-    </em>
-  </p>
-</div>
+```text
+┌──────────────────────────────────────────┐
+│  THAYANITHI S - SOFTWARE ENGINEER       │
+│  ┌──────────────────┐ ┌────────────────┐ │
+│  │ FULLSTACK WEB    │ │ MOBILE APPS    │ │
+│  │ Next.js/React.js │ │ React Native   │ │
+│  └────────┬─────────┘ └────────┬───────┘ │
+│           │                    │         │
+│  ┌────────┴────────────────────┴───────┐ │
+│  │ BACKEND ARCHITECT & DATABASES       │ │
+│  │ Node.js, Go, MongoDB, PostgreSQL, GCP│ │
+│  └─────────────────────────────────────┘ │
+└──────────────────────────────────────────┘
+```
 
-<br/>
-
-<div align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=24&duration=3500&pause=1000&color=00D9FF&center=true&vCenter=true&width=900&lines=Next.js+%7C+React+Native+%7C+TypeScript;SaaS+Platform+Builder;Node.js+%7C+Express.js+%7C+Go+%7C+GCP;300%2B+LeetCode+Problems+Solved;2K%2B+GitHub+Commits" alt="Typing SVG" />
-  </a>
-</div>
-
-<br/>
+> **The best way to predict the future is to create it.**
+> 
+> Software Development Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex requirements into clean, state-of-the-art software systems.
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=thayanithi15-git&color=00D9FF&style=for-the-badge&label=VISITORS" alt="Profile Views"/>
@@ -33,116 +31,101 @@
 
 ---
 
-## 👤 01 — Whoami
+## 🛠️ Tech Topology
 
-<img align="right" alt="Coding Animation" width="380" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif"/>
-
-<div style="margin-top: 30px;">
-
-```typescript
-const thayanithi = {
-  role: "Full Stack Software Engineer",
-  education: "B.E. Computer Science Engineering (2023 - 2027)",
-  institution: "Bannari Amman Institute of Technology",
-  cgpa: 8.2,
-  location: "Namakkal, Tamil Nadu, India 🇮🇳",
-
-  currentFocus: [
-    "SaaS Platform Development",
-    "Next.js, TypeScript & Full-Stack Architecture",
-    "Backend & APIs (Node.js, Express, Go, JWT, OAuth)",
-    "Database Optimizations (PostgreSQL, MongoDB)",
-    "Cloud Deployments (GCP, BigQuery, Vercel, Cloudflare)"
-  ],
-
-  languages: ["TypeScript", "JavaScript", "Java", "Python", "C"],
-  motto: "The best way to predict the future is to create it."
-};
+```text
+[Languages] ─────────────── [Frameworks]
+     │                           │
+     ├───────[TypeScript]────────┼─────── [Next.js / React]
+     ├───────[JavaScript]────────┼─────── [React Native / Flutter]
+     ├───────[C / Java]──────────┼─────── [Node.js / Express]
+     │                           │
+[Databases] ─────────────── [Cloud & Tools]
+     │                           │
+     ├───────[PostgreSQL]────────┼─────── [Google Cloud / BigQuery]
+     └───────[MongoDB]───────────└─────── [Git / GitHub / REST APIs]
 ```
 
-<br clear="right"/>
+* **Languages:** TypeScript, JavaScript, Java, Python, C
+* **Frontend & Mobile:** Next.js, React.js, React Native, Vue, Flutter, HTML, CSS, Tailwind CSS, Redux, Zustand
+* **Backend & Databases:** Node.js, Express, Fastify, MongoDB, MySQL, PostgreSQL, Firebase
+* **Cloud & DevTools:** Google Cloud, BigQuery, Git, GitHub, REST APIs, Postman, Vercel, Cloudflare, Docker, Figma, VS Code
 
 ---
 
-## 🌐 02 — Project Ecosystem
+## 💼 Distributed Ledger (Experience)
 
-```
-             [Frontend Platforms] ─────────────── [Backend Services]
-                      │                                    │
-           (Next.js / React / Vue)              (Node.js / Express / Go)
-                      │                                    │
-                      └────────────────┬───────────────────┘
-                                       │
-                             [Databases & Cloud]
-                           (GCP / Postgres / Mongo)
+```text
+ EQREV (Jan-Dec 2025)     Crayon'd (Sep 24-Apr 25)
+┌──────────────────────┐  ┌──────────────────────┐
+│ Role: Software Eng   │─>│ Role: Software Eng   │
+│ Focus: SaaS & Q-Comm │  │ Focus: React & APIs  │
+│ Tech: React, Zustand │  │ Tech: Node, Express  │
+└──────────────────────┘  └──────────────────────┘
+           │                         │
+           └─────────> Thinkuni ─────┘
+                       (Sep 25 - Jan 26)
+                       Role: Frontend Engineer
 ```
 
-> **Ecosystem status: Operational (100% stable execution)**
-> Centralized REST API routing, secure authentication gateways, real-time analytics streaming, and multi-tenant SaaS provisioning.
+* **Software Developer @ EQREV – Sai Sakthi Enterprises** *(Jan 2025 – Dec 2025)*
+  * Engineered a SaaS analytics platform giving brands pin-code level insights across 1,000+ stores on Zepto, Blinkit & Instamart. Adopted by D2C brands like Mee Mee, Ramraj, and Underneat.
+* **Full Stack Engineer @ Crayon'd** *(Sep 2024 – Apr 2025)*
+  * Delivered 2+ client-facing products with Next.js, BDD API testing & modular design, enabling 20% faster feature delivery.
+* **Frontend Engineer @ Thinkuni** *(Oct 2025 – Jan 2026)*
+  * Built a multi-role social networking platform (fashion, careers, entertainment) with role-based access control and cross-platform consistency.
 
 ---
 
-## 🚀 03 — Featured Projects
+## 🚀 Featured Projects
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🔐 CNC VAULT</h3>
-      <p>Centralized CNC/PLC backup system with version control, role-based machine assignment, live reporting & failure alerts. Improved operational efficiency by <strong>70%</strong>.</p>
-      <p>
-        <a href="https://cnc-machines.vercel.app/"><img src="https://img.shields.io/badge/Live_Demo-0078d4?style=flat-square&logo=microsoft&logoColor=white" alt="Live Demo"/></a>
-      </p>
-      <p>
-        <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=next.js&logoColor=white"/>
-        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
-        <img src="https://img.shields.io/badge/Express-339933?style=flat-square&logo=node.js&logoColor=white"/>
-        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🧑‍💻 DEV RANK</h3>
-      <p>AI-powered developer ranking platform - connect GitHub & LeetCode profiles, get ranked, and get discovered by recruiters via smart matching & OTP-verified scraping.</p>
-      <p>
-        <a href="https://github.com/thayanithi15-git"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="Repository"/></a>
-      </p>
-      <p>
-        <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=next.js&logoColor=white"/>
-        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
-        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>📊 EQ REV</h3>
-      <p>Scalable multi-product analytics platform with OTP login, role-based auth, real-time trend visualizations powered by BigQuery & Cloudflare.</p>
-      <p>
-        <a href="https://app.eqrev.com/"><img src="https://img.shields.io/badge/Live_Demo-0078d4?style=flat-square&logo=microsoft&logoColor=white" alt="Live Demo"/></a>
-      </p>
-      <p>
-        <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black"/>
-        <img src="https://img.shields.io/badge/Zustand-orange?style=flat-square"/>
-        <img src="https://img.shields.io/badge/BigQuery-4285F4?style=flat-square&logo=google-cloud&logoColor=white"/>
-      </p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🌐 BITLINKS</h3>
-      <p>Collaborative discovery & community network platform built for student interactions & networking.</p>
-      <p>
-        <a href="https://bitlinks.bitsathy.ac.in/"><img src="https://img.shields.io/badge/Live_Demo-0078d4?style=flat-square&logo=microsoft&logoColor=white" alt="Live Demo"/></a>
-      </p>
-      <p>
-        <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=next.js&logoColor=white"/>
-        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
-        <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white"/>
-      </p>
-    </td>
-  </tr>
-</table>
+```text
+┌──────────────────────────────────────────┐
+│     THAYANITHI S - FEATURED PROJECTS     │
+├──────────────────────────────────────────┤
+│     CNC VAULT - SECURE CONTROL HUB       │
+├──────────────────────────────────────────┤
+│     DEV RANK - DEVELOPER RANKING         │
+├──────────────────────────────────────────┤
+│     EQ REV - QUICK COMMERCE ANALYTICS    │
+├──────────────────────────────────────────┤
+│     BITLINKS - COMMUNITY NETWORK         │
+└──────────────────────────────────────────┘
+```
+
+* 🔐 **[CNC Vault](https://cnc-machines.vercel.app/)** – Centralized CNC/PLC backup system with version control, role-based machine assignment, live reporting & failure alerts. Improved operational efficiency by 70%.
+* 🧑‍💻 **[Dev Rank](https://github.com/thayanithi15-git)** – AI-powered developer ranking platform - connect GitHub & LeetCode profiles, get ranked, and get discovered by recruiters via smart matching & OTP-verified scraping.
+* 📊 **[EQ REV](https://app.eqrev.com/)** – Scalable multi-product analytics platform with OTP login, role-based auth, real-time trend visualizations powered by BigQuery & Cloudflare.
+* 🌐 **[Bitlinks](https://bitlinks.bitsathy.ac.in/)** – Collaborative discovery & community network platform built for student interactions & networking.
 
 ---
 
-## 📊 04 — Telemetry
+## 🎓 Compiler Design (Education)
+
+```text
+Bannari Amman Institute of Technology
+(2023 - 2027) ──> B.E. Computer Science and Engineering
+                     │
+              CGPA Compilation
+                     │
+             ┌───────┴───────┐
+             │ Current CGPA  │
+             │ ┌──┬──┬──┐    │
+             │ │8.│2 │  │    │
+             │ └──┴──┴──┘    │
+             └───────────────┘
+```
+
+* **Major:** Computer Science and Engineering (2023 - 2027)
+* **CGPA:** 8.2 / 10.0
+* **Achievements:**
+  * Selected as finalist in **Sakthi Hackathon** (among 1,000+ participants).
+  * Scored 90% in **NPTEL Java Certification** (OOP fundamentals).
+  * Solved **300+ problems** on LeetCode.
+
+---
+
+## 📊 GitHub Analytics
 
 <p align="center">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=thayanithi15-git&theme=radical" height="175"/>
@@ -151,76 +134,8 @@ const thayanithi = {
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=thayanithi15-git&theme=react-dark&bg_color=0D1117&hide_border=true" width="100%"/>
-</p>
-
-<p align="center">
   <img src="https://streak-stats.demolab.com?user=thayanithi15-git&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF&hide_border=true" height="175"/>
 </p>
-
----
-
-## 💼 05 — Professional Route
-
-### Internship Timeline
-```
-   Crayon'd (Sep 24 - Apr 25)            EQREV (Jan 25 - Dec 25)           Thinkuni (Oct 25 - Jan 26)
-  ┌──────────────────────────┐         ┌─────────────────────────┐        ┌─────────────────────────┐
-  │  Full Stack Engineer     │────────>│   Software Developer    │───────>│    Frontend Engineer    │
-  │  React, Node, Express    │         │   React, Zustand, APIs  │        │    Vue.js, Dashboards   │
-  └──────────────────────────┘         └─────────────────────────┘        └─────────────────────────┘
-```
-
-#### **Software Developer** | **EQREV – Sai Sakthi Enterprises** *(Jan 2025 – Dec 2025)*
-* **Geo-Analytics Dashboard:** Built data-rich analytics mapping 1,000+ retail stores on Zepto, Blinkit & Instamart for D2C brands.
-* **Tech Stack:** React, Zustand, Chart.js, Recharts, Hero UI.
-
-#### **Full Stack Engineer** | **Crayon'd** *(Sep 2024 – Apr 2025)*
-* **Fast Feature Delivery:** Designed scalable API layers using Node.js & Express, improving delivery speed by **20%**.
-* **Tech Stack:** Next.js, Express, BDD API Testing, Postman.
-
-#### **Frontend Engineer** | **Thinkuni** *(Oct 2025 – Jan 2026)*
-* **Visual Portals:** Engineered responsive learning modules and multi-role social platform dashboards using Vue.js.
-
----
-
-## 🛠️ 06 — Tech Stack
-
-### Languages & Frameworks
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=ts,js,java,python,c,react,nextjs,vue,html,css,tailwind,redux&theme=dark" />
-  </a>
-</p>
-
-### Backend, Databases & Cloud
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nodejs,express,fastify,mongodb,mysql,postgresql,firebase,gcp,docker,vercel,cloudflare&theme=dark" />
-  </a>
-</p>
-
-### Development Tools
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git,github,postman,figma,vscode&theme=dark" />
-  </a>
-</p>
-
-<details>
-<summary><b>📦 Full Tech Stack Breakdown</b></summary>
-<br/>
-
-| Category | Technologies |
-|----------|-------------|
-| **Frontend** | React.js, Next.js, Vue.js, React Native, HTML5, CSS3, Tailwind CSS, Material-UI, Zustand, Redux |
-| **Backend** | Node.js, Express.js, Fastify, REST APIs, JWT, Middleware, Microservices |
-| **Databases** | MongoDB, MySQL, PostgreSQL, BigQuery, Sequelize |
-| **Cloud & Infra** | Google Cloud Platform, Vercel, Onrender, Cloudflare, Firebase |
-| **Languages** | TypeScript, JavaScript, Java, Python, C |
-| **Dev Tools** | VS Code, Git, GitHub, Postman, Swagger, Figma, BDD, Web Scraping |
-
-</details>
 
 ---
 
