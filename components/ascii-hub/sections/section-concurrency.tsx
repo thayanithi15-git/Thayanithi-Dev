@@ -84,106 +84,94 @@ function generateStaticLanes(): ThreadLane[] {
 function TimelineView() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-  const [lanes, setLanes] = useState<ThreadLane[]>(generateStaticLanes)
-  const [tick, setTick] = useState(0)
-
-  useEffect(() => {
-    setLanes(generateLanes())
-  }, [])
-
-  useEffect(() => {
-    if (!isInView) return
-    const interval = setInterval(() => {
-      setLanes(generateLanes())
-      setTick((t) => t + 1)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [isInView])
 
   return (
-    <div ref={ref} className="overflow-hidden border border-border" style={{ boxShadow: shadow }}>
-      <div className="flex items-center justify-between border-b border-border bg-secondary/10 px-4 py-2">
+    <div ref={ref} className="overflow-hidden border border-border bg-background" style={{ boxShadow: shadow }}>
+      <div className="flex items-center justify-between border-b border-border bg-secondary/15 px-4 py-2">
         <div className="flex items-center gap-2">
           <motion.div
             className="h-2 w-2 bg-foreground"
             animate={isInView ? { opacity: [1, 0.3, 1] } : {}}
-            transition={{ repeat: Infinity, duration: 1 }}
+            transition={{ repeat: Infinity, duration: 1.2 }}
           />
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            System activity monitor — thread execution timeline
+            System target roadmap — domain focus & active targets
           </span>
         </div>
-        <span className="font-mono text-[10px] text-muted-foreground">0ms — 100ms</span>
+        <span className="font-mono text-[10px] text-muted-foreground">dev status: active</span>
       </div>
 
-      {/* Time scale */}
-      <div className="flex border-b border-border px-4 py-1">
-        <div className="hidden md:block w-48 flex-shrink-0" />
-        <div className="flex flex-1 justify-between font-mono text-[9px] text-muted-foreground/50">
-          {[0, 20, 40, 60, 80, 100].map((t) => (
-            <span key={t}>{t}ms</span>
-          ))}
-        </div>
-      </div>
-
-      {/* Thread lanes */}
-      {lanes.map((thread, i) => (
+      {/* Target domains */}
+      {threadLanesMeta.map((thread, i) => (
         <motion.div
-          key={thread.id}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.1 + i * 0.05 }}
-          className="flex flex-col md:flex-row md:items-center border-b border-border last:border-b-0 py-3 px-4 gap-4"
+          key={thread.name}
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1 + i * 0.08 }}
+          className="flex flex-col lg:flex-row lg:items-center border-b border-border last:border-b-0 py-4 px-4 gap-4"
         >
-          {/* Left side: title alone in white */}
+          {/* Left side: Domain name */}
           <div className="w-48 shrink-0 flex items-center gap-2">
             <div className="h-1.5 w-1.5 bg-foreground shrink-0" />
-            <span className="font-mono text-[10px] font-bold text-foreground truncate">{thread.label}</span>
+            <span className="font-mono text-[10px] font-bold text-foreground uppercase tracking-wider">{thread.name}</span>
           </div>
 
-          {/* Right side: boxes representing subtopics */}
-          <div className="flex flex-wrap gap-4 flex-1">
-            {threadLanesMeta[i]?.items.map((subtopic, subIdx) => (
-              <div 
-                key={subtopic} 
-                className="relative flex-1 min-w-[130px] h-8 bg-border/20 border border-border/40 flex items-center justify-center overflow-hidden"
-              >
-                {/* Animated lane segments (behind the text) */}
-                <div className="absolute inset-0 pointer-events-none select-none">
-                  {thread.segments.map((seg, j) => (
-                    <motion.div
-                      key={`${tick}-${subIdx}-${j}`}
-                      className={`absolute top-0 bottom-0 h-full ${
-                        seg.type === "work" ? "bg-foreground/20"
-                        : seg.type === "wait" ? "bg-foreground/5"
-                        : "bg-muted-foreground/10"
-                      }`}
-                      style={{ left: `${seg.start}%`, width: `${seg.end - seg.start}%` }}
-                      initial={{ scaleX: 0, originX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.5, delay: i * 0.04 + j * 0.03, ease: "easeOut" }}
-                    />
-                  ))}
-                </div>
-                {/* Text inside the animating box */}
-                <span className="relative z-10 font-mono text-[9px] font-bold text-foreground px-2 text-center pointer-events-none select-none">
-                  {subtopic}
-                </span>
-              </div>
-            ))}
+          {/* Right side: Interactive subtopic cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 flex-1">
+            {thread.items.map((subtopic, subIdx) => {
+              // Distribute statuses:
+              // i.e., first items are Active, middle are Researching, last are Backlog
+              const statusType = subIdx < 2 ? "active" : (subIdx < 4 ? "research" : "backlog");
+              const statusLabel = statusType === "active" ? "Active" : (statusType === "research" ? "Research" : "Backlog");
+              const statusColor = statusType === "active" ? "bg-white" : (statusType === "research" ? "bg-white/40" : "bg-transparent border border-white/45");
+
+              return (
+                <motion.div 
+                  key={subtopic} 
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="relative p-2.5 bg-secondary/10 border border-border flex flex-col justify-between hover:border-foreground hover:bg-secondary/25 transition-all duration-200 cursor-pointer group overflow-hidden min-h-[56px]"
+                  style={{ boxShadow: shadow }}
+                >
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <span className="font-mono text-[8px] text-muted-foreground uppercase tracking-wider">
+                      {statusLabel}
+                    </span>
+                    <div className={`h-1.5 w-1.5 shrink-0 ${statusColor}`} />
+                  </div>
+                  
+                  <span className="font-mono text-[9px] font-bold text-foreground leading-tight tracking-wide">
+                    {subtopic}
+                  </span>
+                  
+                  {/* Glowing progress scanner line for active cards */}
+                  {statusType === "active" && (
+                    <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-secondary/50 overflow-hidden">
+                      <motion.div 
+                        className="h-full bg-white w-1/2"
+                        initial={{ left: "-100%" }}
+                        animate={{ left: "100%" }}
+                        transition={{ repeat: Infinity, duration: 1.8, ease: "linear" }}
+                        style={{ position: "absolute" }}
+                      />
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       ))}
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-4 md:gap-6 border-t border-border px-4 py-2">
+      <div className="flex flex-wrap gap-4 md:gap-6 border-t border-border px-4 py-2 bg-secondary/5">
         {[
-          { label: "Active Learning & Labs", cls: "bg-foreground" },
-          { label: "Structured Research", cls: "bg-foreground/25" },
-          { label: "Target Implementation / Backlog", cls: "bg-muted-foreground/45" },
+          { label: "Active Learning & Labs", cls: "bg-white" },
+          { label: "Structured Research", cls: "bg-white/45" },
+          { label: "Target Implementation / Backlog", cls: "border border-white/45" },
         ].map((l) => (
           <div key={l.label} className="flex items-center gap-1.5">
-            <div className={`h-2 w-4 ${l.cls}`} />
+            <div className={`h-1.5 w-3 ${l.cls}`} />
             <span className="font-mono text-[9px] text-muted-foreground">{l.label}</span>
           </div>
         ))}
@@ -202,7 +190,7 @@ function ChannelMonitor() {
     const interval = setInterval(() => {
       setBufferFill((prev) => {
         const delta = (Math.random() - 0.4) * 20
-        return Math.max(0, Math.min(128, prev + delta))
+        return Math.max(0, Math.min(123, prev + delta))
       })
     }, 300)
     return () => clearInterval(interval)

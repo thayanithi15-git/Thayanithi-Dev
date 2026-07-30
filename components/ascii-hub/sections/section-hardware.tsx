@@ -68,7 +68,7 @@ const layers = [
     name: "DEV RANK",
     desc: "Developer Ranking Platform. Connects coding profiles (GitHub, LeetCode) to compute and display rankings in developer communities, helping recruiters discover top talent.",
     detail: "Next.js | Rapid API | Data Scraping | Tailwind CSS | TypeScript",
-    url: "https://github.com/thayanithi15-git",
+    url: "http://dev-rank.vercel.app/",
     color: "bg-foreground/35",
     textColor: "text-foreground",
     image: devrankImg,
@@ -184,7 +184,7 @@ function CombinedRegistry() {
     { name: "EQ_REV", value: "app.eqrev.com", href: "https://app.eqrev.com/", techs: ["React.js", "Chart.js", "Recharts", "Tailwind CSS", "Hero UI", "Zustand"], description: "SaaS analytics for Quick Commerce brands. Deployed on AWS/Vercel Router." },
     { name: "CNC_VAULT", value: "cnc-machines.vercel.app", href: "https://cnc-machines.vercel.app/", techs: ["Next.js", "TypeScript", "Node.js", "Express.io", "MongoDB", "GCP", "shadcn/ui"], description: "Centralized file control system for CNC code vaults. Deployed on GCP clusters." },
     { name: "BITLINKS", value: "bitlinks.bitsathy.ac.in", href: "https://bitlinks.bitsathy.ac.in/", techs: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript", "Vercel"], description: "Collaborative college community network portal. Deployed on Vercel." },
-    { name: "DEV_RANK", value: "github.com/thayanithi15-git", href: "https://github.com/thayanithi15-git", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"], description: "Developer community profile aggregator and ranker. Deployed on Vercel." }
+    { name: "DEV_RANK", value: "dev-rank.vercel.app", href: "http://dev-rank.vercel.app/", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"], description: "Developer community profile aggregator and ranker. Deployed on Vercel." }
   ]
 
   const [hoveredTech, setHoveredTech] = useState<string | null>(null)

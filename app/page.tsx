@@ -10,6 +10,7 @@ import { PseudoTerminal } from "@/components/ascii-hub/pseudo-terminal"
 import { Footer } from "@/components/ascii-hub/footer"
 import { ShutdownManager } from "@/components/ascii-hub/shutdown-manager"
 import { Preloader } from "@/components/ascii-hub/preloader"
+import { FloatingControls } from "@/components/ascii-hub/floating-controls"
 import { techSections } from "@/lib/sections-data"
 
 export default function Home() {
@@ -41,6 +42,7 @@ export default function Home() {
 
       <Footer />
       <ShutdownManager />
+      <FloatingControls />
     </div>
   )
 }

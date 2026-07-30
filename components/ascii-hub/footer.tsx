@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Github, Twitter, Linkedin, ArrowUp } from "lucide-react"
 import Link from "next/link"
@@ -20,6 +21,33 @@ const socialLinks = [
 ]
 
 export function Footer() {
+  const [totalViews, setTotalViews] = useState<number | null>(null)
+
+  useEffect(() => {
+    let isTracked = false
+    if (!isTracked) {
+      const storedName = typeof window !== "undefined" ? localStorage.getItem("portfolio_visitor_name") || "Anonymous" : "Anonymous"
+
+      fetch("/api/views", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          referrer: typeof document !== "undefined" ? document.referrer : "Direct",
+          name: storedName,
+          path: typeof window !== "undefined" ? window.location.pathname : "/"
+        })
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && typeof data.totalViews === "number") {
+            setTotalViews(data.totalViews)
+          }
+        })
+        .catch((err) => console.error("Error logging view:", err))
+      isTracked = true
+    }
+  }, [])
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
@@ -125,6 +153,14 @@ export function Footer() {
             {"// "} Thayanithi S &mdash; {new Date().getFullYear()}
           </span>
           <div className="flex gap-6 items-center flex-wrap justify-center">
+            <Link
+              href="/stats"
+              className="font-mono text-[10px] text-blue-400 hover:text-blue-300 hover:underline transition-all duration-200 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer focus:outline-none border border-blue-900/50 bg-blue-950/20 px-2 py-1 rounded"
+              title="View Portfolio Analytics"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+              Stats: {totalViews !== null ? `${totalViews} Views` : "Loading..."}
+            </Link>
             <Link
               href="/assistant"
               className="font-mono text-[10px] text-foreground hover:underline transition-all duration-200 uppercase tracking-wider flex items-center gap-1.5 cursor-pointer focus:outline-none"

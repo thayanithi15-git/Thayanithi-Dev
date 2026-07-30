@@ -26,7 +26,7 @@ const COMMANDS: Record<string, string[]> = {
     "Status: OPERATIONAL | Location: Tamil Nadu, India",
   ],
   about: [
-    "Thayanithi S - Software Development Engineer",
+    "Thayanithi S - SDE & Infra Engineer",
     "Specializing in Fullstack web platforms, cross-platform mobile apps,",
     "and robust database architectures. Deeply focused on translation of",
     "logical workflows into high-performance product designs.",
@@ -56,7 +56,7 @@ const COMMANDS: Record<string, string[]> = {
     "EQ REV    - Quick Commerce Analytics (https://app.eqrev.com/)",
     "CNC Vault - Secure Control Hub (https://cnc-machines.vercel.app/)",
     "Bitlinks  - College Community Network (https://bitlinks.bitsathy.ac.in/)",
-    "Dev Rank  - Developer Ranking Platform (https://github.com/thayanithi15-git)",
+    "Dev Rank  - Developer Ranking Platform (http://dev-rank.vercel.app/)",
   ],
   contact: [
     "Reach out via standard systems channels:",

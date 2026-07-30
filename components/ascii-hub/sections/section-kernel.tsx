@@ -69,6 +69,49 @@ function BootSequence() {
   )
 }
 
+const schematicContainerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const schematicItemVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: 10 },
+  show: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 15 }
+  }
+}
+
+function FlowConnector({ delay }: { delay: number }) {
+  return (
+    <div className="flex-shrink-0 px-1 relative flex items-center justify-center w-10">
+      <span className="font-mono text-muted-foreground/30 text-[10px]">──▶</span>
+      <motion.div
+        className="absolute text-foreground font-mono font-bold text-[6px]"
+        initial={{ left: "10%", opacity: 0 }}
+        animate={{ 
+          left: ["10%", "70%"], 
+          opacity: [0, 1, 1, 0] 
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 1.5,
+          delay: delay,
+          ease: "linear"
+        }}
+      >
+        ■
+      </motion.div>
+    </div>
+  )
+}
+
 export function SectionKernel({ section }: { section: TechSection }) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32">
@@ -140,7 +183,10 @@ export function SectionKernel({ section }: { section: TechSection }) {
             <div className="border-b border-border p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
               {/* Profile Image with retro frame */}
               <div className="relative h-24 w-24 shrink-0 overflow-hidden border border-border bg-secondary/50 p-1" style={{ boxShadow: shadow }}>
-                <div className="relative h-full w-full grayscale contrast-125 hover:grayscale-0 transition-all duration-300">
+                <div 
+                  className="relative h-full w-full grayscale contrast-125 hover:grayscale-0 transition-all duration-300 will-change-[filter,transform]"
+                  style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+                >
                   <Image
                     src={profilePic}
                     alt="Thayanithi S"
@@ -186,43 +232,97 @@ export function SectionKernel({ section }: { section: TechSection }) {
         </div>
 
         {/* Bottom ASCII schematic */}
-        <div className="border-t border-border">
+        <div className="border-t border-border w-full">
           <div className="flex items-center gap-2 border-b border-border px-4 py-2">
             <div className="h-1.5 w-1.5 bg-foreground" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               Architecture Schematic Flow
             </span>
           </div>
-          <div className="overflow-x-auto p-8 bg-secondary/10">
-            <div className="flex min-w-[700px] items-center justify-between font-mono text-xs text-foreground">
-              <div className="border border-border p-3 bg-background text-center flex-1 max-w-[140px]" style={{ boxShadow: shadow }}>
-                <div className="font-bold text-[10px] uppercase text-muted-foreground mb-1">Entry Node</div>
-                <div className="font-bold">USER</div>
-              </div>
-              <div className="flex-shrink-0 px-4 text-muted-foreground">─────▶</div>
+          <div className="overflow-x-auto p-8 bg-secondary/10 w-full">
+            <div className="flex w-full min-w-[760px] items-center justify-between font-mono text-[11px] text-foreground gap-1">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">Client Origin</div>
+                <div className="font-bold">User / Session</div>
+              </motion.div>
+              <FlowConnector delay={0} />
               
-              <div className="border border-border p-3 bg-background text-center flex-1 max-w-[140px]" style={{ boxShadow: shadow }}>
-                <div className="font-bold text-[10px] uppercase text-muted-foreground mb-1">Frontend</div>
-                <div className="font-bold">React / Next</div>
-              </div>
-              <div className="flex-shrink-0 px-4 text-muted-foreground">─────▶</div>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">Presentation Core</div>
+                <div className="font-bold">Next.js Frontend</div>
+              </motion.div>
+              <FlowConnector delay={0.2} />
               
-              <div className="border border-border p-3 bg-background text-center flex-1 max-w-[140px]" style={{ boxShadow: shadow }}>
-                <div className="font-bold text-[10px] uppercase text-muted-foreground mb-1">API Router</div>
-                <div className="font-bold">Express Engine</div>
-              </div>
-              <div className="flex-shrink-0 px-4 text-muted-foreground">─────▶</div>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">Edge Gateway</div>
+                <div className="font-bold">Express Router</div>
+              </motion.div>
+              <FlowConnector delay={0.4} />
               
-              <div className="border border-border p-3 bg-background text-center flex-1 max-w-[140px]" style={{ boxShadow: shadow }}>
-                <div className="font-bold text-[10px] uppercase text-muted-foreground mb-1">Cloud Cluster</div>
-                <div className="font-bold">GCP / API</div>
-              </div>
-              <div className="flex-shrink-0 px-4 text-muted-foreground">─────▶</div>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">Compute Runtime</div>
+                <div className="font-bold">Node.js / Go</div>
+              </motion.div>
+              <FlowConnector delay={0.6} />
               
-              <div className="border border-border p-3 bg-background text-center flex-1 max-w-[140px]" style={{ boxShadow: shadow }}>
-                <div className="font-bold text-[10px] uppercase text-muted-foreground mb-1">Database</div>
-                <div className="font-bold">MongoDB Atlas</div>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">Cloud Platform</div>
+                <div className="font-bold">Google Cloud</div>
+              </motion.div>
+              <FlowConnector delay={0.8} />
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                whileHover={{ y: -4, scale: 1.03 }}
+                className="border border-border p-2 bg-background text-center flex-1 min-w-[105px] hover:border-foreground hover:bg-secondary/20 cursor-pointer transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+              >
+                <div className="font-bold text-[8px] uppercase text-muted-foreground mb-0.5 tracking-wider">DB Engine</div>
+                <div className="font-bold">MongoDB</div>
+              </motion.div>
             </div>
           </div>
         </div>
