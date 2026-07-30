@@ -202,8 +202,48 @@ function NetworkMap({ selectedNode, onSelectNode }: {
   )
 }
 
+const techColors: Record<string, string> = {
+  // Languages
+  "TypeScript": "#3178c6",
+  "JavaScript": "#f7df1e",
+  "Python": "#3776ab",
+  "Java": "#f89820",
+  "C": "#00599c",
+  // Frontend
+  "Next.js": "#ffffff",
+  "React.js": "#61dafb",
+  "Vue.js": "#4fc08d",
+  "Tailwind CSS": "#38bdf8",
+  "Framer Motion": "#ff007f",
+  // Mobile
+  "React Native": "#61dafb",
+  "Flutter": "#02569b",
+  // Backend
+  "Node.js": "#339933",
+  "Express.js": "#ffffff",
+  "Fastify": "#ffffff",
+  "REST APIs": "#009688",
+  "JWT Auth": "#ffffff",
+  // Databases
+  "MongoDB": "#47a248",
+  "MySQL": "#4479a1",
+  "PostgreSQL": "#4169e1",
+  "Prisma": "#5a67d8",
+  "Sequelize": "#52b0e7",
+  // Cloud
+  "Google Cloud": "#4285f4",
+  "BigQuery": "#4285f4",
+  // Tools
+  "Git": "#f05032",
+  "GitHub": "#ffffff",
+  "VS Code": "#007acc",
+  "Postman": "#ff6c37",
+  "Web Scraping": "#4caf50"
+}
+
 export function SectionNetwork({ section }: { section: TechSection }) {
   const [selectedNode, setSelectedNode] = useState(0)
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32">
@@ -262,50 +302,120 @@ export function SectionNetwork({ section }: { section: TechSection }) {
             <h3 className="font-pixel-line text-2xl font-bold text-foreground">{nodes[selectedNode].name}</h3>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
-            {nodes[selectedNode].items.map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-2.5 border border-border p-4 bg-background"
-                style={{ boxShadow: shadow }}
-              >
-                {techItemLogos[m.name] && (
-                  <div className="relative h-9 w-9 shrink-0 border border-border bg-zinc-100 p-1" style={{ boxShadow: shadow }}>
-                    <Image
-                      src={techItemLogos[m.name]}
-                      alt={m.name}
-                      fill
-                      sizes="36px"
-                      className="object-contain grayscale hover:grayscale-0 transition-all duration-300"
-                    />
+            {nodes[selectedNode].items.map((m, i) => {
+              const isHovered = hoveredItem === m.name;
+              
+              return (
+                <motion.div
+                  key={m.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onMouseEnter={() => setHoveredItem(m.name)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  className="flex items-center gap-2.5 border border-border p-4 bg-background transition-colors duration-200 cursor-pointer"
+                  style={{ boxShadow: shadow }}
+                >
+                  <div 
+                    className="h-9 w-9 shrink-0 border border-white flex items-center justify-center font-mono text-base font-bold transition-all duration-300 select-none"
+                    style={{ 
+                      boxShadow: shadow,
+                      backgroundColor: isHovered ? "#ffffff" : "#000000",
+                      color: isHovered ? "#000000" : "#ffffff",
+                      borderColor: "#ffffff"
+                    }}
+                  >
+                    {m.name.charAt(0)}
                   </div>
-                )}
-                <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-semibold">{m.name}</span>
-              </motion.div>
-            ))}
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-semibold">
+                    {m.name}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Specs row as horizontal badges */}
-      <div className="mt-4 flex flex-wrap gap-3">
-        {section.specs.map((spec, i) => (
-          <motion.div
-            key={spec.label}
-            initial={{ opacity: 0, y: 10 }}
+      {/* Domain Competency Analyzer (Skill Distribution Chart) */}
+      {(() => {
+        const averageScores = nodes.map(node => {
+          const total = node.items.reduce((sum, item) => sum + item.pct, 0);
+          const avg = Math.round(total / node.items.length);
+          return {
+            name: node.name,
+            avg: avg,
+            id: node.id
+          };
+        });
+
+        return (
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 + i * 0.08 }}
-            className="flex items-center gap-2 border border-border px-4 py-2 font-mono text-xs"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mt-6 border border-border w-full bg-secondary/5 overflow-hidden" 
             style={{ boxShadow: shadow }}
           >
-            <span className="text-muted-foreground">{spec.label}</span>
-            <span className="text-foreground font-bold">{spec.value}</span>
+            <div className="flex items-center justify-between border-b border-border bg-foreground px-4 py-1.5 text-background">
+              <div className="flex items-center gap-2">
+                <div className="h-1.5 w-1.5 bg-background animate-pulse" />
+                <span className="font-mono text-[10px] font-bold uppercase tracking-wider">
+                  Domain Competency distribution
+                </span>
+              </div>
+              <span className="font-mono text-[8px] text-background/60">sys.chart_v2</span>
+            </div>
+            
+            <div className="p-4 bg-black/40 flex flex-col gap-2">
+              {/* Vertical Bars Container */}
+              <div className="h-28 flex items-end justify-between gap-3 border-b border-border/50 pb-1 px-4">
+                {averageScores.map((score, i) => (
+                  <motion.div 
+                    key={score.id} 
+                    className="flex-1 flex flex-col items-center h-full justify-end cursor-pointer group"
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  >
+                    {/* Percentage label */}
+                    <span className="font-mono text-[9px] text-muted-foreground mb-1 text-center font-bold transition-colors duration-200 group-hover:text-foreground">
+                      {score.avg}%
+                    </span>
+                    
+                    {/* Vertical Bar Wrapper */}
+                    <div className="w-25 bg-secondary/20 border border-border/50 h-20 relative flex items-end transition-colors duration-200 group-hover:border-foreground">
+                      <motion.div 
+                        initial={{ height: 0 }}
+                        whileInView={{ height: `${score.avg}%` }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          duration: 3.0,
+                          delay: i * 0.12,
+                          ease: "easeOut"
+                        }}
+                        className="w-full bg-foreground transition-colors duration-200 group-hover:bg-white"
+                        style={{
+                          backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px)"
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* X Axis Labels */}
+              <div className="flex justify-between gap-3 px-4">
+                {averageScores.map((score) => (
+                  <div key={score.id} className="flex-1 text-center font-mono text-[9px] text-muted-foreground font-bold uppercase tracking-wider truncate">
+                    {score.id}
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
-        ))}
-      </div>
+        );
+      })()}
     </div>
   )
 }

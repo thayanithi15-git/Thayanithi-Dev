@@ -231,7 +231,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="flex flex-col items-start gap-6"
         >
-          <div className="inline-flex items-center gap-2 border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
+          <div className="inline-flex items-center gap-2 border mt-4 border-border px-3 py-1 font-mono text-xs text-muted-foreground">
             <span className="inline-block h-1.5 w-1.5 bg-foreground" />
             <span>PORTFOLIO & CORE SYSTEMS</span>
           </div>
@@ -240,12 +240,14 @@ export function HeroSection() {
             <DecryptedText text="Thayanithi S" delay={600} speed={40} />
             <br />
             <span className="text-muted-foreground text-3xl text-wrap md:text-nowrap sm:text-5xl md:text-6xl lg:text-7xl block mt-2 leading-[1.1] font-semibold">
-              <DecryptedText text="Software Development Engineer" delay={1200} speed={25} />
+              <DecryptedText text="SDE & Infra Engineer" delay={1200} speed={25} />
             </span>
           </h1>
 
           <p className="max-w-prose font-mono text-sm leading-relaxed text-muted-foreground md:text-base">
-            Architecting raw logic into refined, high-performance systems. Specializing in distributed backend architectures, cross-platform mobile apps, and robust fullstack engineering.
+            Architecting raw logic into refined, high-performance systems.
+            <br className="hidden md:block" />
+            Specializing in distributed backend architectures, cross-platform mobile apps, and robust fullstack engineering.
           </p>
         </motion.div>
 
@@ -279,7 +281,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-8 w-full max-w-lg border border-border bg-secondary/50 p-4"
+          className="mt-8 mb-4 w-full max-w-lg border border-border bg-secondary/50 p-4"
           role="img"
           aria-label="ASCII art animation representing a terminal interface"
         >

@@ -16,10 +16,10 @@ export const techSections: TechSection[] = [
     title: "Kernel Systems",
     subtitle: "About Me",
     description:
-      "Software Development Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex IT requirements into clean, state-of-the-art software systems.",
+      "SDE & Infra Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex IT requirements into clean, state-of-the-art software systems.",
     ascii: `
     ┌──────────────────────────────────────────┐
-    │  THAYANITHI S - SOFTWARE ENGINEER       │
+    │  THAYANITHI S - SDE & INFRA ENGINEER    │
     │  ┌──────────────────┐ ┌────────────────┐ │
     │  │ FULLSTACK WEB    │ │ MOBILE APPS    │ │
     │  │ Next.js/React.js │ │ React Native   │ │
@@ -38,7 +38,7 @@ export const techSections: TechSection[] = [
     ],
     commands: [
       "$ whoami",
-      "Thayanithi S - Software Development Engineer",
+      "Thayanithi S - SDE & Infra Engineer",
       "$ locate --region",
       "Namakkal, Tamil Nadu, India",
       "$ cat bio.txt",

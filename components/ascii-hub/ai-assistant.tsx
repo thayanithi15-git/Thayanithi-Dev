@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-import { askGemini } from "@/app/assistant/actions"
+import { askAssistant } from "@/app/assistant/actions"
 
 interface ChatMessage {
   sender: "user" | "system"
@@ -52,7 +52,7 @@ export function AIAssistant() {
     if (q.includes("cnc")) {
       return "CNC VAULT is an industrial CNC machinery control hub built with Next.js, TypeScript, Express.io, MongoDB, and GCP, providing secure access to machine programs and PLC logic configuration."
     }
-    return "Query parsed. Thayanithi S is a Software Development Engineer specializing in Fullstack, Mobile App engineering, and Cloud-native architectures. If you have specific inquiries, feel free to email thayanithi2006s@gmail.com."
+    return "Query parsed. Thayanithi S is a Software Development & Infra Engineer specializing in Fullstack, Mobile App engineering, and Cloud-native architectures. If you have specific inquiries, feel free to email thayanithi2006s@gmail.com."
   }
 
   const handleSend = async (textToSend: string) => {
@@ -63,8 +63,8 @@ export function AIAssistant() {
     setIsProcessing(true)
 
     try {
-      // Try calling Gemini first
-      const reply = await askGemini(textToSend)
+      // Try calling primary assistant
+      const reply = await askAssistant(textToSend)
       if (reply) {
         setMessages((prev) => [...prev, { sender: "system", text: reply.trim() }])
       } else {
@@ -73,7 +73,7 @@ export function AIAssistant() {
         setMessages((prev) => [...prev, { sender: "system", text: localReply }])
       }
     } catch (err) {
-      console.error("Gemini action failed:", err)
+      console.error("Assistant action failed:", err)
       const localReply = getAIResponse(textToSend)
       setMessages((prev) => [...prev, { sender: "system", text: localReply }])
     } finally {
