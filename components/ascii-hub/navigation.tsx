@@ -58,6 +58,8 @@ export function Navigation() {
         const offset = 80
         const top = el.getBoundingClientRect().top + window.scrollY - offset
         window.scrollTo({ top, behavior: "smooth" })
+      } else {
+        window.location.href = `/#${id}`
       }
     }, 300)
   }
