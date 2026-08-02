@@ -199,7 +199,7 @@ export function PseudoTerminal() {
           {lines.map((line, i) => (
             <div
               key={i}
-              className={`font-mono text-xs leading-relaxed ${
+              className={`font-mono text-xs leading-relaxed break-all whitespace-pre-wrap max-w-full overflow-hidden ${
                 line.type === "input"
                   ? "text-foreground"
                   : line.type === "v0"

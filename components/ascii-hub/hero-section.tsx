@@ -191,6 +191,19 @@ export function HeroSection() {
     return () => mq.removeEventListener("change", handler)
   }, [])
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window.location.hash === "#hero" || window.location.hash === "#")) {
+      setTimeout(() => {
+        const el = document.getElementById("hero")
+        if (el) {
+          const offset = 80
+          const top = el.getBoundingClientRect().top + window.scrollY - offset
+          window.scrollTo({ top, behavior: "smooth" })
+        }
+      }, 150)
+    }
+  }, [])
+
   const asciiFrame = useAsciiFrame(30, 80, motionEnabled)
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -204,7 +217,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 sm:px-8 lg:px-12">
+    <section id="hero" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden w-full max-w-full px-6 sm:px-8 lg:px-12">
       {/* Scanline overlay */}
       {motionEnabled && (
         <div
@@ -218,7 +231,7 @@ export function HeroSection() {
         className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden opacity-[0.10]"
         aria-hidden="true"
       >
-        <pre className="font-mono text-sm leading-[18px] text-foreground lg:text-base lg:leading-[22px]">
+        <pre className="font-mono text-sm leading-[18px] text-foreground lg:text-base lg:leading-[22px] max-w-full overflow-hidden">
           {asciiFrame}
         </pre>
       </div>

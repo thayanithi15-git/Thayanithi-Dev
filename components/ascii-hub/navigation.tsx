@@ -50,9 +50,29 @@ export function Navigation() {
     })
   }
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (typeof window !== "undefined" && window.location.pathname !== "/") {
+      window.location.href = "/#hero"
+    } else {
+      const heroEl = document.getElementById("hero")
+      if (heroEl) {
+        const offset = 80
+        const top = heroEl.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: "smooth" })
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }
+  }
+
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false)
     setTimeout(() => {
+      if (typeof window !== "undefined" && window.location.pathname !== "/") {
+        window.location.href = `/#${id}`
+        return
+      }
       const el = document.getElementById(id)
       if (el) {
         const offset = 80
@@ -66,17 +86,17 @@ export function Navigation() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 w-full max-w-full overflow-x-hidden ${
         scrolled
           ? "bg-background/80 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8 w-full max-w-full">
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={handleLogoClick}
           className="flex items-center transition-all duration-200 hover:opacity-70 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
-          aria-label="Scroll to top"
+          aria-label="Navigate to hero section"
         >
           <img
             src={!mounted || theme === "dark" ? "/T_Light.png" : "/T_Dark.png"}

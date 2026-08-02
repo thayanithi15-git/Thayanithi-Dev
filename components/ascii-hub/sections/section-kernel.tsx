@@ -182,7 +182,27 @@ export function SectionKernel({ section }: { section: TechSection }) {
             {/* Title area */}
             <div className="border-b border-border p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
               {/* Profile Image with retro frame */}
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden border border-border bg-secondary/50 p-1" style={{ boxShadow: shadow }}>
+              <div 
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.location.pathname !== "/") {
+                    window.location.href = "/#hero"
+                  } else {
+                    const heroEl = document.getElementById("hero")
+                    if (heroEl) {
+                      const offset = 80
+                      const top = heroEl.getBoundingClientRect().top + window.scrollY - offset
+                      window.scrollTo({ top, behavior: "smooth" })
+                    } else {
+                      window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
+                  }
+                }}
+                className="relative h-24 w-24 shrink-0 overflow-hidden border border-border bg-secondary/50 p-1 cursor-pointer hover:border-foreground transition-colors duration-200" 
+                style={{ boxShadow: shadow }}
+                title="Navigate to Hero Section"
+                role="button"
+                aria-label="Profile image - Navigate to hero section"
+              >
                 <div 
                   className="relative h-full w-full grayscale contrast-125 hover:grayscale-0 transition-all duration-300 will-change-[filter,transform]"
                   style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}

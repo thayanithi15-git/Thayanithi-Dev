@@ -17,14 +17,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden w-full max-w-full">
       <AnimatePresence mode="wait">
         {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       <Navigation />
 
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         {!isLoading && <HeroSection />}
 
         <TechTicker />

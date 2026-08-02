@@ -54,7 +54,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
         y: -120,
         transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } 
       }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#090b0d] text-foreground font-mono px-4 select-none"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#090b0d] text-foreground font-mono px-4 select-none overflow-x-hidden max-w-full w-full"
     >
       {/* Scanline overlay */}
       <div className="animate-scanline pointer-events-none absolute inset-0 z-10 h-[2px] w-full bg-foreground/5" />
@@ -65,9 +65,9 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
         backgroundSize: '30px 30px'
       }} />
 
-      <div className="relative z-20 flex flex-col items-start w-full max-w-lg gap-6">
+      <div className="relative z-20 flex flex-col items-start w-full max-w-lg gap-6 overflow-x-hidden">
         {/* Large Retro ASCII Logo - Spells THAYANITHI S */}
-        <pre className="text-[5px] sm:text-[7px] md:text-[8px] lg:text-[9px] leading-[6px] sm:leading-[8px] md:leading-[9px] text-foreground font-bold w-full select-none text-center">
+        <pre className="text-[5px] sm:text-[7px] md:text-[8px] lg:text-[9px] leading-[6px] sm:leading-[8px] md:leading-[9px] text-foreground font-bold w-full max-w-full overflow-x-auto select-none text-center">
 {`████████╗██╗  ██╗ █████╗ ██╗   ██╗ █████╗ ███╗   ██╗██╗████████╗██╗  ██╗██╗     ███████╗
 ╚══██╔══╝██║  ██║██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║██║╚══██╔══╝██║  ██║██║     ██╔════╝
    ██║   ███████║███████║ ╚████╔╝ ███████║██╔██╗ ██║██║   ██║   ███████║██║     ███████╗

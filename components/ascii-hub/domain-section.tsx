@@ -30,7 +30,7 @@ export function DomainSection({ section }: DomainSectionProps) {
   const SectionComponent = sectionMap[section.id] ?? SectionKernel
 
   return (
-    <section id={section.id} className="relative border-b border-border">
+    <section id={section.id} className="relative border-b border-border w-full max-w-full overflow-x-hidden">
       <SectionComponent section={section} />
     </section>
   )

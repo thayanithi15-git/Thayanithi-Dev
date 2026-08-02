@@ -53,7 +53,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-border w-full max-w-full overflow-x-hidden">
       <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-3">
           {/* ASCII Logo & Quote */}
@@ -64,7 +64,7 @@ export function Footer() {
             transition={{ duration: 0.5 }}
           >
             <pre
-              className="font-mono text-[8px] leading-[10px] text-foreground/40 md:text-[10px] md:leading-[12px]"
+              className="font-mono text-[8px] leading-[10px] text-foreground/40 md:text-[10px] md:leading-[12px] max-w-full overflow-hidden"
               aria-label="Monochrome Hub ASCII logo"
               role="img"
             >
