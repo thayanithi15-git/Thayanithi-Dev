@@ -193,15 +193,90 @@ export default function StatsPage() {
     }
   }, [fetchStats])
 
+  // Helper to trigger Google OAuth Popup window (works reliably on production domains)
+  const triggerOAuthPopup = useCallback(() => {
+    if (typeof window === "undefined") return
+    const redirectUri = window.location.origin + window.location.pathname
+    const nonce = Math.random().toString(36).substring(2)
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${encodeURIComponent(googleClientId)}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&response_type=id_token` +
+      `&scope=${encodeURIComponent("openid email profile")}` +
+      `&nonce=${nonce}` +
+      `&prompt=select_account`
+
+    const width = 500
+    const height = 650
+    const left = (window.innerWidth - width) / 2 + window.screenX
+    const top = (window.innerHeight - height) / 2 + window.screenY
+
+    window.open(
+      authUrl,
+      "GoogleSignInPopup",
+      `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,status=yes`
+    )
+  }, [googleClientId])
+
   const handleManualGoogleSignIn = useCallback(() => {
-    if (typeof window !== "undefined" && window.google?.accounts?.id) {
+    if (typeof window === "undefined") return
+
+    let promptTriggered = false
+    if (window.google?.accounts?.id) {
       try {
-        window.google.accounts.id.prompt()
+        window.google.accounts.id.prompt((notification: any) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            console.log("Google GIS One Tap suppressed on production:", notification.getNotDisplayedReason?.() || notification.getSkippedReason?.())
+            triggerOAuthPopup()
+          }
+        })
+        promptTriggered = true
       } catch (err) {
-        console.error("Google Sign-In prompt error:", err)
+        console.warn("Google GIS prompt warning:", err)
       }
     }
-  }, [])
+
+    if (!promptTriggered) {
+      triggerOAuthPopup()
+    }
+  }, [triggerOAuthPopup])
+
+  // Handle OAuth Popup hash / postMessage token response
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    // Check URL hash for id_token from OAuth popup redirect
+    const hash = window.location.hash
+    if (hash && hash.includes("id_token=")) {
+      const params = new URLSearchParams(hash.substring(1))
+      const idToken = params.get("id_token")
+
+      if (idToken) {
+        if (window.opener && window.opener !== window) {
+          try {
+            window.opener.postMessage({ type: "GOOGLE_ID_TOKEN", credential: idToken }, "*")
+            window.close()
+            return
+          } catch (e) {
+            console.error("Failed to postMessage to opener:", e)
+          }
+        }
+
+        window.history.replaceState(null, "", window.location.pathname)
+        handleGoogleSignInResponse({ credential: idToken })
+      }
+    }
+
+    // Listen for postMessage from popup window
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === "GOOGLE_ID_TOKEN" && event.data.credential) {
+        handleGoogleSignInResponse({ credential: event.data.credential })
+      }
+    }
+
+    window.addEventListener("message", handleMessage)
+    return () => window.removeEventListener("message", handleMessage)
+  }, [handleGoogleSignInResponse])
 
   // Initialize Google Identity Services Script
   useEffect(() => {
