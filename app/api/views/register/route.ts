@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     const payload = await verifyRes.json()
 
     // Verify audience matches configured Google Client ID
-    const validClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || process.env.client_id
+    const validClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || process.env.client_id || "821719664741-m65tgj321g34020ocio31fi89dpvhlq5.apps.googleusercontent.com"
     if (validClientId && payload.aud !== validClientId) {
       return NextResponse.json(
         { error: "Unauthorized: Token audience does not match configured Google Client ID." },

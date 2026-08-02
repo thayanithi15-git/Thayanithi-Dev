@@ -106,7 +106,7 @@ export default function StatsPage() {
   const [currentPage, setCurrentPage] = useState(1)
 
   const googleBtnRef = useRef<HTMLDivElement>(null)
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "821719664741-m65tgj321g34020ocio31fi89dpvhlq5.apps.googleusercontent.com"
 
   // Fetch metrics from API based on period, search filters, and page
   const fetchStats = useCallback(async () => {
@@ -193,15 +193,28 @@ export default function StatsPage() {
     }
   }, [fetchStats])
 
+  const handleManualGoogleSignIn = useCallback(() => {
+    if (typeof window !== "undefined" && window.google?.accounts?.id) {
+      try {
+        window.google.accounts.id.prompt()
+      } catch (err) {
+        console.error("Google Sign-In prompt error:", err)
+      }
+    }
+  }, [])
+
   // Initialize Google Identity Services Script
   useEffect(() => {
     if (!googleClientId) return
 
     const loadGoogleScript = () => {
-      if (window.google?.accounts?.id) {
+      if (typeof window === "undefined" || !window.google?.accounts?.id) return
+      try {
         window.google.accounts.id.initialize({
           client_id: googleClientId,
-          callback: handleGoogleSignInResponse
+          callback: handleGoogleSignInResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true
         })
 
         if (googleBtnRef.current && !userProfile) {
@@ -212,15 +225,18 @@ export default function StatsPage() {
             type: "standard",
             shape: "rectangular",
             text: "continue_with",
-            logo_alignment: "left"
+            logo_alignment: "left",
+            width: 260
           })
         }
+      } catch (err) {
+        console.error("Google GIS error:", err)
       }
     }
 
-    if (window.google?.accounts?.id) {
+    if (typeof window !== "undefined" && window.google?.accounts?.id) {
       loadGoogleScript()
-    } else {
+    } else if (typeof window !== "undefined") {
       const existingScript = document.getElementById("google-gsi-script")
       if (!existingScript) {
         const script = document.createElement("script")
@@ -232,9 +248,12 @@ export default function StatsPage() {
         document.head.appendChild(script)
       } else {
         existingScript.addEventListener("load", loadGoogleScript)
+        if (window.google?.accounts?.id) {
+          loadGoogleScript()
+        }
       }
     }
-  }, [googleClientId, userProfile, handleGoogleSignInResponse])
+  }, [googleClientId, userProfile, handleGoogleSignInResponse, loading])
 
   const handleSignOut = () => {
     setUserProfile(null)
@@ -246,7 +265,7 @@ export default function StatsPage() {
     }
     // Re-render Google Sign-in button
     setTimeout(() => {
-      if (window.google?.accounts?.id && googleBtnRef.current) {
+      if (typeof window !== "undefined" && window.google?.accounts?.id && googleBtnRef.current) {
         googleBtnRef.current.innerHTML = ""
         window.google.accounts.id.renderButton(googleBtnRef.current, {
           theme: "filled_dark",
@@ -254,7 +273,8 @@ export default function StatsPage() {
           type: "standard",
           shape: "rectangular",
           text: "continue_with",
-          logo_alignment: "left"
+          logo_alignment: "left",
+          width: 260
         })
       }
     }, 100)
@@ -359,7 +379,10 @@ export default function StatsPage() {
               ) : (
                 /* Theme-matching Custom Google Sign-In Button Container */
                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto max-w-full overflow-hidden">
-                  <div className="relative group overflow-hidden rounded border border-border bg-secondary/20 hover:bg-secondary/50 hover:border-foreground/40 transition-all duration-200 px-4 py-2 flex items-center gap-2.5 cursor-pointer shadow-sm">
+                  <div 
+                    onClick={handleManualGoogleSignIn}
+                    className="relative group overflow-hidden rounded border border-border bg-secondary/20 hover:bg-secondary/50 hover:border-foreground/40 transition-all duration-200 px-4 py-2 flex items-center gap-2.5 cursor-pointer shadow-sm min-w-[210px] justify-center"
+                  >
                     {/* Theme styled visible button content */}
                     <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
                       <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z" />
@@ -367,14 +390,14 @@ export default function StatsPage() {
                       <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12s.7 2.3 1.9 4.7l3.7-2.9z" />
                       <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z" />
                     </svg>
-                    <span className="font-mono text-xs font-bold text-foreground tracking-wider uppercase">
+                    <span className="font-mono text-xs font-bold text-foreground tracking-wider uppercase select-none">
                       VERIFY WITH GOOGLE
                     </span>
 
-                    {/* Invisible Native Google iframe overlay */}
+                    {/* Transparent Native Google iframe overlay */}
                     <div 
                       ref={googleBtnRef} 
-                      className="google-overlay-btn absolute inset-0 opacity-0 cursor-pointer overflow-hidden flex items-center justify-center pointer-events-auto z-10"
+                      className="google-overlay-btn absolute inset-0 cursor-pointer overflow-hidden flex items-center justify-center pointer-events-auto z-10"
                       title="Verify footprint with Google"
                     />
                   </div>
