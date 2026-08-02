@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Navigation } from "@/components/ascii-hub/navigation"
 import { Footer } from "@/components/ascii-hub/footer"
+import { VisitorFilterBar } from "@/components/ascii-hub/visitor-filter-bar"
 import { 
   ArrowLeft, 
   Tv, 
@@ -14,7 +15,14 @@ import {
   Eye, 
   Calendar,
   User,
-  Send
+  Search,
+  Filter,
+  CheckCircle2,
+  LogOut,
+  RefreshCw,
+  X,
+  MapPin,
+  Smartphone
 } from "lucide-react"
 import {
   AreaChart,
@@ -28,13 +36,23 @@ import {
   Cell
 } from "recharts"
 
+declare global {
+  interface Window {
+    google?: any
+  }
+}
+
 interface Visitor {
   id: string
   name: string
+  email?: string
+  picture?: string
   country: string
   city: string
   device: string
   timestamp: string
+  path?: string
+  registered?: boolean
 }
 
 interface StatsData {
@@ -45,81 +63,220 @@ interface StatsData {
   countries: { country: string; count: number }[]
   dailyViews: { date: string; count: number }[]
   recentVisitors: Visitor[]
+  period: string
+  pagination: {
+    total: number
+    page: number
+    limit: number
+    totalPages: number
+  }
+  filters: {
+    locations: string[]
+    devices: string[]
+  }
 }
 
-const COLORS = ["var(--color-blue-500, #3b82f6)", "var(--color-emerald-500, #10b981)", "var(--color-amber-500, #f59e0b)", "var(--color-purple-500, #8b5cf6)", "var(--color-pink-500, #ec4899)"]
+const COLORS = [
+  "var(--color-blue-500, #3b82f6)",
+  "var(--color-emerald-500, #10b981)",
+  "var(--color-amber-500, #f59e0b)",
+  "var(--color-purple-500, #8b5cf6)",
+  "var(--color-pink-500, #ec4899)"
+]
 
 export default function StatsPage() {
   const [data, setData] = useState<StatsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [visitorName, setVisitorName] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8
+  const [registerStatus, setRegisterStatus] = useState<{ success?: boolean; message?: string } | null>(null)
+  
+  // Current user verified profile state
+  const [userProfile, setUserProfile] = useState<{ name: string; email: string; picture: string } | null>(null)
 
-  const fetchStats = () => {
-    fetch("/api/views")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch analytics")
-        return res.json()
-      })
-      .then((stats) => {
-        setData(stats)
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(err.message)
-        setLoading(false)
-      })
-  }
+  // Footprint chart period tab state ('day' | 'week' | 'month' | 'year')
+  const [selectedPeriod, setSelectedPeriod] = useState<"day" | "week" | "month" | "year">("day")
+
+  // Visitor table filter states
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedLocation, setSelectedLocation] = useState("ALL")
+  const [selectedDevice, setSelectedDevice] = useState("ALL")
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const googleBtnRef = useRef<HTMLDivElement>(null)
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""
+
+  // Fetch metrics from API based on period, search filters, and page
+  const fetchStats = useCallback(async () => {
+    try {
+      setLoading(true)
+      const params = new URLSearchParams()
+      params.set("period", selectedPeriod)
+      params.set("page", currentPage.toString())
+      params.set("limit", "8")
+
+      if (searchQuery.trim()) params.set("search", searchQuery.trim())
+      if (selectedLocation && selectedLocation !== "ALL") params.set("location", selectedLocation)
+      if (selectedDevice && selectedDevice !== "ALL") params.set("device", selectedDevice)
+      if (startDate) params.set("startDate", startDate)
+      if (endDate) params.set("endDate", endDate)
+
+      const res = await fetch(`/api/views?${params.toString()}`)
+      if (!res.ok) throw new Error("Failed to fetch analytics metrics")
+      const stats = await res.json()
+      setData(stats)
+      setError(null)
+    } catch (err: any) {
+      setError(err.message || "Failed to load metrics")
+    } finally {
+      setLoading(false)
+    }
+  }, [selectedPeriod, searchQuery, selectedLocation, selectedDevice, startDate, endDate, currentPage])
 
   useEffect(() => {
     fetchStats()
+  }, [fetchStats])
+
+  // Check saved visitor credentials in local storage
+  useEffect(() => {
     if (typeof window !== "undefined") {
-      const savedName = localStorage.getItem("portfolio_visitor_name") || ""
-      setVisitorName(savedName)
+      const savedName = localStorage.getItem("portfolio_user_name")
+      const savedEmail = localStorage.getItem("portfolio_user_email")
+      const savedPicture = localStorage.getItem("portfolio_user_picture")
+      if (savedName && savedEmail) {
+        setUserProfile({ name: savedName, email: savedEmail, picture: savedPicture || "" })
+      }
     }
   }, [])
 
-  const handleRegisterName = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!visitorName.trim() || isSubmitting) return
-
+  // Handle Google Sign-In response
+  const handleGoogleSignInResponse = useCallback(async (response: any) => {
+    if (!response.credential) return
     setIsSubmitting(true)
+    setRegisterStatus(null)
+
     try {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("portfolio_visitor_name", visitorName)
-      }
-      
-      const res = await fetch("/api/views", {
+      const res = await fetch("/api/views/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: visitorName,
-          referrer: typeof document !== "undefined" ? document.referrer : "Direct"
+          credential: response.credential,
+          path: typeof window !== "undefined" ? window.location.pathname : "/stats"
         })
       })
 
-      if (res.ok) {
-        setVisitorName("")
+      const resData = await res.json()
+
+      if (res.ok && resData.success) {
+        const profile = {
+          name: resData.name,
+          email: resData.email,
+          picture: resData.picture || ""
+        }
+        setUserProfile(profile)
+        if (typeof window !== "undefined") {
+          localStorage.setItem("portfolio_user_name", resData.name)
+          localStorage.setItem("portfolio_user_email", resData.email)
+          localStorage.setItem("portfolio_user_picture", resData.picture || "")
+        }
+        setRegisterStatus({ success: true, message: "Footprint registered & verified with Google!" })
         fetchStats()
+      } else {
+        setRegisterStatus({ success: false, message: resData.error || "Google Sign-In registration failed." })
       }
-    } catch (err) {
-      console.error(err)
+    } catch (err: any) {
+      setRegisterStatus({ success: false, message: err.message || "Registration error occurred." })
     } finally {
       setIsSubmitting(false)
     }
+  }, [fetchStats])
+
+  // Initialize Google Identity Services Script
+  useEffect(() => {
+    if (!googleClientId) return
+
+    const loadGoogleScript = () => {
+      if (window.google?.accounts?.id) {
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: handleGoogleSignInResponse
+        })
+
+        if (googleBtnRef.current && !userProfile) {
+          googleBtnRef.current.innerHTML = ""
+          window.google.accounts.id.renderButton(googleBtnRef.current, {
+            theme: "filled_dark",
+            size: "large",
+            type: "standard",
+            shape: "rectangular",
+            text: "continue_with",
+            logo_alignment: "left"
+          })
+        }
+      }
+    }
+
+    if (window.google?.accounts?.id) {
+      loadGoogleScript()
+    } else {
+      const existingScript = document.getElementById("google-gsi-script")
+      if (!existingScript) {
+        const script = document.createElement("script")
+        script.id = "google-gsi-script"
+        script.src = "https://accounts.google.com/gsi/client"
+        script.async = true
+        script.defer = true
+        script.onload = loadGoogleScript
+        document.head.appendChild(script)
+      } else {
+        existingScript.addEventListener("load", loadGoogleScript)
+      }
+    }
+  }, [googleClientId, userProfile, handleGoogleSignInResponse])
+
+  const handleSignOut = () => {
+    setUserProfile(null)
+    setRegisterStatus(null)
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("portfolio_user_name")
+      localStorage.removeItem("portfolio_user_email")
+      localStorage.removeItem("portfolio_user_picture")
+    }
+    // Re-render Google Sign-in button
+    setTimeout(() => {
+      if (window.google?.accounts?.id && googleBtnRef.current) {
+        googleBtnRef.current.innerHTML = ""
+        window.google.accounts.id.renderButton(googleBtnRef.current, {
+          theme: "filled_dark",
+          size: "large",
+          type: "standard",
+          shape: "rectangular",
+          text: "continue_with",
+          logo_alignment: "left"
+        })
+      }
+    }, 100)
+  }
+
+  const resetFilters = () => {
+    setSearchQuery("")
+    setSelectedLocation("ALL")
+    setSelectedDevice("ALL")
+    setStartDate("")
+    setEndDate("")
+    setCurrentPage(1)
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between w-full max-w-full overflow-x-hidden">
       <Navigation />
       
-      <main className="flex-1 py-12">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8 space-y-8 font-mono">
+      <main className="flex-1 py-12 w-full max-w-full overflow-x-hidden">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8 space-y-8 font-mono w-full max-w-full overflow-x-hidden">
           
-          {/* Back button & Title */}
+          {/* Back button & Header */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-6">
             <div className="space-y-1">
               <Link 
@@ -133,7 +290,7 @@ export default function StatsPage() {
                 SYSTEM METRICS & ANALYTICS
               </h1>
               <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                Active connection to MongoDB
+                Active connection to MongoDB Registry
               </p>
             </div>
             
@@ -145,17 +302,105 @@ export default function StatsPage() {
               <div>
                 <p className="text-[10px] text-muted-foreground uppercase tracking-widest leading-none">Total Views</p>
                 <p className="text-xl font-bold mt-1 leading-none">
-                  {loading ? "..." : data?.totalViews}
+                  {loading && !data ? "..." : data?.totalViews || 0}
                 </p>
               </div>
             </div>
           </div>
 
-          {loading ? (
-            <div className="py-20 text-center space-y-4">
-              <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+          {/* Google Sign-In / Verified Footprint Registration Card */}
+          <div className="border border-border bg-secondary/5 p-5 rounded space-y-3 w-full max-w-full overflow-hidden">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                    <User size={15} className="text-blue-500" /> Register Your Visit Name
+                  </h3>
+                  <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded border border-blue-500/40 text-blue-400 bg-blue-500/10 font-bold">
+                    Optional
+                  </span>
+                </div>
+                <p className="text-[11px] text-muted-foreground">
+                  Optional step: If you are interested, verify your footprint via Google Sign-In to display your name and profile picture in the database registry.
+                </p>
+              </div>
+
+              {userProfile ? (
+                /* Verified User Card */
+                <div className="flex items-center gap-3 bg-secondary/20 border border-emerald-500/30 px-4 py-2.5 rounded w-full md:w-auto justify-between max-w-full overflow-hidden">
+                  <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+                    {userProfile.picture ? (
+                      <img 
+                        src={userProfile.picture} 
+                        alt={userProfile.name} 
+                        className="w-9 h-9 rounded-full border border-border object-cover flex-shrink-0" 
+                      />
+                    ) : (
+                      <div className="w-9 h-9 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                        {userProfile.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0 overflow-hidden">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <span className="text-xs font-bold text-foreground truncate">{userProfile.name}</span>
+                        <CheckCircle2 size={13} className="text-emerald-400 flex-shrink-0" />
+                      </div>
+                      <span className="text-[10px] text-muted-foreground block truncate">{userProfile.email}</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleSignOut}
+                    title="Switch Account"
+                    className="text-xs text-muted-foreground hover:text-destructive transition-colors p-1 rounded border border-border/50 hover:border-destructive/50 flex-shrink-0"
+                  >
+                    <LogOut size={13} />
+                  </button>
+                </div>
+              ) : (
+                /* Theme-matching Custom Google Sign-In Button Container */
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto max-w-full overflow-hidden">
+                  <div className="relative group overflow-hidden rounded border border-border bg-secondary/20 hover:bg-secondary/50 hover:border-foreground/40 transition-all duration-200 px-4 py-2 flex items-center gap-2.5 cursor-pointer shadow-sm">
+                    {/* Theme styled visible button content */}
+                    <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
+                      <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z" />
+                      <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z" />
+                      <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12s.7 2.3 1.9 4.7l3.7-2.9z" />
+                      <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z" />
+                    </svg>
+                    <span className="font-mono text-xs font-bold text-foreground tracking-wider uppercase">
+                      VERIFY WITH GOOGLE
+                    </span>
+
+                    {/* Invisible Native Google iframe overlay */}
+                    <div 
+                      ref={googleBtnRef} 
+                      className="google-overlay-btn absolute inset-0 opacity-0 cursor-pointer overflow-hidden flex items-center justify-center pointer-events-auto z-10"
+                      title="Verify footprint with Google"
+                    />
+                  </div>
+
+                  {isSubmitting && (
+                    <span className="text-xs text-muted-foreground flex items-center gap-1.5 font-mono">
+                      <RefreshCw size={13} className="animate-spin text-blue-400" /> Verifying Token...
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Status alert message */}
+            {registerStatus && (
+              <div className={`text-xs p-2.5 rounded border ${registerStatus.success ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300" : "border-destructive/40 bg-destructive/10 text-destructive"}`}>
+                {registerStatus.message}
+              </div>
+            )}
+          </div>
+
+          {loading && !data ? (
+            <div className="py-20 text-center space-y-4 w-full max-w-full overflow-hidden flex flex-col items-center justify-center">
+              <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
               <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                Querying MongoDB metrics...
+                Querying MongoDB metrics & footprints...
               </p>
             </div>
           ) : error || !data ? (
@@ -164,54 +409,49 @@ export default function StatsPage() {
               <p className="text-xs text-muted-foreground">{error || "No data returned."}</p>
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="space-y-8 w-full max-w-full overflow-x-hidden">
               
-              {/* Name Register form */}
-              <div className="border border-border bg-secondary/5 p-4 rounded">
-                <form onSubmit={handleRegisterName} className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-                  <div className="space-y-1 text-center sm:text-left">
-                    <h3 className="text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 justify-center sm:justify-start">
-                      <User size={14} className="text-blue-500" /> Register Your Visit Name
-                    </h3>
-                    <p className="text-[10px] text-muted-foreground">
-                      Let your footprint be stored in the database registry.
-                    </p>
-                  </div>
-                  <div className="flex w-full sm:w-auto gap-2">
-                    <input
-                      type="text"
-                      value={visitorName}
-                      onChange={(e) => setVisitorName(e.target.value)}
-                      placeholder="Enter name (e.g. John Doe)..."
-                      className="flex-1 sm:w-64 bg-background border border-border rounded px-3 py-1.5 text-xs text-foreground focus:border-foreground focus:outline-none"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || !visitorName.trim()}
-                      className="border border-foreground bg-foreground text-background text-xs font-bold px-4 py-1.5 hover:bg-transparent hover:text-foreground transition-colors duration-200 cursor-pointer disabled:opacity-50 rounded"
-                    >
-                      {isSubmitting ? "..." : <Send size={12} />}
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              {/* Charts grid */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* Footprints & Distribution Charts */}
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-full">
                 
-                {/* Daily Activity Chart */}
-                <div className="md:col-span-2 border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
-                  <div className="flex items-center gap-2 text-foreground">
-                    <Calendar size={16} className="text-blue-500" />
-                    <h2 className="text-xs font-bold uppercase tracking-widest">Daily Footprints (Last 14 Days)</h2>
+                {/* Daily / Timeframe Footprints Chart */}
+                <div className="md:col-span-2 border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4 min-w-0 overflow-hidden">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/40 pb-3 min-w-0">
+                    <div className="flex items-center gap-2 text-foreground">
+                      <Calendar size={16} className="text-blue-500 flex-shrink-0" />
+                      <h2 className="text-xs font-bold uppercase tracking-widest truncate">
+                        Footprints Analytics ({selectedPeriod.toUpperCase()}-WISE)
+                      </h2>
+                    </div>
+
+                    {/* Timeframe Period Tabs: Day, Week, Month, Year */}
+                    <div className="flex items-center gap-1 bg-secondary/20 p-1 rounded border border-border/60 max-w-full overflow-x-auto">
+                      {(["day", "week", "month", "year"] as const).map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => {
+                            setSelectedPeriod(tab)
+                            setCurrentPage(1)
+                          }}
+                          className={`px-2.5 py-1 text-[10px] font-bold uppercase rounded transition-colors whitespace-nowrap ${
+                            selectedPeriod === tab
+                              ? "bg-foreground text-background shadow"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {tab === "day" ? "Day Wise" : tab === "week" ? "Week Wise" : tab === "month" ? "Month Wise" : "Year Wise"}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="h-64 w-full">
+
+                  <div className="h-64 w-full min-w-0 overflow-hidden">
                     {data.dailyViews.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={data.dailyViews} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                           <defs>
                             <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="var(--foreground)" stopOpacity={0.1}/>
+                              <stop offset="5%" stopColor="var(--foreground)" stopOpacity={0.15}/>
                               <stop offset="95%" stopColor="var(--foreground)" stopOpacity={0}/>
                             </linearGradient>
                           </defs>
@@ -221,31 +461,27 @@ export default function StatsPage() {
                             className="text-muted-foreground opacity-60"
                             fontSize={9} 
                             tickLine={false} 
-                            tickFormatter={(str) => {
-                              const date = new Date(str)
-                              return date.toLocaleDateString(undefined, { month: "short", day: "numeric" })
-                            }}
                           />
                           <YAxis stroke="currentColor" className="text-muted-foreground opacity-60" fontSize={9} tickLine={false} />
                           <Tooltip 
                             contentStyle={{ backgroundColor: "var(--background)", borderColor: "var(--border)", color: "var(--foreground)", fontFamily: "monospace", fontSize: 11 }}
-                            labelFormatter={(label) => `Date: ${label}`}
+                            labelFormatter={(label) => `Period (${selectedPeriod}): ${label}`}
                           />
-                          <Area type="monotone" dataKey="count" name="Views" stroke="var(--foreground)" strokeWidth={2} fillOpacity={1} fill="url(#colorCount)" />
+                          <Area type="monotone" dataKey="count" name="Visits" stroke="var(--foreground)" strokeWidth={2} fillOpacity={1} fill="url(#colorCount)" />
                         </AreaChart>
                       </ResponsiveContainer>
                     ) : (
                       <div className="h-full flex items-center justify-center text-xs text-muted-foreground">
-                        No footprint activity recorded yet.
+                        No footprint activity recorded for this period.
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* Locations List */}
-                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
+                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4 min-w-0 overflow-hidden">
                   <div className="flex items-center gap-2 text-foreground">
-                    <Globe size={16} className="text-emerald-500" />
+                    <Globe size={16} className="text-emerald-500 flex-shrink-0" />
                     <h2 className="text-xs font-bold uppercase tracking-widest">Top Locations</h2>
                   </div>
                   <div className="space-y-3.5 max-h-64 overflow-y-auto pr-1">
@@ -254,15 +490,15 @@ export default function StatsPage() {
                       return (
                         <div key={item.country} className="space-y-1">
                           <div className="flex justify-between text-xs">
-                            <span className="text-muted-foreground flex items-center gap-1.5">
+                            <span className="text-muted-foreground flex items-center gap-1.5 truncate">
                               <span className="text-[10px] opacity-40">#{index + 1}</span>
-                              {item.country}
+                              <span className="truncate">{item.country}</span>
                             </span>
-                            <span className="font-bold">{item.count} ({percentage}%)</span>
+                            <span className="font-bold flex-shrink-0">{item.count} ({percentage}%)</span>
                           </div>
                           <div className="h-1 bg-border rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-foreground rounded-full transition-all duration-500" 
+                              className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
                               style={{ width: `${percentage}%` }}
                             />
                           </div>
@@ -275,13 +511,13 @@ export default function StatsPage() {
                   </div>
                 </div>
 
-                {/* Devices */}
-                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
+                {/* Devices Chart */}
+                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4 min-w-0 overflow-hidden">
                   <div className="flex items-center gap-2 text-foreground">
-                    <Tv size={16} className="text-indigo-500" />
+                    <Tv size={16} className="text-indigo-500 flex-shrink-0" />
                     <h2 className="text-xs font-bold uppercase tracking-widest">Devices</h2>
                   </div>
-                  <div className="h-48 relative flex items-center justify-center">
+                  <div className="h-48 relative flex items-center justify-center min-w-0 overflow-hidden">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -317,13 +553,13 @@ export default function StatsPage() {
                   </div>
                 </div>
 
-                {/* Browsers */}
-                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
+                {/* Browsers Chart */}
+                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4 min-w-0 overflow-hidden">
                   <div className="flex items-center gap-2 text-foreground">
-                    <Compass size={16} className="text-amber-500" />
+                    <Compass size={16} className="text-amber-500 flex-shrink-0" />
                     <h2 className="text-xs font-bold uppercase tracking-widest">Browsers</h2>
                   </div>
-                  <div className="h-48 relative flex items-center justify-center">
+                  <div className="h-48 relative flex items-center justify-center min-w-0 overflow-hidden">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -359,13 +595,13 @@ export default function StatsPage() {
                   </div>
                 </div>
 
-                {/* Operating Systems */}
-                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
+                {/* Operating Systems Chart */}
+                <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4 min-w-0 overflow-hidden">
                   <div className="flex items-center gap-2 text-foreground">
-                    <Cpu size={16} className="text-pink-500" />
+                    <Cpu size={16} className="text-pink-500 flex-shrink-0" />
                     <h2 className="text-xs font-bold uppercase tracking-widest">Operating Systems</h2>
                   </div>
-                  <div className="h-48 relative flex items-center justify-center">
+                  <div className="h-48 relative flex items-center justify-center min-w-0 overflow-hidden">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -403,19 +639,61 @@ export default function StatsPage() {
 
               </div>
 
-              {/* Recent Visitor Registry Table */}
-              <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-bold uppercase tracking-widest">Recent Visitor Registry</h3>
+              {/* Recent Visitor Registry Table & API Filters */}
+              <div className="border border-border bg-secondary/5 p-4 sm:p-6 rounded space-y-5 min-w-0 overflow-hidden">
+                
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/50 pb-4">
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                      <User size={15} className="text-blue-500 flex-shrink-0" /> Recent Visitor Registry
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground">
+                      Filtered results fetched directly via MongoDB API query.
+                    </p>
+                  </div>
+
                   <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                    Page {currentPage} of {data.recentVisitors.length > 0 ? Math.ceil(data.recentVisitors.length / itemsPerPage) : 1}
+                    Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} Records Found)
                   </span>
                 </div>
-                <div className="overflow-x-auto">
+
+                {/* API Filter Bar Component */}
+                <VisitorFilterBar
+                  searchQuery={searchQuery}
+                  setSearchQuery={(val) => {
+                    setSearchQuery(val)
+                    setCurrentPage(1)
+                  }}
+                  selectedLocation={selectedLocation}
+                  setSelectedLocation={(val) => {
+                    setSelectedLocation(val)
+                    setCurrentPage(1)
+                  }}
+                  selectedDevice={selectedDevice}
+                  setSelectedDevice={(val) => {
+                    setSelectedDevice(val)
+                    setCurrentPage(1)
+                  }}
+                  startDate={startDate}
+                  setStartDate={(val) => {
+                    setStartDate(val)
+                    setCurrentPage(1)
+                  }}
+                  endDate={endDate}
+                  setEndDate={(val) => {
+                    setEndDate(val)
+                    setCurrentPage(1)
+                  }}
+                  onReset={resetFilters}
+                  locations={data.filters?.locations || []}
+                />
+
+                {/* Table */}
+                <div className="overflow-x-auto w-full max-w-full">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
                       <tr className="border-b border-border text-muted-foreground">
-                        <th className="py-2.5 font-bold uppercase">Name</th>
+                        <th className="py-2.5 font-bold uppercase min-w-[200px]">Visitor Profile & Email</th>
                         <th className="py-2.5 font-bold uppercase">Location</th>
                         <th className="py-2.5 font-bold uppercase">Device</th>
                         <th className="py-2.5 font-bold uppercase">Page Path</th>
@@ -423,33 +701,71 @@ export default function StatsPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.recentVisitors
-                        .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-                        .map((v) => (
-                          <tr key={v.id} className="border-b border-border/50 hover:bg-secondary/10">
-                            <td className="py-2.5 font-bold text-foreground">{v.name}</td>
-                            <td className="py-2.5 text-muted-foreground">
-                              {v.city}, {v.country}
-                            </td>
-                            <td className="py-2.5">
-                              <span className="border border-border/60 px-1.5 py-0.5 text-[9px] uppercase tracking-wider rounded">
-                                {v.device}
-                              </span>
-                            </td>
-                            <td className="py-2.5">
-                              <code className="text-[10px] text-blue-400 bg-secondary/20 px-1.5 py-0.5 rounded">
-                                {v.path || "/"}
-                              </code>
-                            </td>
-                            <td className="py-2.5 text-right text-muted-foreground">
-                              {new Date(v.timestamp).toLocaleString()}
-                            </td>
-                          </tr>
-                        ))}
+                      {data.recentVisitors.map((v) => (
+                        <tr key={v.id} className="border-b border-border/50 hover:bg-secondary/10 transition-colors">
+                          
+                          {/* Column 1: Profile Photo, Name, and Email */}
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-3">
+                              {v.picture ? (
+                                <img 
+                                  src={v.picture} 
+                                  alt={v.name} 
+                                  className="w-8 h-8 rounded-full border border-border object-cover flex-shrink-0"
+                                />
+                              ) : (
+                                <div className="w-8 h-8 rounded-full bg-secondary border border-border text-foreground flex items-center justify-center font-bold text-xs flex-shrink-0 uppercase">
+                                  {v.name ? v.name.charAt(0) : "A"}
+                                </div>
+                              )}
+                              <div className="space-y-0.5">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="font-bold text-foreground">{v.name}</span>
+                                  {v.registered && (
+                                     <span title="Google Verified Visitor" className="inline-flex items-center">
+                                       <CheckCircle2 size={12} className="text-emerald-400" />
+                                     </span>
+                                  )}
+                                </div>
+                                {v.email ? (
+                                  <p className="text-[10px] text-muted-foreground">{v.email}</p>
+                                ) : (
+                                  <p className="text-[9px] text-muted-foreground/60 italic">Anonymous Visit</p>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Location */}
+                          <td className="py-3 text-muted-foreground">
+                            {v.city}, {v.country}
+                          </td>
+
+                          {/* Device */}
+                          <td className="py-3">
+                            <span className="border border-border/60 px-2 py-0.5 text-[9px] uppercase tracking-wider rounded bg-secondary/10">
+                              {v.device}
+                            </span>
+                          </td>
+
+                          {/* Path */}
+                          <td className="py-3">
+                            <code className="text-[10px] text-blue-400 bg-secondary/20 px-1.5 py-0.5 rounded">
+                              {v.path || "/"}
+                            </code>
+                          </td>
+
+                          {/* Timestamp */}
+                          <td className="py-3 text-right text-muted-foreground text-[11px]">
+                            {new Date(v.timestamp).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                      
                       {data.recentVisitors.length === 0 && (
                         <tr>
-                          <td colSpan={5} className="py-8 text-center text-muted-foreground">
-                            No registry records found.
+                          <td colSpan={5} className="py-12 text-center text-muted-foreground">
+                            No visitor records found matching your filter criteria.
                           </td>
                         </tr>
                       )}
@@ -458,7 +774,7 @@ export default function StatsPage() {
                 </div>
 
                 {/* Pagination Controls */}
-                {data.recentVisitors.length > itemsPerPage && (
+                {data.pagination.totalPages > 1 && (
                   <div className="flex items-center justify-between border-t border-border/40 pt-4 text-xs font-mono">
                     <button
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -468,11 +784,11 @@ export default function StatsPage() {
                       {"<- PREV"}
                     </button>
                     <span className="text-[10px] text-muted-foreground">
-                      SHOWING {Math.min((currentPage - 1) * itemsPerPage + 1, data.recentVisitors.length)} - {Math.min(currentPage * itemsPerPage, data.recentVisitors.length)} OF {data.recentVisitors.length} RECORDS
+                      PAGE {data.pagination.page} OF {data.pagination.totalPages}
                     </span>
                     <button
-                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(data.recentVisitors.length / itemsPerPage)))}
-                      disabled={currentPage >= Math.ceil(data.recentVisitors.length / itemsPerPage)}
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, data.pagination.totalPages))}
+                      disabled={currentPage >= data.pagination.totalPages}
                       className="border border-border px-3 py-1 hover:bg-secondary/20 disabled:opacity-30 disabled:hover:bg-transparent transition-all rounded text-[10px] uppercase cursor-pointer"
                     >
                       {"NEXT ->"}

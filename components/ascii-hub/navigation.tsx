@@ -81,7 +81,7 @@ export function Navigation() {
           <img
             src={!mounted || theme === "dark" ? "/T_Light.png" : "/T_Dark.png"}
             alt="Thayanithi S Logo"
-            className="h-12 mr-10 w-auto object-contain"
+            className="h-10 sm:h-12 mr-4 lg:mr-10 w-auto object-contain"
           />
         </button>
 

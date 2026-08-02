@@ -72,7 +72,7 @@ export function Footer() {
             </pre>
             <div className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">
               <p className="italic">"The best way to predict the future is to create it."</p>
-              <p className="mt-1 font-bold text-foreground flex text-end w-full flex items-end justify-end mr-20">- Peter Drucker</p>
+              <p className="mt-1 font-bold text-foreground text-right">- Peter Drucker</p>
               <p className="mt-3 text-[11px]">Fueled by ∞ cups of coffee & passion for code</p>
             </div>
           </motion.div>

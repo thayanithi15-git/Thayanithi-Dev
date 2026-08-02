@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { askAssistant } from "@/app/assistant/actions"
 
@@ -10,6 +10,16 @@ interface ChatMessage {
   text: string
 }
 
+interface QueryRecord {
+  query: string
+  timestamp: number
+}
+
+const REST_DURATION_MS = 2 * 60 * 1000 // 2 minutes (120,000 ms)
+const TWO_MINUTES_MS = 2 * 60 * 1000
+const MAX_DUPLICATE_COUNT = 2 // More than 2 times means attempt 3+ triggers 2-min rest
+const MAX_QUERIES_IN_2_MIN = 5 // Asking continuously (5 queries in 2 mins) triggers rest
+
 export function AIAssistant() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     { sender: "system", text: "AI Portfolio Assistant initialized. Systems online." },
@@ -17,13 +27,72 @@ export function AIAssistant() {
   ])
   const [input, setInput] = useState("")
   const [isProcessing, setIsProcessing] = useState(false)
+  const [cooldownUntil, setCooldownUntil] = useState<number | null>(null)
+  const [cooldownSeconds, setCooldownSeconds] = useState<number>(0)
+  const [queryHistory, setQueryHistory] = useState<QueryRecord[]>([])
+
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
+  // Restore active cooldown and query history from localStorage on mount
+  useEffect(() => {
+    try {
+      const storedUntil = localStorage.getItem("portfolio_ai_cooldown_until")
+      if (storedUntil) {
+        const until = parseInt(storedUntil, 10)
+        if (until > Date.now()) {
+          setCooldownUntil(until)
+          setCooldownSeconds(Math.ceil((until - Date.now()) / 1000))
+        } else {
+          localStorage.removeItem("portfolio_ai_cooldown_until")
+        }
+      }
+
+      const storedHistory = localStorage.getItem("portfolio_ai_query_history")
+      if (storedHistory) {
+        setQueryHistory(JSON.parse(storedHistory))
+      }
+    } catch (e) {
+      console.error("Failed to restore AI assistant rate limit state:", e)
+    }
+  }, [])
+
+  // Live countdown timer interval
+  useEffect(() => {
+    if (!cooldownUntil) {
+      setCooldownSeconds(0)
+      return
+    }
+
+    const updateTimer = () => {
+      const remaining = Math.ceil((cooldownUntil - Date.now()) / 1000)
+      if (remaining <= 0) {
+        setCooldownUntil(null)
+        setCooldownSeconds(0)
+        try {
+          localStorage.removeItem("portfolio_ai_cooldown_until")
+        } catch (e) {}
+      } else {
+        setCooldownSeconds(remaining)
+      }
+    }
+
+    updateTimer()
+    const interval = setInterval(updateTimer, 1000)
+    return () => clearInterval(interval)
+  }, [cooldownUntil])
+
+  // Scroll chat window to bottom on new messages
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
-  }, [messages, isProcessing])
+  }, [messages, isProcessing, cooldownSeconds])
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
+  }
 
   const suggestions = [
     "Tell me about BITLINKS",
@@ -55,20 +124,80 @@ export function AIAssistant() {
     return "Query parsed. Thayanithi S is a Software Development & Infra Engineer specializing in Fullstack, Mobile App engineering, and Cloud-native architectures. If you have specific inquiries, feel free to email thayanithi2006s@gmail.com."
   }
 
+  const triggerCooldown = (until: number, reason: string) => {
+    setCooldownUntil(until)
+    const initialRemaining = Math.ceil((until - Date.now()) / 1000)
+    setCooldownSeconds(initialRemaining)
+    try {
+      localStorage.setItem("portfolio_ai_cooldown_until", until.toString())
+    } catch (e) {}
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        sender: "system",
+        text: `[RATE LIMIT TRIGGERED] ${reason} System agent is taking a 2-minute cooling break (${formatTime(
+          initialRemaining
+        )}). Please wait before querying again.`
+      }
+    ])
+  }
+
+  const checkRateLimit = (newQuery: string): boolean => {
+    const now = Date.now()
+    const normalized = newQuery.trim().toLowerCase()
+
+    // Filter queries within the last 2 minutes
+    const recentQueries = queryHistory.filter((q) => now - q.timestamp <= TWO_MINUTES_MS)
+
+    // 1. Check duplicate count for the same question
+    const sameQuestionCount = recentQueries.filter((q) => q.query === normalized).length
+
+    // Asking the same question more than 2 times (attempt 3+) triggers 2-min rest
+    if (sameQuestionCount >= MAX_DUPLICATE_COUNT) {
+      const until = now + REST_DURATION_MS
+      triggerCooldown(until, "You have asked the same question more than 2 times.")
+      return true
+    }
+
+    // 2. Check continuous rapid queries over 2 minutes
+    if (recentQueries.length >= MAX_QUERIES_IN_2_MIN - 1) {
+      const until = now + REST_DURATION_MS
+      triggerCooldown(until, "Continuous queries detected over a 2-minute window.")
+      return true
+    }
+
+    // Record this query in history
+    const updatedHistory = [...recentQueries, { query: normalized, timestamp: now }]
+    setQueryHistory(updatedHistory)
+    try {
+      localStorage.setItem("portfolio_ai_query_history", JSON.stringify(updatedHistory))
+    } catch (e) {}
+
+    return false
+  }
+
   const handleSend = async (textToSend: string) => {
-    if (!textToSend.trim() || isProcessing) return
+    if (!textToSend.trim() || isProcessing || cooldownSeconds > 0) return
+
+    // Evaluate rate limits
+    const isRateLimited = checkRateLimit(textToSend)
+    if (isRateLimited) {
+      setInput("")
+      return
+    }
 
     setMessages((prev) => [...prev, { sender: "user", text: textToSend }])
     setInput("")
     setIsProcessing(true)
 
     try {
-      // Try calling primary assistant
+      // Call primary assistant server action
       const reply = await askAssistant(textToSend)
       if (reply) {
         setMessages((prev) => [...prev, { sender: "system", text: reply.trim() }])
       } else {
-        // Fallback to local mock response
+        // Fallback to local response
         const localReply = getAIResponse(textToSend)
         setMessages((prev) => [...prev, { sender: "system", text: localReply }])
       }
@@ -80,6 +209,8 @@ export function AIAssistant() {
       setIsProcessing(false)
     }
   }
+
+  const isLocked = isProcessing || cooldownSeconds > 0
 
   return (
     <motion.section
@@ -109,12 +240,24 @@ export function AIAssistant() {
         {/* Terminal Header */}
         <div className="flex items-center justify-between border-b border-border bg-secondary/15 px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse" />
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                cooldownSeconds > 0 ? "bg-amber-500 animate-ping" : "bg-green-500 animate-pulse"
+              }`}
+            />
             <span className="text-[10px] uppercase font-bold text-foreground tracking-wider">
               System Agent Interface v1.0.0
             </span>
           </div>
-          <span className="text-[8px] text-muted-foreground/50">// STATE: OPERATIONAL</span>
+          <span
+            className={`text-[8px] font-bold ${
+              cooldownSeconds > 0 ? "text-amber-400 animate-pulse" : "text-muted-foreground/50"
+            }`}
+          >
+            {cooldownSeconds > 0
+              ? `// STATE: COOLING DOWN (${formatTime(cooldownSeconds)})`
+              : "// STATE: OPERATIONAL"}
+          </span>
         </div>
 
         {/* Chat History Panel */}
@@ -131,10 +274,12 @@ export function AIAssistant() {
               <span className="text-[8px] text-muted-foreground/60 mb-0.5 uppercase tracking-wider">
                 {msg.sender === "user" ? "visitor_user" : "system_agent"}
               </span>
-              <div 
+              <div
                 className={`p-2.5 rounded-sm border ${
-                  msg.sender === "user" 
-                    ? "bg-foreground text-background border-foreground" 
+                  msg.sender === "user"
+                    ? "bg-foreground text-background border-foreground"
+                    : msg.text.startsWith("[RATE LIMIT TRIGGERED]")
+                    ? "bg-amber-500/10 text-amber-300 border-amber-500/40"
                     : "bg-secondary/20 text-muted-foreground border-border/60"
                 }`}
               >
@@ -156,13 +301,15 @@ export function AIAssistant() {
 
         {/* Suggestion list */}
         <div className="border-t border-border/40 bg-secondary/5 px-4 py-3">
-          <span className="text-[9px] uppercase tracking-wider text-muted-foreground block mb-2 font-bold">Suggested Inquiries:</span>
+          <span className="text-[9px] uppercase tracking-wider text-muted-foreground block mb-2 font-bold">
+            Suggested Inquiries:
+          </span>
           <div className="flex flex-wrap gap-2">
             {suggestions.map((sug) => (
               <button
                 key={sug}
                 onClick={() => handleSend(sug)}
-                disabled={isProcessing}
+                disabled={isLocked}
                 className="text-[9px] px-2 py-1 border border-border/60 text-muted-foreground bg-background/50 hover:border-foreground hover:text-foreground hover:bg-secondary/10 transition-all duration-150 rounded-sm cursor-pointer disabled:opacity-50"
               >
                 {sug}
@@ -180,16 +327,20 @@ export function AIAssistant() {
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSend(input)
             }}
-            placeholder="Ask a question about Thayanithi's profile..."
-            disabled={isProcessing}
+            placeholder={
+              cooldownSeconds > 0
+                ? `System resting... available in ${formatTime(cooldownSeconds)}`
+                : "Ask a question about Thayanithi's profile..."
+            }
+            disabled={isLocked}
             className="flex-1 bg-background border border-border/60 rounded-sm px-3 py-1.5 text-xs text-foreground focus:border-foreground focus:outline-none placeholder-muted-foreground/40 disabled:opacity-50"
           />
           <button
             onClick={() => handleSend(input)}
-            disabled={isProcessing || !input.trim()}
+            disabled={isLocked || !input.trim()}
             className="border border-foreground bg-foreground text-background text-xs font-bold px-4 py-1.5 hover:bg-transparent hover:text-foreground transition-colors duration-200 cursor-pointer disabled:opacity-50 rounded-sm"
           >
-            EXECUTE
+            {cooldownSeconds > 0 ? `RESTING (${formatTime(cooldownSeconds)})` : "EXECUTE"}
           </button>
         </div>
       </div>
