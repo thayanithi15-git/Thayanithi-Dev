@@ -397,7 +397,7 @@ export default function StatsPage() {
                     {/* Transparent Native Google iframe overlay */}
                     <div 
                       ref={googleBtnRef} 
-                      className="google-overlay-btn absolute inset-0 cursor-pointer overflow-hidden flex items-center justify-center pointer-events-auto z-10"
+                      className="google-overlay-btn absolute inset-0 cursor-pointer overflow-hidden flex items-center justify-center pointer-events-auto z-10 opacity-0"
                       title="Verify footprint with Google"
                     />
                   </div>
