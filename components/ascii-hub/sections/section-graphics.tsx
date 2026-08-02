@@ -31,6 +31,33 @@ const wavePoints = [
   { baseXPercent: 0.9, date: "DEC 2025", text: "NPTEL Java Elite Cert (90%)", type: "CERT" }
 ]
 
+function getWaveY(xPercent: number, t: number, H: number): number {
+  const phase = xPercent * Math.PI * 2
+
+  // Dynamic amplitude modulation envelope creating distinct high peaks ("too up"), medium waves, and low ripples
+  const primarySurge = Math.pow(Math.sin(phase * 1.5 + t * 0.6) * 0.5 + 0.5, 2.2)
+  const secondaryMod = Math.sin(phase * 3.5 - t * 0.9) * 0.35
+  const envelope = Math.max(0.15, Math.min(1.0, 0.20 + primarySurge * 0.75 + secondaryMod))
+
+  // Carrier waveform with multi-frequency GPU signal harmonics
+  const wave =
+    Math.sin(phase * 4 + t * 1.3) * 0.58 +
+    Math.sin(phase * 10 - t * 2.0) * 0.26 +
+    Math.sin(phase * 18 + t * 2.8) * 0.11 +
+    Math.cos(phase * 2 - t * 0.4) * 0.15
+
+  return H / 2 + (H * 0.36) * envelope * wave
+}
+
+function getSecondaryWaveY(xPercent: number, t: number, H: number): number {
+  const phase = xPercent * Math.PI * 2
+  const envelope = 0.2 + 0.5 * (Math.cos(phase * 2.5 - t * 0.7) * 0.5 + 0.5)
+  const wave =
+    Math.sin(phase * 6 + t * 1.6 + 1.2) * 0.65 +
+    Math.sin(phase * 14 - t * 2.3) * 0.35
+  return H / 2 + (H * 0.24) * envelope * wave
+}
+
 function Oscilloscope() {
   const ref = useRef<HTMLCanvasElement>(null)
   const animRef = useRef<number>(0)
@@ -78,7 +105,7 @@ function Oscilloscope() {
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke()
       }
 
-      // Main waveform — composite of multiple frequencies (slower speed)
+      // Main waveform — dynamic amplitude composite
       ctx.strokeStyle = isDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.85)"
       ctx.lineWidth = 2
       ctx.shadowColor = isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.2)"
@@ -86,15 +113,8 @@ function Oscilloscope() {
       ctx.beginPath()
       for (let i = 0; i <= POINTS; i++) {
         const x = (W / POINTS) * i
-        const phase = (i / POINTS) * Math.PI * 2
-        const y =
-          H / 2 +
-          (H / 5) * (
-            Math.sin(phase * 3 + t) * 0.5 +
-            Math.sin(phase * 7 - t * 1.3) * 0.25 +
-            Math.sin(phase * 11 + t * 0.7) * 0.15 +
-            Math.sin(phase * 2 - t * 0.4) * 0.1
-          )
+        const xPercent = i / POINTS
+        const y = getWaveY(xPercent, t, H)
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
       }
       ctx.stroke()
@@ -106,10 +126,8 @@ function Oscilloscope() {
       ctx.beginPath()
       for (let i = 0; i <= POINTS; i++) {
         const x = (W / POINTS) * i
-        const phase = (i / POINTS) * Math.PI * 2
-        const y =
-          H / 2 +
-          (H / 6) * Math.sin(phase * 5 + t * 1.8 + 1.2)
+        const xPercent = i / POINTS
+        const y = getSecondaryWaveY(xPercent, t, H)
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
       }
       ctx.stroke()
@@ -119,21 +137,11 @@ function Oscilloscope() {
 
       // Draw milestones pinned to active wave coordinates, moving right to left
       wavePoints.forEach((point) => {
-        // Subtract offset from baseXPercent to shift items leftwards over time.
-        // Wrap around [0, 1] using modulo.
         let xPercent = (point.baseXPercent - t * 0.05) % 1
         if (xPercent < 0) xPercent += 1
 
         const x = W * xPercent
-        const phase = xPercent * Math.PI * 2
-        const y =
-          H / 2 +
-          (H / 5) * (
-            Math.sin(phase * 3 + t) * 0.5 +
-            Math.sin(phase * 7 - t * 1.3) * 0.25 +
-            Math.sin(phase * 11 + t * 0.7) * 0.15 +
-            Math.sin(phase * 2 - t * 0.4) * 0.1
-          )
+        const y = getWaveY(xPercent, t, H)
 
         // Mouse collision check
         if (mouseRef.current) {
@@ -174,15 +182,19 @@ function Oscilloscope() {
         ctx.stroke()
         ctx.setLineDash([])
 
-        // Info Text Label (title is now primary/large, date is secondary/smaller below it)
+        // Info Text Label with dynamic vertical positioning to prevent top clipping on high peaks
         if (W > 768 || isCurrentHovered) {
+          const isNearTop = y < 45
+          const textYTitle = isNearTop ? y + 18 : y - 6
+          const textYDate = isNearTop ? y + 30 : y + 8
+
           ctx.fillStyle = isDark ? "rgba(255,255,255,0.95)" : "rgba(0,0,0,0.95)"
           ctx.font = isCurrentHovered ? "bold 12px monospace" : "bold 11px monospace"
-          ctx.fillText(point.text, x + 8, y - 6)
+          ctx.fillText(point.text, x + 8, textYTitle)
           
           ctx.fillStyle = isDark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.6)"
           ctx.font = isCurrentHovered ? "bold 11px monospace" : "11px monospace"
-          ctx.fillText(point.date, x + 8, y + 8)
+          ctx.fillText(point.date, x + 8, textYDate)
         }
       })
 
@@ -259,7 +271,7 @@ function Oscilloscope() {
         ref={ref}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        className="h-48 w-full border border-border bg-background md:h-64 cursor-default block"
+        className="h-64 w-full border border-border bg-background md:h-80 cursor-default block"
         style={{ boxShadow: shadow }}
       />
     </div>

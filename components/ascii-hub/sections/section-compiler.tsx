@@ -89,6 +89,22 @@ const learningStages = [
   }
 }`,
     desc: "Deployed microservices, studied distributed consensus models, and managed large-scale analytical datasets on Google Cloud Platform."
+  },
+  {
+    name: "AI",
+    label: "AI Systems & LLM Engineering",
+    code: `class AIEngineering {
+  constructor() {
+    this.models = ["LLMs", "RAG Architecture", "Prompt Engineering"];
+    this.tools = ["LangChain", "OpenAI APIs", "Vector DBs"];
+    this.focus = [
+      "Agentic AI Workflows",
+      "Context Window & Semantic Search",
+      "AI Pipeline Integration"
+    ];
+  }
+}`,
+    desc: "Built retrieval-augmented generation (RAG) pipelines, integrated LLM APIs, prompt engineering, vector database indexing, and agentic AI workflows."
   }
 ]
 
