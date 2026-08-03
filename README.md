@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=venom&color=gradient&customColorList=12,14,18,20,24&height=220&section=header&text=THAYANITHI%20S&fontSize=80&fontAlignY=45&desc=Full%20Stack%20Software%20Engineer%20%7C%20SaaS%20Architect%20%7C%20Problem%20Solver&descSize=20&descAlignY=65&animation=twinkling" width="100%"/>
 </div>
@@ -7,12 +5,12 @@
 <br/>
 
 <div align="center">
-  <h3>💻 Full Stack Engineer | CSE'27 | Building the Future, One Commit at a Time 🚀</h3>
+  <h3>💻 Full Stack Engineer | CSE'27 | Building Scalable & Modern Web Applications 🚀</h3>
   <p>
     <em>
-      Crafting scalable, user-centric applications with modern tech stacks.<br/>
-      Passionate about clean code, robust APIs, and high-performance digital solutions.<br/>
-      Transforming ideas into reality through hands-on experience and innovation.
+      Crafting high-performance web applications, robust APIs, and interactive UI experiences.<br/>
+      Passionate about full-stack architecture, database optimizations, and intelligent developer tools.<br/>
+      Transforming complex technical ideas into elegant, production-ready software solutions.
     </em>
   </p>
 </div>
@@ -21,7 +19,7 @@
 
 <div align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=24&duration=3500&pause=1000&color=00D9FF&center=true&vCenter=true&width=900&lines=Next.js+%7C+React+Native+%7C+TypeScript;SaaS+Platform+Builder;Node.js+%7C+Express.js+%7C+Go+%7C+GCP;300%2B+LeetCode+Problems+Solved;2K%2B+GitHub+Commits" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=24&duration=3500&pause=1000&color=00D9FF&center=true&vCenter=true&width=900&lines=Next.js+14+%7C+TypeScript+%7C+Tailwind+CSS;Full-Stack+SaaS+Platform+Architect;Node.js+%7C+Express.js+%7C+Go+%7C+GCP;Interactive+ASCII-Terminal+Portfolio;300%2B+LeetCode+Problems+Solved+%7C+2K%2B+Commits" alt="Typing SVG" />
   </a>
 </div>
 
@@ -43,22 +41,23 @@
 
 ```typescript
 const thayanithi = {
-  role: "Full Stack Software Engineer",
+  name: "Thayanithi S",
+  role: "Full Stack Software Engineer & SaaS Architect",
   education: "B.E. Computer Science Engineering (2023 - 2027)",
   institution: "Bannari Amman Institute of Technology",
   cgpa: 8.2,
   location: "Namakkal, Tamil Nadu, India 🇮🇳",
 
   currentFocus: [
-    "SaaS Platform Development",
-    "Next.js, TypeScript & Full-Stack Architecture",
-    "Backend & APIs (Node.js, Express, Go, JWT, OAuth)",
-    "Database Optimizations (PostgreSQL, MongoDB)",
-    "Cloud Deployments (GCP, BigQuery, Vercel, Cloudflare)"
+    "Next.js 14 App Router & TypeScript Architecture",
+    "High-Performance Full-Stack SaaS Platforms",
+    "Backend Microservices (Node.js, Express, Go, REST APIs, OAuth)",
+    "Database Systems & Query Optimization (PostgreSQL, MongoDB, BigQuery)",
+    "Cloud Infrastructures & Serverless Deployments (GCP, Cloudflare, Vercel)"
   ],
 
   languages: ["TypeScript", "JavaScript", "Java", "Python", "C"],
-  motto: "The best way to predict the future is to create it."
+  motto: "The best way to predict the future is to build it."
 };
 ```
 
@@ -66,7 +65,7 @@ const thayanithi = {
 
 ---
 
-## 💼 Internship Experience
+## 💼 Internship & Industry Experience
 
 <table>
   <tr>
@@ -95,9 +94,56 @@ const thayanithi = {
   </tr>
 </table>
 
-* **EQREV** - Engineered a SaaS analytics platform giving brands pin-code level insights across 1,000+ stores on Zepto, Blinkit & Instamart. Adopted by D2C brands like Mee Mee, Ramraj, and Underneat.
-* **CRAYON'D** - Delivered 2+ client-facing products with Next.js, BDD API testing & modular design, enabling 20% faster feature delivery.
-* **THINKUNI** - Built a multi-role student dashboard and learning visualization interface using Vue.js.
+### Key Highlights
+* **EQREV**: Engineered a high-throughput SaaS analytics platform providing D2C brands with pin-code level store analytics across **1,000+ retail stores** on Zepto, Blinkit, and Instamart. Adopted by leading brands including Mee Mee, Ramraj, and Underneat.
+* **CRAYON'D**: Delivered **2+ client-facing products** using Next.js, BDD API testing suites, and modular UI component libraries, resulting in a **20% acceleration** in feature delivery pipelines.
+* **THINKUNI**: Developed a multi-role student dashboard and interactive learning visualization platform powered by Vue.js and REST endpoints.
+
+---
+
+## 💻 Portfolio Web Application: End-to-End Implementation
+
+This repository contains the source code for my interactive personal portfolio. Designed with a **cyberpunk & ASCII-inspired developer aesthetic**, it goes beyond a typical static website by featuring active terminal simulation, real-time AI assistance, and dynamic visitor persona customization.
+
+```
+📁 Portfolio Architecture Overview
+├── 📂 app/                     # Next.js 14 App Router pages & API handlers
+│   ├── 📂 api/                 # Backend serverless endpoints (AI Assistant, Telemetry)
+│   ├── 📂 assistant/           # Standalone AI assistant page view
+│   ├── 📂 stats/               # Dynamic GitHub & LeetCode analytics integration
+│   ├── 📄 layout.tsx           # Global root layout with theme providers
+│   └── 📄 page.tsx             # Main dashboard container & component orchestrator
+├── 📂 components/ascii-hub/    # Core feature components
+│   ├── 📄 pseudo-terminal.tsx  # In-browser CLI terminal command processor
+│   ├── 📄 ai-assistant.tsx     # Embedded portfolio AI assistant chat interface
+│   ├── 📄 ascii-canvas.tsx     # Generative ASCII background renderer
+│   ├── 📄 visitor-filter-bar.tsx # Persona-based content filtering bar
+│   ├── 📄 shutdown-manager.tsx # Interactive retro system power-off simulation
+│   ├── 📄 hero-section.tsx     # Animated terminal hero section
+│   ├── 📄 domain-section.tsx   # Domain-based tech stack showcases
+│   └── 📄 floating-controls.tsx# Sound & theme floating control widget
+└── 📂 lib/                     # System state, constants, & data stores
+```
+
+### 🛠️ Technical Architecture & Key Implementation Features
+
+#### 1. Interactive Pseudo-Terminal CLI (`components/ascii-hub/pseudo-terminal.tsx`)
+- **Implementation**: Built a client-side command parser supporting commands like `help`, `skills`, `projects`, `stats`, `contact`, `clear`, and `matrix`.
+- **User Experience**: Allows developers and technical recruiters to interact with the portfolio via a Unix-style command line interface complete with input history navigation and simulated system output responses.
+
+#### 2. Embedded Portfolio AI Assistant (`components/ascii-hub/ai-assistant.tsx` & `app/api/`)
+- **Implementation**: Integrated a conversational AI assistant trained on portfolio data, technical experience, and project specifications.
+- **User Experience**: Visitors can ask direct questions (e.g., *"What stack was used for CNC Vault?"* or *"Tell me about Thayanithi's experience at EQREV"*), receiving instant, contextual responses.
+
+#### 3. Generative ASCII Canvas (`components/ascii-hub/ascii-canvas.tsx`)
+- **Implementation**: HTML5 Canvas animation engine that continuously renders generative ASCII art and dynamic matrix rain streams in the background.
+- **Performance**: Optimized requestAnimationFrame loops to ensure smooth 60 FPS rendering with minimal GPU memory footprint.
+
+#### 4. Role-Based Visitor Filter Bar (`components/ascii-hub/visitor-filter-bar.tsx`)
+- **Implementation**: State-driven persona selector that filters featured projects, skills, and code metrics according to visitor roles (e.g., *Recruiter*, *Full-Stack Engineer*, *SaaS Founder*, or *Open Source Contributor*).
+
+#### 5. Retro System Shutdown Manager (`components/ascii-hub/shutdown-manager.tsx`)
+- **Implementation**: Interactive state controller that simulates CRT monitor shutdown animations, audio clicks, and interface power-off sequences, offering a fun interactive easter egg for visitors.
 
 ---
 
@@ -161,7 +207,7 @@ const thayanithi = {
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Skillset
 
 ### Languages & Frameworks
 <p align="left">
@@ -185,49 +231,72 @@ const thayanithi = {
 </p>
 
 <details>
-<summary><b>📦 Full Tech Stack Breakdown</b></summary>
+<summary><b>📦 Complete Skill Breakdown</b></summary>
 <br/>
 
 <table>
   <tr>
-    <td width="30%"><strong>Frontend & Mobile</strong></td>
-    <td>React.js, Next.js (SSR/CSR), Vue.js, React Native (Bridge/Native Modules), Flutter, HTML5, CSS3, Tailwind CSS, Material-UI</td>
+    <td width="30%"><strong>Frontend & UI</strong></td>
+    <td>React.js, Next.js 14 (SSR/SSG), Vue.js, Tailwind CSS, Framer Motion, Radix UI, HTML5, CSS3</td>
   </tr>
   <tr>
     <td><strong>State Management</strong></td>
-    <td>Zustand, Redux, Context Providers, State Hydration</td>
+    <td>Zustand, Redux Toolkit, React Context, State Hydration Patterns</td>
   </tr>
   <tr>
-    <td><strong>Backend & Runtimes</strong></td>
-    <td>Node.js (Event Loop, Cluster, Worker Threads), Express.js, Fastify, REST APIs, Microservices</td>
+    <td><strong>Backend & APIs</strong></td>
+    <td>Node.js, Express.js, Fastify, Go, RESTful APIs, WebSockets, Microservices</td>
   </tr>
   <tr>
-    <td><strong>Databases & ORMs</strong></td>
-    <td>MongoDB, MySQL, PostgreSQL, BigQuery, Prisma, Sequelize</td>
+    <td><strong>Databases & Cloud</strong></td>
+    <td>MongoDB, PostgreSQL, MySQL, Google BigQuery, GCP, Vercel, Cloudflare, Firebase, Docker</td>
   </tr>
   <tr>
-    <td><strong>Testing & Scraping</strong></td>
-    <td>BDD Testing, Unit and Integration suites, Web Scraping (Data collection engines)</td>
-  </tr>
-  <tr>
-    <td><strong>Security & Auth</strong></td>
-    <td>JWT Authentication, OAuth, Role-Based Access Control (RBAC), SSL Encryption</td>
-  </tr>
-  <tr>
-    <td><strong>Cloud & Infra</strong></td>
-    <td>Google Cloud Platform (GCP), Vercel, Onrender, Cloudflare, Firebase, Docker</td>
+    <td><strong>Auth & Security</strong></td>
+    <td>JWT Authentication, OAuth 2.0, Role-Based Access Control (RBAC), HTTPS/SSL</td>
   </tr>
   <tr>
     <td><strong>Languages</strong></td>
-    <td>TypeScript, JavaScript, Java (OOP), Python, C</td>
-  </tr>
-  <tr>
-    <td><strong>Developer Tools</strong></td>
-    <td>VS Code, Git, GitHub, Postman, Swagger, Figma</td>
+    <td>TypeScript, JavaScript (ES6+), Java (OOP), Python, C</td>
   </tr>
 </table>
 
 </details>
+
+---
+
+## ⚡ Quick Start & Development Setup
+
+Follow these steps to run the portfolio locally:
+
+### 1. Prerequisites
+- **Node.js**: v18.x or higher
+- **npm**: v9.x or higher
+
+### 2. Clone repository & Install dependencies
+```bash
+git clone https://github.com/thayanithi15-git/Thayanithi-Dev.git
+cd Thayanithi-Dev
+npm install
+```
+
+### 3. Environment Setup
+Create a `.env.local` file in the root directory:
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open `http://localhost:3000` in your browser to view the application.
+
+### 5. Production Build
+```bash
+npm run build
+npm run start
+```
 
 ---
 
@@ -249,24 +318,24 @@ const thayanithi = {
 
 ---
 
-## 🏆 Achievements
+## 🏆 Key Achievements
 
 <table>
   <tr>
     <td width="10%" align="center">🔢</td>
-    <td>Solved <strong>300+ problems</strong> on LeetCode - strong DSA fundamentals</td>
+    <td>Solved <strong>300+ problem challenges</strong> on LeetCode with strong Data Structures & Algorithms expertise.</td>
   </tr>
   <tr>
     <td width="10%" align="center">💻</td>
-    <td><strong>2K+ commits</strong> across projects and internships on GitHub</td>
+    <td>Authored <strong>2,000+ GitHub commits</strong> across personal, client, and open-source software projects.</td>
   </tr>
   <tr>
     <td width="10%" align="center">📜</td>
-    <td><strong>NPTEL Java Certification</strong> - 90% score (OOP fundamentals)</td>
+    <td>Earned <strong>NPTEL Java Certification</strong> with an Elite 90% score in object-oriented software design.</td>
   </tr>
   <tr>
     <td width="10%" align="center">🥇</td>
-    <td><strong>Sakthi Hackathon Finalist</strong> - selected among 1,000+ participants</td>
+    <td>Named <strong>Sakthi Hackathon Finalist</strong>, competing among 1,000+ developers.</td>
   </tr>
 </table>
 
