@@ -140,7 +140,7 @@ function Oscilloscope({ onHoverPoint }: { onHoverPoint?: (index: number | null) 
       let isPointer = false
 
       // Draw milestones pinned to active wave coordinates, moving right to left
-      wavePoints.forEach((point) => {
+      for (const point of wavePoints) {
         let xPercent = (point.baseXPercent - t * 0.05) % 1
         if (xPercent < 0) xPercent += 1
 
@@ -200,7 +200,7 @@ function Oscilloscope({ onHoverPoint }: { onHoverPoint?: (index: number | null) 
           ctx.font = isCurrentHovered ? "bold 11px monospace" : "11px monospace"
           ctx.fillText(point.date, x + 8, textYDate)
         }
-      })
+      }
 
       // Update canvas cursor style
       if (canvas) {
