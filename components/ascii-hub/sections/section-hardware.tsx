@@ -3,14 +3,15 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import type { TechSection } from "@/lib/sections-data"
+import Link from "next/link"
 import Image from "next/image"
 
 // Import project screenshots
-import eqrevImg from "@/assets/projects/eqrev.png"
-import cncImg from "@/assets/projects/cnc.png"
-import bitlinksImg from "@/assets/projects/bitlinks.png"
-import devrankImg from "@/assets/projects/devrank.png"
-import progressiqImg from "@/assets/projects/progressiq.png"
+import eqrevImg from "@/assets/projects/EQREV/EQREV_1.png"
+import cncImg from "@/assets/projects/CNC/CNC_1.png"
+import bitlinksImg from "@/assets/projects/BITLINKS/BITLINKS_1.png"
+import devrankImg from "@/assets/projects/DEVRANK/DEVRANK_1.png"
+import progressiqImg from "@/assets/projects/PROGRESSIQ/PROGRESSIQ_1.png"
 
 const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
 
@@ -24,36 +25,40 @@ const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 
 
 const layers = [
   {
+    slug: "cnc-vault",
     level: "PROJ_04",
-    name: "PROGRESS IQ",
-    desc: "REAL-TIME MONITORING & ANALYTICS. Monitor daily activities and task updates instantly across teams with live sync. Features AI-driven insights to measure productivity, role-based access control, and centralized collaboration workspace.",
-    detail: "Next.js | Socket.io | AI Analytics | TypeScript | Node.js | MongoDB | Tailwind CSS",
-    url: "https://progress-iq.vercel.app/",
-    color: "bg-foreground",
-    textColor: "text-background",
-    image: progressiqImg,
-  },
-  {
-    level: "PROJ_03",
-    name: "EQ REV",
-    desc: "Quick Commerce Analytics. EQREV specializes in scaling brands across Quick Commerce. A strategic partner in Quick Commerce growth, providing pin code-level insights.",
-    detail: "React.js | Chart.js | Recharts | Tailwind CSS | Hero UI | Zustand",
-    url: "https://app.eqrev.com/",
-    color: "bg-foreground/90",
-    textColor: "text-background",
-    image: eqrevImg,
-  },
-  {
-    level: "PROJ_02",
     name: "CNC VAULT",
     desc: "CNC CONTROL HUB. Secure access to centralized machine programs, PLC logic, and configuration management for industrial CNC machinery.",
     detail: "Next.js | TypeScript | Node.js | Express.io | MongoDB | GCP | shadcn/ui",
     url: "https://cnc-machines.vercel.app/",
-    color: "bg-foreground/75",
+    color: "bg-foreground",
     textColor: "text-background",
     image: cncImg,
   },
   {
+    slug: "progress-iq",
+    level: "PROJ_03",
+    name: "PROGRESS IQ",
+    desc: "REAL-TIME MONITORING & ANALYTICS. Monitor daily activities and task updates instantly across teams with live sync. Features AI-driven insights to measure productivity, role-based access control, and centralized collaboration workspace.",
+    detail: "Next.js | Socket.io | AI Analytics | TypeScript | Node.js | MongoDB | Tailwind CSS",
+    url: "https://progress-iq.vercel.app/",
+    color: "bg-foreground/90",
+    textColor: "text-background",
+    image: progressiqImg,
+  },
+  {
+    slug: "eq-rev",
+    level: "PROJ_02",
+    name: "EQ REV",
+    desc: "Quick Commerce Analytics. EQREV specializes in scaling brands across Quick Commerce. A strategic partner in Quick Commerce growth, providing pin code-level insights.",
+    detail: "React.js | Chart.js | Recharts | Tailwind CSS | Hero UI | Zustand",
+    url: "https://app.eqrev.com/",
+    color: "bg-foreground/75",
+    textColor: "text-background",
+    image: eqrevImg,
+  },
+  {
+    slug: "bitlinks",
     level: "PROJ_01",
     name: "BITLINKS",
     desc: "COLLEGE COMMUNITY NETWORK. Modern community portal featuring smooth animations, optimized speed, responsive design, and collaborative workspaces.",
@@ -64,6 +69,7 @@ const layers = [
     image: bitlinksImg,
   },
   {
+    slug: "dev-rank",
     level: "PROJ_00",
     name: "DEV RANK",
     desc: "Developer Ranking Platform. Connects coding profiles (GitHub, LeetCode) to compute and display rankings in developer communities, helping recruiters discover top talent.",
@@ -138,13 +144,25 @@ function LayerStack() {
                         </span>
                       ))}
                     </div>
-                    {layer.url && (
-                      <div className="mt-4">
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                      <Link
+                        href={`/projects/${layer.slug}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className={`inline-flex items-center gap-1 font-mono text-xs border border-current px-3 py-1 font-bold transition-all duration-200 ${
+                          layer.textColor === "text-background"
+                            ? "border-background bg-background text-foreground hover:bg-transparent hover:text-background"
+                            : "border-foreground bg-foreground text-background hover:bg-transparent hover:text-foreground"
+                        }`}
+                      >
+                        View Detailed {"->"}
+                      </Link>
+                      {layer.url && (
                         <a
                           href={layer.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`inline-block font-mono text-xs border border-current px-3 py-1 transition-colors duration-200 ${
+                          onClick={(e) => e.stopPropagation()}
+                          className={`inline-flex items-center gap-1 font-mono text-xs border border-current px-3 py-1 transition-colors duration-200 ${
                             layer.textColor === "text-background"
                               ? "hover:bg-background hover:text-foreground"
                               : "hover:bg-foreground hover:text-background"
@@ -152,8 +170,8 @@ function LayerStack() {
                         >
                           Launch Application {"->"}
                         </a>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                   {layer.image && (
                     <div className="relative w-full md:w-72 aspect-[16/10] shrink-0 border border-border bg-secondary/50 p-1 overflow-hidden" style={{ boxShadow: shadow }}>
@@ -180,11 +198,11 @@ function LayerStack() {
 
 function CombinedRegistry() {
   const registers = [
-    { name: "PROGRESS_IQ", value: "progress-iq.vercel.app", href: "https://progress-iq.vercel.app/", techs: ["Next.js", "Socket.io", "AI Analytics", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"], description: "Real-time activity monitor & analytics. Deployed on Vercel Edge Networks." },
-    { name: "EQ_REV", value: "app.eqrev.com", href: "https://app.eqrev.com/", techs: ["React.js", "Chart.js", "Recharts", "Tailwind CSS", "Hero UI", "Zustand"], description: "SaaS analytics for Quick Commerce brands. Deployed on AWS/Vercel Router." },
-    { name: "CNC_VAULT", value: "cnc-machines.vercel.app", href: "https://cnc-machines.vercel.app/", techs: ["Next.js", "TypeScript", "Node.js", "Express.io", "MongoDB", "GCP", "shadcn/ui"], description: "Centralized file control system for CNC code vaults. Deployed on GCP clusters." },
-    { name: "BITLINKS", value: "bitlinks.bitsathy.ac.in", href: "https://bitlinks.bitsathy.ac.in/", techs: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript", "Vercel"], description: "Collaborative college community network portal. Deployed on Vercel." },
-    { name: "DEV_RANK", value: "dev-rank.vercel.app", href: "http://dev-rank.vercel.app/", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"], description: "Developer community profile aggregator and ranker. Deployed on Vercel." }
+    { slug: "progress-iq", name: "PROGRESS_IQ", value: "progress-iq.vercel.app", href: "https://progress-iq.vercel.app/", techs: ["Next.js", "Socket.io", "AI Analytics", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"], description: "Real-time activity monitor & analytics. Deployed on Vercel Edge Networks." },
+    { slug: "eq-rev", name: "EQ_REV", value: "app.eqrev.com", href: "https://app.eqrev.com/", techs: ["React.js", "Chart.js", "Recharts", "Tailwind CSS", "Hero UI", "Zustand"], description: "SaaS analytics for Quick Commerce brands. Deployed on AWS/Vercel Router." },
+    { slug: "cnc-vault", name: "CNC_VAULT", value: "cnc-machines.vercel.app", href: "https://cnc-machines.vercel.app/", techs: ["Next.js", "TypeScript", "Node.js", "Express.io", "MongoDB", "GCP", "shadcn/ui"], description: "Centralized file control system for CNC code vaults. Deployed on GCP clusters." },
+    { slug: "bitlinks", name: "BITLINKS", value: "bitlinks.bitsathy.ac.in", href: "https://bitlinks.bitsathy.ac.in/", techs: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript", "Vercel"], description: "Collaborative college community network portal. Deployed on Vercel." },
+    { slug: "dev-rank", name: "DEV_RANK", value: "dev-rank.vercel.app", href: "http://dev-rank.vercel.app/", techs: ["Next.js", "Rapid API", "Data Scraping", "Tailwind CSS", "TypeScript"], description: "Developer community profile aggregator and ranker. Deployed on Vercel." }
   ]
 
   const [hoveredTech, setHoveredTech] = useState<string | null>(null)
@@ -209,7 +227,8 @@ function CombinedRegistry() {
         <div className="hidden md:flex items-center px-6 py-2.5 bg-secondary/20 text-muted-foreground text-[10px] uppercase tracking-wider font-bold">
           <div className="w-1/4">Registry ID</div>
           <div className="w-1/4">Access Point (URL)</div>
-          <div className="w-2/4">Dependency Stack</div>
+          <div className="w-1/3">Dependency Stack</div>
+          <div className="w-1/6 text-right">Details Page</div>
         </div>
 
         {/* Table Rows */}
@@ -258,7 +277,7 @@ function CombinedRegistry() {
               </div>
 
               {/* Tech Stack Badges */}
-              <div className="w-full md:w-2/4 flex flex-wrap gap-1">
+              <div className="w-full md:w-1/3 flex flex-wrap gap-1">
                 {reg.techs.map((tech) => {
                   const isSpecificTechHovered = hoveredTech === tech
                   return (
@@ -280,6 +299,16 @@ function CombinedRegistry() {
                     </span>
                   )
                 })}
+              </div>
+
+              {/* Details Link */}
+              <div className="w-full md:w-1/6 md:text-right mt-2 md:mt-0">
+                <Link
+                  href={`/projects/${reg.slug}`}
+                  className="inline-flex items-center gap-1 font-mono text-[10px] border border-border px-2 py-0.5 text-foreground hover:bg-foreground hover:text-background transition-all duration-200 font-semibold"
+                >
+                  Inspect {"->"}
+                </Link>
               </div>
             </motion.div>
           )

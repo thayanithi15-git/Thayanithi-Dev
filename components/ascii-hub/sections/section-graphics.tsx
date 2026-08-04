@@ -3,14 +3,14 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import type { TechSection } from "@/lib/sections-data"
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 
 import crayonImg from "@/assets/cert/crayon.jpg"
-import ciscoOsImg from "@/assets/cert/cisco_operating_system.png"
 import nptelJavaImg from "@/assets/cert/nptel_java.png"
 import sakthiImg from "@/assets/cert/sakthi.jpg"
 import nkImg from "@/assets/cert/naalaiyakalam.jpg"
-import ciscoCyberImg from "@/assets/cert/cisco_cybersecurity.png"
+import hackElevateImg from "@/assets/cert/hack_elevate.png"
+import sihImg from "@/assets/cert/sih.png"
 
 const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
 
@@ -22,14 +22,18 @@ const shadow = "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 
 const POINTS = 120
 
 const wavePoints = [
-  { baseXPercent: 0.0, date: "SEP 24 - APR 25", text: "Software Intern @ Crayon'd", type: "EXP" },
-  { baseXPercent: 0.15, date: "OCT 2024", text: "Launched BITLINKS Platform", type: "PROJECT" },
-  { baseXPercent: 0.3, date: "JUN 2025", text: "Advanced React Systems Cert", type: "CERT" },
-  { baseXPercent: 0.45, date: "JAN 25 - DEC 25", text: "Software Engineer @ EQREV", type: "EXP" },
-  { baseXPercent: 0.6, date: "OCT 2025", text: "GCP Associate Engineer Cert", type: "CERT" },
-  { baseXPercent: 0.75, date: "SEP 25 - JAN 26", text: "Frontend Dev @ Thinkuni", type: "EXP" },
-  { baseXPercent: 0.9, date: "DEC 2025", text: "NPTEL Java Elite Cert (90%)", type: "CERT" }
+  { baseXPercent: 0.0, date: "MAR 2026", text: "Caterpillar Tech Challenge '26", type: "EVENT" },
+  { baseXPercent: 0.11, date: "AUG 2025", text: "Sakthi Hackathon 1.0 Finalist", type: "HACKATHON" },
+  { baseXPercent: 0.22, date: "DEC 2025", text: "Smart India Hackathon (SIH)", type: "HACKATHON" },
+  { baseXPercent: 0.33, date: "SEP 24 - APR 25", text: "Software Intern @ Crayon'd", type: "EXP" },
+  { baseXPercent: 0.44, date: "DEC 2025", text: "NPTEL Java Elite Cert (90%)", type: "CERT" },
+  { baseXPercent: 0.55, date: "SEP 2025", text: "Code Cubicle 5.0", type: "HACKATHON" },
+  { baseXPercent: 0.66, date: "NOV 2025", text: "TN Skills '25 Round 2", type: "EVENT" },
+  { baseXPercent: 0.77, date: "APR 2026", text: "Hack Elevate'26", type: "HACKATHON" },
+  { baseXPercent: 0.88, date: "NOV 2024", text: "Naalaiya Kalam'24", type: "EVENT" }
 ]
+
+type WavePoint = (typeof wavePoints)[number]
 
 function getWaveY(xPercent: number, t: number, H: number): number {
   const phase = xPercent * Math.PI * 2
@@ -58,12 +62,12 @@ function getSecondaryWaveY(xPercent: number, t: number, H: number): number {
   return H / 2 + (H * 0.24) * envelope * wave
 }
 
-function Oscilloscope() {
+function Oscilloscope({ onHoverPoint }: { onHoverPoint?: (index: number | null) => void }) {
   const ref = useRef<HTMLCanvasElement>(null)
   const animRef = useRef<number>(0)
-  const [hoveredPoint, setHoveredPoint] = useState<typeof wavePoints[0] | null>(null)
+  const [hoveredPoint, setHoveredPoint] = useState<WavePoint | null>(null)
   const mouseRef = useRef<{ x: number; y: number } | null>(null)
-  const hoveredPointRef = useRef<typeof wavePoints[0] | null>(null)
+  const hoveredPointRef = useRef<WavePoint | null>(null)
 
   useEffect(() => {
     const canvas = ref.current
@@ -132,7 +136,7 @@ function Oscilloscope() {
       }
       ctx.stroke()
 
-      let hoveredAny = null
+      let hoveredAny: WavePoint | null = null
       let isPointer = false
 
       // Draw milestones pinned to active wave coordinates, moving right to left
@@ -207,6 +211,15 @@ function Oscilloscope() {
       if (hoveredPointRef.current !== hoveredAny) {
         hoveredPointRef.current = hoveredAny
         setHoveredPoint(hoveredAny)
+        if (onHoverPoint) {
+          if (hoveredAny) {
+            const activePoint = hoveredAny
+            const idx = wavePoints.findIndex(p => p.text === activePoint.text)
+            if (idx !== -1) onHoverPoint(idx)
+          } else {
+            onHoverPoint(null)
+          }
+        }
       }
 
       // If no point is hovered, continue wave time progression
@@ -278,39 +291,29 @@ function Oscilloscope() {
   )
 }
 
-const credentials = [
+interface CredentialItem {
+  title: string
+  issuer: string
+  date: string
+  duration: string
+  badge: string
+  desc: string
+  type: string
+  code: string
+  image: StaticImageData | null
+}
+
+const credentials: CredentialItem[] = [
   {
-    title: "Crayon'd Full-Stack Internship",
-    issuer: "Crayon'd",
-    date: "July 30, 2025",
-    duration: "Sept 19, 2024 – Apr 5, 2025",
-    badge: "Internship Complete",
-    desc: "1000+ hours of fullstack web development engineering and client feature delivery.",
-    type: "INTERNSHIP",
-    code: "CRYND-FS-25",
-    image: crayonImg
-  },
-  {
-    title: "Operating System Basics",
-    issuer: "Cisco Networking Academy",
-    date: "June 2024",
-    duration: "Independent Certification",
-    badge: "OS Core",
-    desc: "Acquired fundamental expertise in Operating System architectures, memory processes, and virtualization.",
-    type: "CERTIFICATION",
-    code: "CSCO-OS-24",
-    image: ciscoOsImg
-  },
-  {
-    title: "Programming in Java",
-    issuer: "NPTEL (IIT Kharagpur)",
-    date: "December 2025",
-    duration: "12 Weeks Online Course",
-    badge: "90% Elite Badge",
-    desc: "Successfully completed the advanced Programming in Java course with Elite status classification.",
-    type: "COURSE",
-    code: "NPTEL-JV-25",
-    image: nptelJavaImg
+    title: "Caterpillar Tech Challenge 2026",
+    issuer: "Caterpillar Inc.",
+    date: "March 2026",
+    duration: "Problem Statement 4 - Optimal Dump Packing",
+    badge: "Round 3 Finalist",
+    desc: "Caterpillar is the world's leading manufacturer of construction and mining equipment. Competed in Problem Statement 4 - Optimal Dump Packing, advancing through to Round 3.",
+    type: "EVENT",
+    code: "CAT-TECH-26",
+    image: null,
   },
   {
     title: "Sakthi Hackathon 1.0",
@@ -321,7 +324,73 @@ const credentials = [
     desc: "Recognized for valuable participation and engineering a robust software prototype in 24 hours.",
     type: "HACKATHON",
     code: "SAKTHI-HACK-1.0",
-    image: sakthiImg
+    image: sakthiImg,
+  },
+  {
+    title: "Smart India Hackathon (SIH)",
+    issuer: "Ministry of Education & AICTE",
+    date: "December 2025",
+    duration: "Premier Nationwide Initiative",
+    badge: "Waiting List",
+    desc: "Smart India Hackathon (SIH) is a premier nationwide initiative designed to engage students in solving pressing challenges faced in everyday life. Selected for the Waiting List round.",
+    type: "HACKATHON",
+    code: "SIH-2025",
+    image: sihImg,
+  },
+  {
+    title: "Crayon'd Full-Stack Internship",
+    issuer: "Crayon'd",
+    date: "July 30, 2025",
+    duration: "Sept 19, 2024 – Apr 5, 2025",
+    badge: "Internship Complete",
+    desc: "1000+ hours of fullstack web development engineering and client feature delivery.",
+    type: "INTERNSHIP",
+    code: "CRYND-FS-25",
+    image: crayonImg,
+  },
+  {
+    title: "Programming in Java",
+    issuer: "NPTEL (IIT Kharagpur)",
+    date: "December 2025",
+    duration: "12 Weeks Online Course",
+    badge: "90% Elite Badge",
+    desc: "Successfully completed the advanced Programming in Java course with Elite status classification.",
+    type: "COURSE",
+    code: "NPTEL-JV-25",
+    image: nptelJavaImg,
+  },
+  {
+    title: "Code Cubicle 5.0",
+    issuer: "Geek Room Team",
+    date: "September 2025",
+    duration: "Flagship Hybrid Hackathon",
+    badge: "Participated",
+    desc: "Code Cubicle is Geek Room's flagship hybrid hackathon series that brings together the brightest young innovators from across India to solve complex challenges.",
+    type: "HACKATHON",
+    code: "CC-5.0-2025",
+    image: null,
+  },
+  {
+    title: "TN Skills Competition 2025",
+    issuer: "TNSDC (Naan Mudhalvan)",
+    date: "November 2025",
+    duration: "Naan Mudhalvan – TN Skills Team",
+    badge: "Round 2 Qualifier",
+    desc: "Featured Web Technologies as a core individual IT skill category, organized by Tamil Nadu Skill Development Corporation (TNSDC) under Naan Mudhalvan platform to select top talent for IndiaSkills and WorldSkills.",
+    type: "EVENT",
+    code: "TNSKILLS-2025",
+    image: null,
+  },
+  {
+    title: "Hack Elevate’26",
+    issuer: "Novus Solutions",
+    date: "April 2026",
+    duration: "National-Level Innovation Hackathon",
+    badge: "Certificate Awarded",
+    desc: "Hack Elevate'26 is a national-level innovation hackathon organized by Novus Solutions to empower students, developers, and innovators to build impactful technical solutions.",
+    type: "HACKATHON",
+    code: "HACK-ELEVATE-26",
+    image: hackElevateImg,
   },
   {
     title: "Naalaiya Kalam'24",
@@ -332,19 +401,8 @@ const credentials = [
     desc: "Participated in NAALAIYA KALAM'24 event focusing on educational and community-oriented tech projects.",
     type: "EVENT",
     code: "NK-24",
-    image: nkImg
+    image: nkImg,
   },
-  {
-    title: "Cybersecurity Essentials",
-    issuer: "Cisco Networking Academy",
-    date: "July 2024",
-    duration: "Independent Certification",
-    badge: "Security Core",
-    desc: "Comprehensive foundation in network vulnerabilities, encryption systems, and cyber security protocols.",
-    type: "CERTIFICATION",
-    code: "CSCO-SEC-24",
-    image: ciscoCyberImg
-  }
 ]
 
 export function SectionGraphics({ section }: { section: TechSection }) {
@@ -355,12 +413,23 @@ export function SectionGraphics({ section }: { section: TechSection }) {
     if (isPaused) return
     const timer = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % credentials.length)
-    }, 3000)
+    }, 4000)
     return () => clearInterval(timer)
   }, [isPaused])
 
+  const handleHoverPoint = (idx: number | null) => {
+    if (idx !== null && idx >= 0 && idx < credentials.length) {
+      setActiveIdx(idx)
+      setIsPaused(true)
+    } else {
+      setIsPaused(false)
+    }
+  }
+
+  const activeCred = credentials[activeIdx] || credentials[0]
+
   return (
-    <div className="py-20 lg:py-32">
+    <div className="py-20 lg:py-32 font-mono">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
 
         {/* Header */}
@@ -389,10 +458,10 @@ export function SectionGraphics({ section }: { section: TechSection }) {
           transition={{ duration: 0.6 }}
         >
           <div className="mb-2 flex items-center gap-2">
-            <span className="h-2 w-2 animate-pulse bg-foreground" />
+            <span className="h-2 w-2 animate-pulse bg-emerald-400 rounded-full" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">SIGNAL — GPU WAVEFORM</span>
           </div>
-          <Oscilloscope />
+          <Oscilloscope onHoverPoint={handleHoverPoint} />
         </motion.div>
 
         {/* Description */}
@@ -414,11 +483,14 @@ export function SectionGraphics({ section }: { section: TechSection }) {
           {/* Left Panel: Compact Registry Rows (5 columns) */}
           <div className="lg:col-span-5 flex flex-col border border-border bg-secondary/5 rounded-sm overflow-hidden" style={{ boxShadow: shadow }}>
             <div className="flex items-center justify-between border-b border-border px-4 py-3 bg-secondary/10">
-              <span className="text-[10px] uppercase font-bold text-foreground tracking-wider">Credentials Registry Log</span>
+              <span className="text-[10px] uppercase font-bold text-foreground tracking-wider flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Certifications & Events Log
+              </span>
               <span className="text-[8px] text-muted-foreground/60">// SYS_REG_MATRIX</span>
             </div>
             
-            <div className="flex flex-col divide-y divide-border/40">
+            <div className="flex flex-col divide-y divide-border/40 max-h-[520px] overflow-y-auto">
               {credentials.map((cred, idx) => {
                 const isActive = activeIdx === idx
                 return (
@@ -428,15 +500,15 @@ export function SectionGraphics({ section }: { section: TechSection }) {
                     onClick={() => setActiveIdx(idx)}
                     className={`flex flex-col gap-1 p-3.5 text-left transition-all duration-200 border-l-2 focus:outline-none ${
                       isActive 
-                        ? "border-l-foreground bg-secondary/15" 
+                        ? "border-l-emerald-400 bg-secondary/15" 
                         : "border-l-transparent hover:bg-secondary/10"
                     }`}
                   >
                     <div className="flex items-center justify-between w-full">
-                      <span className="text-[8px] uppercase tracking-wider text-muted-foreground/75">
+                      <span className="text-[8px] uppercase tracking-wider text-emerald-400/90 font-bold">
                         [{cred.type}] {cred.code}
                       </span>
-                      <span className="text-[9px] text-muted-foreground/60">{cred.date}</span>
+                      <span className="text-[9px] text-muted-foreground/80">{cred.date}</span>
                     </div>
                     <span className={`text-xs font-bold transition-colors duration-250 ${
                       isActive ? "text-foreground" : "text-foreground/70"
@@ -458,33 +530,62 @@ export function SectionGraphics({ section }: { section: TechSection }) {
               {/* Telemetry Header */}
               <div className="flex items-center justify-between border-b border-border/40 pb-2">
                 <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 bg-foreground rounded-full animate-pulse" />
+                  <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-pulse" />
                   <span className="text-[9px] uppercase tracking-wider text-foreground/80 font-bold">
-                    IMAGE VIEWPORT: TELEMETRY_STREAM
+                    VIEWPORT: {activeCred.type === "EVENT" || activeCred.type === "HACKATHON" ? "EVENT_RECORD" : "CERTIFICATE_STREAM"}
                   </span>
                 </div>
-                <span className="text-[8px] text-muted-foreground/50">REF_ID: {credentials[activeIdx].code}</span>
+                <span className="text-[8px] text-muted-foreground/50">REF_ID: {activeCred.code}</span>
               </div>
 
               {/* Monitor Screen Frame */}
               <div className="relative w-full aspect-[16/10] border border-border/80 overflow-hidden bg-black/40 rounded-[2px]" style={{ boxShadow: shadow }}>
-                <Image
-                  src={credentials[activeIdx].image}
-                  alt={credentials[activeIdx].title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 550px"
-                  className="object-contain grayscale hover:grayscale-0 transition-all duration-500 ease-in-out cursor-crosshair hover:scale-[1.02]"
-                />
+                {activeCred.image ? (
+                  <Image
+                    src={activeCred.image}
+                    alt={activeCred.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 550px"
+                    className="object-contain grayscale hover:grayscale-0 transition-all duration-500 ease-in-out cursor-crosshair hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col justify-center items-center p-6 text-center bg-secondary/10 font-mono relative overflow-hidden border border-border/40">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#88888810_1px,transparent_1px),linear-gradient(to_bottom,#88888810_1px,transparent_1px)] bg-[size:16px_16px]" />
+                    <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest px-2.5 py-1 border border-emerald-500/30 bg-emerald-500/10 rounded-xs mb-3 z-10">
+                      // {activeCred.type} RECORD
+                    </span>
+                    <h4 className="font-pixel-line text-lg font-bold text-foreground mb-2 z-10">
+                      {activeCred.title}
+                    </h4>
+                    <p className="text-xs text-muted-foreground max-w-md z-10 leading-relaxed">
+                      {activeCred.desc}
+                    </p>
+                    <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[10px] text-foreground/90 z-10 font-bold">
+                      <span className="px-2 py-0.5 border border-border bg-background rounded-xs">
+                        {activeCred.issuer}
+                      </span>
+                      <span>•</span>
+                      <span className="px-2 py-0.5 border border-border bg-background rounded-xs text-emerald-400">
+                        {activeCred.date}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Selected Credentials Metadata */}
               <div className="flex flex-col gap-2 text-xs text-neutral-300">
                 <div>
-                  <h4 className="font-bold text-sm text-foreground">{credentials[activeIdx].title}</h4>
-                  <p className="text-[11px] text-foreground/80 font-semibold">{credentials[activeIdx].issuer}</p>
+                  <h4 className="font-bold text-sm text-foreground flex items-center gap-2">
+                    {activeCred.title}
+                    <span className="text-[10px] font-normal px-2 py-0.5 border border-emerald-500/30 text-emerald-400 bg-emerald-500/10 rounded-xs">
+                      {activeCred.badge}
+                    </span>
+                  </h4>
+                  <p className="text-[11px] text-foreground/80 font-semibold">{activeCred.issuer}</p>
                 </div>
                 <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  {credentials[activeIdx].desc}
+                  {activeCred.desc}
                 </p>
               </div>
             </div>
@@ -494,17 +595,17 @@ export function SectionGraphics({ section }: { section: TechSection }) {
               <div className="flex gap-4">
                 <div>
                   <span className="text-muted-foreground">Issued: </span>
-                  <span className="text-foreground font-semibold">{credentials[activeIdx].date}</span>
+                  <span className="text-foreground font-semibold">{activeCred.date}</span>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Duration: </span>
-                  <span className="text-foreground">{credentials[activeIdx].duration}</span>
+                  <span className="text-foreground">{activeCred.duration}</span>
                 </div>
               </div>
               
               <div className="flex items-center gap-1.5 bg-secondary/15 border border-border px-2 py-0.5 rounded-[2px]">
-                <span className="text-foreground font-bold text-[9px] tracking-wider uppercase">
-                  {credentials[activeIdx].badge}
+                <span className="text-emerald-400 font-bold text-[9px] tracking-wider uppercase">
+                  {activeCred.badge}
                 </span>
               </div>
             </div>

@@ -147,9 +147,9 @@ export const techSections: TechSection[] = [
     id: "graphics-pipelines",
     number: "05",
     title: "Graphics Pipelines",
-    subtitle: "Certifications",
+    subtitle: "Certifications & Events",
     description:
-      "Competitive achievements, community contributions, and technical certifications. Translating continuous learning into visual proof of capability.",
+      "Verified credentials, hackathon participation, and technical milestones. Translating continuous learning and competitive achievements into visual proof.",
     ascii: `
     Community Rankings ──> LeetCode & GitHub
                              │
@@ -255,25 +255,30 @@ export const techSections: TechSection[] = [
     ┌──────────────────────────────────────────┐
     │     THAYANITHI S - FEATURED PROJECTS     │
     ├──────────────────────────────────────────┤
-    │     EQ REV - QUICK COMMERCE ANALYTICS    │
-    ├──────────────────────────────────────────┤
     │     CNC VAULT - SECURE CONTROL HUB       │
+    ├──────────────────────────────────────────┤
+    │     PROGRESS IQ - REAL-TIME MONITORING   │
+    ├──────────────────────────────────────────┤
+    │     EQ REV - QUICK COMMERCE ANALYTICS    │
     ├──────────────────────────────────────────┤
     │     BITLINKS - COMMUNITY NETWORK         │
     ├──────────────────────────────────────────┤
     │     DEV RANK - DEVELOPER RANKING         │
     └──────────────────────────────────────────┘`,
     specs: [
-      { label: "EQ REV", value: "React.js, Chart.js, Recharts, Tailwind CSS, Hero UI, Zustand" },
       { label: "CNC Vault", value: "Next.js, TypeScript, Node.js, Express.io, MongoDB, GCP, shadcn/ui" },
+      { label: "Progress IQ", value: "Next.js, Socket.io, AI Analytics, TypeScript, Node.js, MongoDB" },
+      { label: "EQ REV", value: "React.js, Chart.js, Recharts, Tailwind CSS, Hero UI, Zustand" },
       { label: "Bitlinks", value: "Next.js, Framer Motion, Tailwind CSS, TypeScript, Vercel" },
       { label: "Dev Rank", value: "Next.js, Rapid API, Data Scraping, Tailwind CSS, TypeScript" },
     ],
     commands: [
-      "$ hal query --device eqrev",
-      "EQ REV: https://app.eqrev.com/",
       "$ hal query --device cnc-vault",
       "CNC Vault: https://cnc-machines.vercel.app/",
+      "$ hal query --device progress-iq",
+      "Progress IQ: https://progress-iq.vercel.app/",
+      "$ hal query --device eqrev",
+      "EQ REV: https://app.eqrev.com/",
       "$ hal query --device bitlinks",
       "Bitlinks: https://bitlinks.bitsathy.ac.in/",
       "$ hal query --device dev-rank",
