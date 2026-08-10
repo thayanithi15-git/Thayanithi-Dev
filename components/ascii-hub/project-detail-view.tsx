@@ -836,7 +836,7 @@ export function ProjectDetailView({
             </Link>
             <span>/</span>
             <Link
-              href="/#hardware-abstraction"
+              href="/#featured-projects"
               className="hover:text-foreground transition-colors"
             >
               Projects

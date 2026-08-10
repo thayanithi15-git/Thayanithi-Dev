@@ -47,7 +47,7 @@ export function ProjectHeader({ projectName }: { projectName?: string }) {
         {/* Left: Back Icon Link to Portfolio */}
         <div className="flex items-center gap-4">
           <Link
-            href="/#hardware-abstraction"
+            href="/#featured-projects"
             className="inline-flex items-center gap-2 font-mono text-xs font-bold border border-border px-3 py-1.5 rounded-sm text-foreground bg-secondary/20 hover:bg-foreground hover:text-background transition-all duration-200"
             aria-label="Back to Portfolio"
           >

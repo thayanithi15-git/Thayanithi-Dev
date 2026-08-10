@@ -16,14 +16,14 @@ interface DomainSectionProps {
 }
 
 const sectionMap: Record<string, React.FC<{ section: TechSection }>> = {
-  "kernel-systems": SectionKernel,
-  "network-topologies": SectionNetwork,
-  "distributed-ledger": SectionLedger,
-  "compiler-design": SectionCompiler,
-  "graphics-pipelines": SectionGraphics,
-  "logic-synthesis": SectionLogic,
-  "concurrency-models": SectionConcurrency,
-  "hardware-abstraction": SectionHardware,
+  "about-me": SectionKernel,
+  "tech-stack": SectionNetwork,
+  "experience": SectionLedger,
+  "education": SectionCompiler,
+  "certifications": SectionGraphics,
+  "core-engineering": SectionLogic,
+  "system-architecture": SectionConcurrency,
+  "featured-projects": SectionHardware,
 }
 
 export function DomainSection({ section }: DomainSectionProps) {

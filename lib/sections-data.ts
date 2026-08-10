@@ -11,10 +11,10 @@ export interface TechSection {
 
 export const techSections: TechSection[] = [
   {
-    id: "kernel-systems",
+    id: "about-me",
     number: "01",
-    title: "Kernel Systems",
-    subtitle: "About Me",
+    title: "About Me",
+    subtitle: "Biography & Focus",
     description:
       "SDE & Infra Engineer specializing in Fullstack web platforms, cross-platform mobile apps, and scalable backend architectures. Deeply passionate about raw logic, performance optimization, and translating complex IT requirements into clean, state-of-the-art software systems.",
     ascii: `
@@ -46,10 +46,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "network-topologies",
+    id: "tech-stack",
     number: "02",
-    title: "Network Topologies",
-    subtitle: "Tech Stack",
+    title: "Tech Stack",
+    subtitle: "Skills & Ecosystem",
     description:
       "Mapping the tech stack nodes. Representing languages, frameworks, state management, databases, ORMs, cloud infrastructure, and development tools that link my engineering environment together.",
     ascii: `
@@ -70,7 +70,7 @@ export const techSections: TechSection[] = [
       { label: "Cloud & DevTools", value: "Google Cloud, BigQuery, Git, GitHub, REST APIs, Postman" },
     ],
     commands: [
-      "$ tech-topology --scan",
+      "$ tech-stack --scan",
       "Scanning active developer modules...",
       "TypeScript [100%] Next.js [100%] React Native [90%] MongoDB [95%] GCP [85%]",
       "$ git --version",
@@ -78,10 +78,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "distributed-ledger",
+    id: "experience",
     number: "03",
-    title: "Distributed Ledger",
-    subtitle: "Experience",
+    title: "Experience",
+    subtitle: "Work History",
     description:
       "Professional history ledger. Tracking technical milestones, platform engineering, and high-performance product deployments. Click on the blocks below to inspect roles, timelines, and key outcomes.",
     ascii: `
@@ -102,7 +102,7 @@ export const techSections: TechSection[] = [
       { label: "Total Tenure", value: "1.5+ Years Product Engineering" },
     ],
     commands: [
-      "$ ledger query --experience",
+      "$ experience query --details",
       "Retrieving cryptographic proof of employment...",
       "EQREV: Engineered SaaS platform for Zepto, Blinkit, Instamart. Pin code analytics.",
       "Crayon'd: Developed 2+ client products. Scalable Express APIs. 20% faster delivery.",
@@ -110,12 +110,12 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "compiler-design",
+    id: "education",
     number: "04",
-    title: "Compiler Design",
-    subtitle: "Education",
+    title: "Education",
+    subtitle: "Academic Background",
     description:
-      "Academic compilation at Bannari Amman Institute of Technology, translating computer science theory into solid engineering capabilities and practical architecture skills.",
+      "Academic background at Bannari Amman Institute of Technology, translating computer science theory into solid engineering capabilities and practical architecture skills.",
     ascii: `
     Bannari Amman Institute of Technology
     (2023 - 2027) ──> B.E. Computer Science and Engineering
@@ -144,10 +144,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "graphics-pipelines",
+    id: "certifications",
     number: "05",
-    title: "Graphics Pipelines",
-    subtitle: "Certifications & Events",
+    title: "Certifications",
+    subtitle: "Credentials & Achievements",
     description:
       "Verified credentials, hackathon participation, and technical milestones. Translating continuous learning and competitive achievements into visual proof.",
     ascii: `
@@ -177,10 +177,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "logic-synthesis",
+    id: "core-engineering",
     number: "06",
-    title: "Logic Synthesis",
-    subtitle: "Core Engineering",
+    title: "Core Engineering",
+    subtitle: "Engineering Capabilities",
     description:
       "Synthesizing scalable features and standardizing clean architectures. Optimizing API response times, secure authentication, and complex data collection mechanisms.",
     ascii: `
@@ -212,10 +212,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "concurrency-models",
+    id: "system-architecture",
     number: "07",
-    title: "Concurrency Models",
-    subtitle: "Parallel Systems",
+    title: "System Architecture",
+    subtitle: "Concurrency & Infrastructure",
     description:
       "Designing responsive interfaces and high-throughput backends. Coordinating non-blocking asynchronous event loops, reactive states, and cross-platform native thread handling.",
     ascii: `
@@ -245,10 +245,10 @@ export const techSections: TechSection[] = [
     ],
   },
   {
-    id: "hardware-abstraction",
+    id: "featured-projects",
     number: "08",
-    title: "Hardware Abstraction",
-    subtitle: "Featured Projects",
+    title: "Featured Projects",
+    subtitle: "Selected Works & SaaS",
     description:
       "The portfolio registry. Direct access to production-ready SaaS dashboards, secure machine portals, community networks, and developer tools built with cutting-edge tech stacks.",
     ascii: `

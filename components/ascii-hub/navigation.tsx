@@ -92,26 +92,29 @@ export function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8 w-full max-w-full">
-        <button
-          onClick={handleLogoClick}
-          className="flex items-center transition-all duration-200 hover:opacity-70 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
-          aria-label="Navigate to hero section"
-        >
-          <img
-            src={!mounted || theme === "dark" ? "/T_Light.png" : "/T_Dark.png"}
-            alt="Thayanithi S Logo"
-            className="h-10 sm:h-12 mr-4 lg:mr-10 w-auto object-contain"
-          />
-        </button>
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6 xl:px-8 w-full max-w-full">
+        {/* Left: Logo */}
+        <div className="flex items-center flex-shrink-0">
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center transition-all duration-200 hover:opacity-70 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
+            aria-label="Navigate to hero section"
+          >
+            <img
+              src={!mounted || theme === "dark" ? "/T_Light.png" : "/T_Dark.png"}
+              alt="Thayanithi S Logo"
+              className="h-9 sm:h-10 w-auto object-contain"
+            />
+          </button>
+        </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden items-center gap-1 lg:flex">
+        {/* Center: Desktop Nav Links */}
+        <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4 gap-0.5 xl:gap-1 overflow-x-auto">
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`px-3 py-1.5 font-mono text-xs transition-all duration-200 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none ${
+              className={`px-2 py-1 xl:px-2.5 xl:py-1.5 font-mono text-[11px] xl:text-xs whitespace-nowrap transition-all duration-200 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none ${
                 activeSection === link.id
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-foreground hover:text-background"
@@ -121,39 +124,26 @@ export function Navigation() {
               {link.title.toUpperCase()}
             </button>
           ))}
-          <button
-            onClick={toggleTheme}
-            className="ml-2 p-1.5 cursor-pointer font-mono text-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none border border-border"
-            aria-label="Toggle Theme"
-          >
-            {!mounted ? (
-              <div className="h-4 w-4" />
-            ) : theme === "dark" ? (
-              <Moon size={16} />
-            ) : (
-              <Sun size={16} />
-            )}
-          </button>
         </div>
 
-        {/* Mobile Menu Toggle & Theme Changer */}
-        <div className="flex items-center gap-2 lg:hidden">
+        {/* Right: Theme Toggle & Mobile Menu Toggle */}
+        <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={toggleTheme}
-            className="p-2 font-mono cursor-pointer text-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none border border-border"
+            className="p-1.5 sm:p-2 font-mono cursor-pointer text-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none border border-border"
             aria-label="Toggle Theme"
           >
             {!mounted ? (
-              <div className="h-5 w-5" />
+              <div className="h-4 w-4 sm:h-5 sm:w-5" />
             ) : theme === "dark" ? (
-              <Moon size={20} />
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
             ) : (
-              <Sun size={20} />
+              <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
             )}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 font-mono text-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none"
+            className="p-2 font-mono text-foreground transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none lg:hidden"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >

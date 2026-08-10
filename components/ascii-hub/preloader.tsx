@@ -8,12 +8,12 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
   const [logs, setLogs] = useState<string[]>([])
   
   const diagnosticScript = [
-    { threshold: 0, text: "INIT SYSTEM BOOT STRAP..." },
-    { threshold: 12, text: "[ OK ] LOADED KERNEL SYSTEM MODULES" },
-    { threshold: 28, text: "[ OK ] SYNCED DISTRIBUTED TENURE LEDGER" },
-    { threshold: 45, text: "[ OK ] SYNTHESIZED LOGIC API ROUTERS" },
-    { threshold: 60, text: "[ OK ] GRAPHICS PIPELINES STABILIZED" },
-    { threshold: 75, text: "[ OK ] PARALLEL THREAD HYDRATION COMPLETE" },
+    { threshold: 0, text: "INIT SYSTEM BOOTSTRAP..." },
+    { threshold: 12, text: "[ OK ] LOADED ABOUT ME & PROFILE MODULES" },
+    { threshold: 28, text: "[ OK ] SYNCED CAREER EXPERIENCE DATA" },
+    { threshold: 45, text: "[ OK ] SYNTHESIZED CORE ENGINEERING ROUTERS" },
+    { threshold: 60, text: "[ OK ] CERTIFICATIONS & ACHIEVEMENTS LOADED" },
+    { threshold: 75, text: "[ OK ] SYSTEM ARCHITECTURE HYDRATION COMPLETE" },
     { threshold: 90, text: "[ OK ] SECURING ACCESS CONTROL LAYERS" },
     { threshold: 98, text: "BOOT SUCCESSFUL. READY FOR DEPLOYMENT." }
   ]
@@ -111,7 +111,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
             />
             {/* Horizontal progress indicators */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none mix-blend-difference font-mono text-[9px] text-white font-bold select-none">
-              {progress < 100 ? "LOADING HARDWARE ABSTRACTION SYSTEMS" : "SYSTEM DEPLOYED"}
+              {progress < 100 ? "LOADING FEATURED PROJECTS" : "SYSTEM DEPLOYED"}
             </div>
           </div>
         </div>
