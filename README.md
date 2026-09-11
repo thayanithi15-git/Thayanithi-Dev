@@ -265,41 +265,6 @@ This repository contains the source code for my interactive personal portfolio. 
 
 ---
 
-## ⚡ Quick Start & Development Setup
-
-Follow these steps to run the portfolio locally:
-
-### 1. Prerequisites
-- **Node.js**: v18.x or higher
-- **npm**: v9.x or higher
-
-### 2. Clone repository & Install dependencies
-```bash
-git clone https://github.com/thayanithi15-git/Thayanithi-Dev.git
-cd Thayanithi-Dev
-npm install
-```
-
-### 3. Environment Setup
-Create a `.env.local` file in the root directory:
-```env
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
-
-### 4. Run Development Server
-```bash
-npm run dev
-```
-Open `http://localhost:3000` in your browser to view the application.
-
-### 5. Production Build
-```bash
-npm run build
-npm run start
-```
-
----
-
 ## 📊 GitHub Analytics
 
 <p align="center">
