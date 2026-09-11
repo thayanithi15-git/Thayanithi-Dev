@@ -390,7 +390,7 @@ export const projectsData: Record<string, ProjectDetail> = {
     role: "Lead Developer",
     status: "PRODUCTION_ONLINE",
     url: "http://dev-rank.vercel.app/",
-    githubUrl: "https://github.com/thayanithi15-git",
+    githubUrl: "https://github.com/thayanithi-dev",
     shortDesc: "Developer Ranking Platform. Connects coding profiles (GitHub, LeetCode) to compute and display rankings in developer communities, helping recruiters discover top talent.",
     fullDescription: "Dev Rank is an AI-powered developer profile aggregation and ranking platform. By integrating external APIs and web scraping routines, Dev Rank synthesizes developer activity across GitHub, LeetCode, and coding platforms into unified engineering rank scores, enabling peer comparison and talent discovery.",
     problemStatement: "Recruiters and community leads lack a single objective metric to compare a developer's real-world code contributions alongside algorithmic problem-solving skills.",
@@ -455,11 +455,11 @@ export const projectsData: Record<string, ProjectDetail> = {
  │  └── MongoDB Atlas (Rankings Cache & Historical Score Logs)            │
  └────────────────────────────────────────────────────────────────────────┘`,
     terminalLogs: [
-      "$ dev-rank fetch --user thayanithi15-git",
+      "$ dev-rank fetch --user thayanithi-dev",
       "[FETCH] GitHub Repos: 45 | Total Stars: 28 | Commits: 2,100+",
       "$ dev-rank fetch --leetcode thayanithi15",
       "[FETCH] Problems Solved: 300+ (Easy: 120, Med: 155, Hard: 25)",
-      "$ dev-rank calculate-tier --user thayanithi15-git",
+      "$ dev-rank calculate-tier --user thayanithi-dev",
       "[SCORE_EVAL] Calculated DevScore: 945 / 1000 [TIER: EXPERT]",
       "[SUCCESS] Dev Rank engine online."
     ]

@@ -14,7 +14,7 @@ const ASCII_LOGO = `
     ╚═╝   ╚══════╝`
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, href: "https://github.com/thayanithi15-git" },
+  { name: "GitHub", icon: Github, href: "https://github.com/thayanithi-dev" },
   { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/thayanithi15" },
   { name: "Twitter / X", icon: Twitter, href: "https://x.com/Thayanithi887" },
   { name: "Instagram", icon: Github, href: "https://www.instagram.com/thayanithi_15" },

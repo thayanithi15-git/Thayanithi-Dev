@@ -65,7 +65,7 @@ const COMMANDS: Record<string, string[]> = {
   ],
   social: [
     "Web Profiles & Registries:",
-    "  GitHub:     https://github.com/thayanithi15-git",
+    "  GitHub:     https://github.com/thayanithi-dev",
     "  LinkedIn:   https://linkedin.com/in/thayanithi15",
   ],
   system: [

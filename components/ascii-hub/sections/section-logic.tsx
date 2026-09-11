@@ -32,7 +32,7 @@ function ContributionHeatmap() {
 
   useEffect(() => {
     // Fetch contributions
-    fetch("https://github-contributions-api.jogruber.de/v4/thayanithi15-git")
+    fetch("https://github-contributions-api.jogruber.de/v4/thayanithi-dev")
       .then((res) => res.json())
       .then((data) => {
         if (data && data.contributions) {
@@ -54,7 +54,7 @@ function ContributionHeatmap() {
       })
 
     // Fetch user details from GitHub REST API
-    fetch("https://api.github.com/users/thayanithi15-git")
+    fetch("https://api.github.com/users/thayanithi-dev")
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -132,7 +132,7 @@ function ContributionHeatmap() {
         <div className="flex items-center gap-2">
           <div className="h-1.5 w-1.5 bg-foreground animate-pulse" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
-            GitHub Contributions — github.com/thayanithi15-git
+            GitHub Contributions — github.com/thayanithi-dev
           </span>
         </div>
         <div className="font-mono text-[9px] text-muted-foreground/60">// LIVE STREAM MATRIX</div>
@@ -325,7 +325,7 @@ function GithubPulseMonitor({ displayedDays, totalInPeriod, repoCount, followers
   // Simulated telemetry sequence
   useEffect(() => {
     const templates = [
-      `[sys] established telemetry link to github.com/thayanithi15-git...`,
+      `[sys] established telemetry link to github.com/thayanithi-dev...`,
       `[query] compiled ${displayedDays.length} days of activity data`,
       `[metrics] payload verified: total_contributions=${totalInPeriod}`,
       `[metrics] query complete: active_repos=${repoCount ?? 22} followers=${followers ?? 18}`,

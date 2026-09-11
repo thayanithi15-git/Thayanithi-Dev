@@ -26,9 +26,9 @@
 <br/>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=thayanithi15-git&color=00D9FF&style=for-the-badge&label=VISITORS" alt="Profile Views"/>
-  <a href="https://github.com/thayanithi15-git?tab=followers"><img src="https://img.shields.io/github/followers/thayanithi15-git?label=FOLLOWERS&style=for-the-badge&color=667eea&logo=github" alt="GitHub Followers"/></a>
-  <a href="https://github.com/thayanithi15-git"><img src="https://img.shields.io/github/stars/thayanithi15-git?affiliations=OWNER&style=for-the-badge&color=FFD700&logo=github" alt="GitHub Stars"/></a>
+  <img src="https://komarev.com/ghpvc/?username=thayanithi-dev&color=00D9FF&style=for-the-badge&label=VISITORS" alt="Profile Views"/>
+  <a href="https://github.com/thayanithi-dev?tab=followers"><img src="https://img.shields.io/github/followers/thayanithi-dev?label=FOLLOWERS&style=for-the-badge&color=667eea&logo=github" alt="GitHub Followers"/></a>
+  <a href="https://github.com/thayanithi-dev"><img src="https://img.shields.io/github/stars/thayanithi-dev?affiliations=OWNER&style=for-the-badge&color=FFD700&logo=github" alt="GitHub Stars"/></a>
 </p>
 
 ---
@@ -168,7 +168,7 @@ This repository contains the source code for my interactive personal portfolio. 
       <h3>🧑‍💻 DEV RANK</h3>
       <p>AI-powered developer ranking platform - connect GitHub & LeetCode profiles, get ranked, and get discovered by recruiters via smart matching & OTP-verified scraping.</p>
       <p>
-        <a href="https://github.com/thayanithi15-git"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="Repository"/></a>
+        <a href="https://github.com/thayanithi-dev"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="Repository"/></a>
       </p>
       <p>
         <img src="https://img.shields.io/badge/Next.js-000?style=flat-square&logo=next.js&logoColor=white"/>
@@ -275,7 +275,7 @@ Follow these steps to run the portfolio locally:
 
 ### 2. Clone repository & Install dependencies
 ```bash
-git clone https://github.com/thayanithi15-git/Thayanithi-Dev.git
+git clone https://github.com/thayanithi-dev/Thayanithi-Dev.git
 cd Thayanithi-Dev
 npm install
 ```
@@ -303,17 +303,17 @@ npm run start
 ## 📊 GitHub Analytics
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=thayanithi15-git&theme=radical" height="175"/>
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=thayanithi-dev&theme=radical" height="175"/>
   &nbsp;
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=thayanithi15-git&theme=radical" height="175"/>
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=thayanithi-dev&theme=radical" height="175"/>
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=thayanithi15-git&theme=react-dark&bg_color=0D1117&hide_border=true" width="100%"/>
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=thayanithi-dev&theme=react-dark&bg_color=0D1117&hide_border=true" width="100%"/>
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=thayanithi15-git&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF&hide_border=true" height="175"/>
+  <img src="https://streak-stats.demolab.com?user=thayanithi-dev&theme=radical&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FFD700&currStreakLabel=00D9FF&sideLabels=FFFFFF&dates=FFFFFF&hide_border=true" height="175"/>
 </p>
 
 ---
@@ -348,7 +348,7 @@ npm run start
 [![Portfolio](https://img.shields.io/badge/🌐_Portfolio-FF5722?style=for-the-badge&logoColor=white)](https://thayanithi.tech)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thayanithi15/)
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:thayanithi2006s@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/thayanithi15-git)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/thayanithi-dev)
 [![Resume](https://img.shields.io/badge/Resume-4CAF50?style=for-the-badge&logo=adobeacrobat&logoColor=white)](https://drive.google.com/file/d/1glUE-aanYT9BwxvJBjoAIVynuLLqm12N/view)
 
 </div>
